@@ -71,7 +71,7 @@
     <string name="warning_delete">Hapus kegiatan</string>
     <string name="warning_delete_confirm">Apakah anda yakin ingin menghapus kegiatan ini?</string>
     <string name="delete">Hapus</string>
-    <string name="input_data">Input data</string>
+    <string name="input_data">Tambah pendataan</string>
     <string name="edit_input">Ubah input data</string>
     <string name="list_data">Daftar data</string>
     <string name="jarak_tanam">Jarak Tanam</string>
@@ -79,5 +79,6 @@
     <string name="invent">Pendataan</string>
     <string name="reinvent">Pendataan Ulang</string>
     <string name="main_exit_app">Klik dua kali untuk keluar</string>
+    <string name="input_data_reinvent">Tambah pendataan ulang</string>
 
 </resources>

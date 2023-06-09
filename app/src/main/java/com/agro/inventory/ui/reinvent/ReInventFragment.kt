@@ -26,6 +26,7 @@ import androidx.navigation.fragment.navArgs
 import com.agro.inventory.R
 import com.agro.inventory.data.local.entity.ActivitiesEntity
 import com.agro.inventory.databinding.FragmentInventBinding
+import com.agro.inventory.databinding.FragmentReinventBinding
 import com.agro.inventory.ui.main.MainFragment.Companion.parentBottomAppBar
 import com.agro.inventory.ui.main.MainFragment.Companion.parentNavigation
 import com.agro.inventory.ui.main.imagepicker.ImagePickerActivity
@@ -46,9 +47,9 @@ import timber.log.Timber
 import java.util.*
 
 @AndroidEntryPoint
-class ReInventFragment : Fragment(R.layout.fragment_invent), OnMapReadyCallback {
+class ReInventFragment : Fragment(R.layout.fragment_reinvent), OnMapReadyCallback {
 
-    private val binding by viewBinding<FragmentInventBinding>()
+    private val binding by viewBinding<FragmentReinventBinding>()
     private val viewModel by hiltNavGraphViewModels<HomeViewModel>(R.id.home)
     private val viewModels by viewModels<LocalViewModel>()
 
