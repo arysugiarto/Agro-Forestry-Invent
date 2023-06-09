@@ -34,5 +34,14 @@ object DatabaseModule {
     @Provides
     fun provideAreaDao(database: AgroDatabase) = database.areaDao()
 
+    @Singleton
+    @Provides
+    fun provideInventDao(database: AgroDatabase) = database.inventDao()
+
+    @Singleton
+    @Provides
+    fun provideReInventDao(database: AgroDatabase) = database.reInventDao()
+
+
 
 }

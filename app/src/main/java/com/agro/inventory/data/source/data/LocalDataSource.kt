@@ -2,19 +2,27 @@ package com.agro.inventory.data.source.data
 
 import com.agro.inventory.data.local.dao.ActivitiesDao
 import com.agro.inventory.data.local.dao.AreaDao
+import com.agro.inventory.data.local.dao.InventDao
+import com.agro.inventory.data.local.dao.ReInventDao
 import com.agro.inventory.data.local.entity.ActivitiesEntity
 import com.agro.inventory.data.local.entity.AreaEntity
+import com.agro.inventory.data.local.entity.InventEntity
+import com.agro.inventory.data.local.entity.ReinventEntity
 
 
 class LocalDataSource(
     activitiesDao: ActivitiesDao,
-    areaDao: AreaDao
+    areaDao: AreaDao,
+    inventDao: InventDao,
+    reInventDao: ReInventDao
+
 ) {
     private val daoActivities = activitiesDao
     private val daoArea = areaDao
+    private val daoInvent = inventDao
+    private val daoReInvent = reInventDao
 
-    suspend fun insertActivities(activitiesEntity: ActivitiesEntity) =
-        daoActivities.insertActivities(activitiesEntity)
+
 
     fun getActivitiesAll() = daoActivities.getActivitiesAll()
     fun getActivities(idPlot: String, pekerjaanId: String) = daoActivities.getActivities(idPlot, pekerjaanId)
@@ -70,5 +78,11 @@ class LocalDataSource(
 
     suspend fun deleteItemActivities(id: Int?) = daoActivities.deleteActivitiesId(id)
 
+
+    suspend fun insertInvent(inventEntity: InventEntity) =
+        daoInvent.insertInvent(inventEntity)
+
+    suspend fun insertReInvent(reInventEntity: ReinventEntity) =
+        daoReInvent.insertReInvent(reInventEntity)
 
 }

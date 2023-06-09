@@ -8,6 +8,8 @@ import androidx.lifecycle.viewModelScope
 import com.agro.inventory.base.BaseViewModel
 import com.agro.inventory.data.local.entity.ActivitiesEntity
 import com.agro.inventory.data.local.entity.AreaEntity
+import com.agro.inventory.data.local.entity.InventEntity
+import com.agro.inventory.data.local.entity.ReinventEntity
 import com.agro.inventory.data.repositories.LocalRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.launchIn
@@ -26,10 +28,6 @@ class LocalViewModel @Inject constructor(
     val localActivities: LiveData<List<ActivitiesEntity>> get() = _localActivities
 
 
-    fun insertLocalActivities(activitiesEntity: ActivitiesEntity) =
-        viewModelScope.launch {
-            repository.insertActivitiesLocal(activitiesEntity)
-        }
 
     val getLocalActivitiesAll
         get() = repository
@@ -42,11 +40,6 @@ class LocalViewModel @Inject constructor(
                 _localActivities.value = result
             }.launchIn(viewModelScope)
 
-    fun getLocalActivitiesByIdJob(idPlot: String,pekerjaanId: String) =
-        repository.getLocalActivitiesByIdJob(idPlot, pekerjaanId)
-            .onEach { result ->
-                _localActivities.value = result
-            }.launchIn(viewModelScope)
 
 
     fun updateActivities(
@@ -113,6 +106,14 @@ class LocalViewModel @Inject constructor(
             repository.deleteLocalItemActivities(id)
         }
 
+    fun insertLocalInvent(inventEntity: InventEntity) =
+        viewModelScope.launch {
+            repository.insertInventLocal(inventEntity)
+        }
 
+    fun insertLocalReinvent(reinventEntity: ReinventEntity) =
+        viewModelScope.launch {
+            repository.insertReInventLocal(reinventEntity)
+        }
 
 }

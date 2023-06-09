@@ -5,6 +5,8 @@ import android.content.Context
 import com.google.android.play.core.review.ReviewManagerFactory
 import com.agro.inventory.data.local.dao.ActivitiesDao
 import com.agro.inventory.data.local.dao.AreaDao
+import com.agro.inventory.data.local.dao.InventDao
+import com.agro.inventory.data.local.dao.ReInventDao
 import com.agro.inventory.data.preferences.AccessManager
 import com.agro.inventory.data.remote.api.ApiCallback
 import com.agro.inventory.data.repositories.AuthRepository
@@ -53,9 +55,12 @@ object ApplicationModule {
     @Provides
     fun provideLocalRepository(
         activitiesDao: ActivitiesDao,
-        areaDao: AreaDao
+        areaDao: AreaDao,
+        inventDao: InventDao,
+        reInventDao: ReInventDao,
+
     ) = LocalRepository(
-        LocalDataSource(activitiesDao, areaDao)
+        LocalDataSource(activitiesDao, areaDao, inventDao, reInventDao)
     )
 
 }

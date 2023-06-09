@@ -3,6 +3,8 @@ package com.agro.inventory.data.repositories
 import com.agro.inventory.data.source.callback.LocalSourceCallback
 import com.agro.inventory.data.local.entity.ActivitiesEntity
 import com.agro.inventory.data.local.entity.AreaEntity
+import com.agro.inventory.data.local.entity.InventEntity
+import com.agro.inventory.data.local.entity.ReinventEntity
 import com.agro.inventory.data.source.data.LocalDataSource
 
 
@@ -10,8 +12,6 @@ class LocalRepository(
     localDataSource: LocalDataSource
 ) : LocalSourceCallback {
     private val localDataSource = localDataSource
-
-    override suspend fun insertActivitiesLocal(activitiesEntity: ActivitiesEntity) = localDataSource.insertActivities(activitiesEntity)
 
     override  fun getLocalActivitiesAll() = localDataSource.getActivitiesAll()
 
@@ -62,5 +62,9 @@ class LocalRepository(
     override suspend fun deleteArea() = localDataSource.deleteArea()
 
     override suspend fun deleteLocalItemActivities(id: Int?) = localDataSource.deleteItemActivities(id)
+
+    override suspend fun insertInventLocal(inventEntity: InventEntity) = localDataSource.insertInvent(inventEntity)
+
+    override suspend fun insertReInventLocal(reInventEntity: ReinventEntity) = localDataSource.insertReInvent(reInventEntity)
 
 }

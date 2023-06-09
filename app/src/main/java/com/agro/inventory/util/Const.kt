@@ -39,6 +39,8 @@ object Const {
             const val ACTIVITIES = "activities_entity"
             const val AREA = "area_entity"
             const val ACTIVITIES_AREA = "activities_area_entity"
+            const val INVENT = "invent_entity"
+            const val REINVENT = "reinvent_entity"
         }
     }
 
