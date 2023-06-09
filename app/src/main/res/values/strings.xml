@@ -1,0 +1,83 @@
+<resources>
+    <string name="test">Test</string>
+
+    <!--Bottom Nav-->
+    <string name="nav_home">Beranda</string>
+    <string name="nav_profile">Profil</string>
+    <string name="title_article">Tittle nya</string>
+    <string name="nav_land">Monitoring Lahan</string>
+    <string name="nav_worker">Monitoring Pekerja</string>
+    <string name="username">Username</string>
+    <string name="password">Password</string>
+    <string name="location">Location</string>
+    <string name="welcome_register_title">Belum punya akun</string>
+    <string name="welcome_register">Register</string>
+    <string name="welcome">Welcome</string>
+    <string name="welcome_name_app">Agroforestry</string>
+    <string name="welcome_login_app">Inventary Agroforestry</string>
+    <string name="login_forgot_password">Lupa password</string>
+    <string name="login_login">Masuk</string>
+    <string name="login_password_hint">Masukan password</string>
+    <string name="login_username_hint">Masukan username</string>
+    <string name="add_worker">Monitoring pekerja</string>
+    <string name="title_coordinate">Koordinat</string>
+    <string name="lattitude">Latitude :</string>
+    <string name="title_logitude">Longitude :</string>
+    <string name="login_photo">Ambil photo plot</string>
+    <string name="title_accurate">Akurasi</string>
+    <string name="kode_plot">Kode plot</string>
+    <string name="pola_tanam">Pola tanam</string>
+    <string name="name_worker">Nama pekerja</string>
+    <string name="login_comodity_hint">Masukan Komoditas</string>
+    <string name="comodity">Komoditas</string>
+    <string name="work_hint">Pilih pekerjaan</string>
+    <string name="work">Pekerjaan</string>
+    <string name="volume_work_hint">Volume</string>
+    <string name="satuan_hint">Satuan</string>
+    <string name="satuan">Satuan</string>
+    <string name="volume_work">Volume</string>
+    <string name="work_activities">Kegiatan</string>
+    <string name="work_activities_hint">Kegiatan</string>
+    <string name="cancelled">Batal</string>
+    <string name="save">Simpan</string>
+    <string name="choose_name_worker">Pilih nama pekerja</string>
+    <string name="kode_plot_hint">Kode plot</string>
+    <string name="pola_tanam_hint">Pola tanam</string>
+    <string name="add_comodty">Tambah Komoditi</string>
+    <string name="add_worker_multiple">Tambah Pekerja</string>
+
+    <!--Image Picker-->
+    <string name="image_picker_information">Informasi</string>
+    <string name="image_picker_no_gallery_access_warning">Aplikasi ini membutuhkan akses untuk memilih foto di galeri anda</string>
+    <string name="image_picker_close">Tutup</string>
+    <string name="image_picker_select_image_dialog_title">Ambil foto plot</string>
+    <string name="image_picker_permission_access_camera">We Need Permission To Access Camera or Gallery!</string>
+    <string name="add_activities">Kegiatan pekerjaan</string>
+    <string name="list_land">Daftar Lahan</string>
+    <string name="success">Berhasil</string>
+    <string name="register_employee">Berhasil menambahkan data monitoring pekerja</string>
+    <string name="list_plot">Daftar Kode Plot</string>
+    <string name="list_activities">Daftar Kegiatan</string>
+    <string name="edit">Ubah</string>
+    <string name="home">Home</string>
+    <string name="empty_activities">Belum ada data mohon tambahkan dengan klik tombol plus di bawah</string>
+    <string name="done">Selesai</string>
+    <string name="see_task">Lihat data penugasan lahan</string>
+    <string name="empty_area">Belum ada data, mohon klik tombol refresh di bawah.</string>
+    <string name="filter">Filter</string>
+    <string name="reset">Atur ulang</string>
+    <string name="delete_activities">Hapus Kegiatan</string>
+    <string name="delete_activities_sure">Apakah anda yakin akan menghapus kegiatan ini?</string>
+    <string name="warning_delete">Hapus kegiatan</string>
+    <string name="warning_delete_confirm">Apakah anda yakin ingin menghapus kegiatan ini?</string>
+    <string name="delete">Hapus</string>
+    <string name="input_data">Input data</string>
+    <string name="edit_input">Ubah input data</string>
+    <string name="list_data">Daftar data</string>
+    <string name="jarak_tanam">Jarak Tanam</string>
+    <string name="list_comodity">Daftar Komoditas</string>
+    <string name="invent">Pendataan</string>
+    <string name="reinvent">Pendataan Ulang</string>
+    <string name="main_exit_app">Klik dua kali untuk keluar</string>
+
+</resources>

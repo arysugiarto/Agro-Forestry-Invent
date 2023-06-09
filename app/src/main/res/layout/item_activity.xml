@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/cvPlot"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/screen_margin"
+        android:layout_marginTop="@dimen/normal_margin"
+        android:layout_marginEnd="@dimen/screen_margin"
+        app:cardBackgroundColor="@color/white"
+        app:cardCornerRadius="@dimen/normal_margin"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/tvTitlePlot"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/screen_margin"
+                android:layout_marginTop="@dimen/screen_margin"
+                android:text="-"
+                android:textAllCaps="true"
+                android:textAppearance="@style/TextAppearance.OpenSans.Bold.Body1"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/tvActivities"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/screen_margin"
+                android:layout_marginTop="@dimen/small_margin"
+                android:text="-"
+                android:textAppearance="@style/TextAppearance.OpenSans.SemiBold.Body1"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvTitlePlot" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/tvVolume"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/screen_margin"
+                android:layout_marginTop="@dimen/small_margin"
+                android:layout_marginBottom="@dimen/screen_margin"
+                android:text="-"
+                android:textAppearance="@style/TextAppearance.OpenSans.SemiBold.Body1"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvActivities" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/glPlot"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.45" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/tvPolaTanamValue"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/screen_margin"
+                android:text=": penebasan"
+                android:visibility="gone"
+                android:textAppearance="@style/TextAppearance.OpenSans.Regular.Body1"
+                app:layout_constraintBottom_toBottomOf="@id/tvActivities"
+                app:layout_constraintStart_toEndOf="@+id/glPlot"
+                app:layout_constraintTop_toTopOf="@+id/tvActivities" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/tvVolumeValue"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/screen_margin"
+                android:text=": 200"
+                android:visibility="gone"
+                android:textAppearance="@style/TextAppearance.OpenSans.Regular.Body1"
+                app:layout_constraintBottom_toBottomOf="@id/tvVolume"
+                app:layout_constraintStart_toEndOf="@+id/glPlot"
+                app:layout_constraintTop_toTopOf="@+id/tvVolume" />
+
+            <ImageButton
+                android:id="@+id/ibEdit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_baseline_edit"
+                android:layout_marginTop="@dimen/screen_margin"
+                android:backgroundTint="@color/white"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/ibDelete"
+                app:layout_constraintTop_toTopOf="parent"
+                android:layout_marginBottom="@dimen/screen_margin"/>
+
+            <ImageButton
+                android:id="@+id/ibDelete"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/white"
+                android:src="@drawable/ic_baseline_delete"
+                android:layout_marginTop="@dimen/screen_margin"
+                android:layout_marginEnd="@dimen/screen_margin"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:layout_marginBottom="@dimen/screen_margin"/>
+
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnEdit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/screen_margin"
+                android:layout_marginEnd="@dimen/screen_margin"
+                android:layout_marginBottom="@dimen/screen_margin"
+                android:visibility="gone"
+                android:text="@string/edit"
+                android:textAppearance="@style/TextAppearance.Poppins.Medium.Body2"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:ignore="DuplicateSpeakableTextCheck" />
+            
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

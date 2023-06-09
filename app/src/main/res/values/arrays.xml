@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <array name="array">
+        <item>Array</item>
+    </array>
+
+    <array name="type">
+        <item>Masuk</item>
+        <item>Pulang</item>
+    </array>
+
+    <string-array name="gender_choose">
+        <item>male</item>
+        <item>female</item>
+    </string-array>
+
+</resources>

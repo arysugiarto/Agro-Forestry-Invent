@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="@color/white"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/tvTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="@dimen/screen_margin"
+        android:text="@string/warning_delete"
+        android:textAppearance="@style/TextAppearance.OpenSans.Bold.Headline6"
+        android:gravity="center"/>
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/tvConfirm"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginEnd="@dimen/screen_margin"
+        android:layout_marginStart="@dimen/screen_margin"
+        app:layout_constraintTop_toBottomOf="@+id/tvTitle"
+        android:layout_marginTop="@dimen/screen_margin"
+        android:text="@string/warning_delete_confirm"
+        android:textAppearance="@style/TextAppearance.OpenSans.SemiBold.Body1"
+        android:gravity="center"/>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnDelete"
+        android:layout_width="@dimen/zero_margin"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/screen_margin"
+        android:layout_marginEnd="@dimen/screen_margin"
+        android:layout_marginStart="@dimen/screen_margin"
+        android:layout_marginBottom="@dimen/screen_margin"
+        android:backgroundTint="@color/persimmon"
+        android:insetTop="@dimen/zero_margin"
+        android:insetBottom="@dimen/zero_margin"
+        android:paddingTop="@dimen/normal_margin"
+        android:text="@string/delete"
+        android:textAppearance="@style/TextAppearance.OpenSans.Medium.Body2"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@id/glButton"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvConfirm" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/glButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.50" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnCancel"
+        android:layout_width="@dimen/zero_margin"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/screen_margin"
+        android:layout_marginEnd="@dimen/screen_margin"
+        android:layout_marginStart="@dimen/screen_margin"
+        android:layout_marginBottom="@dimen/screen_margin"
+        android:backgroundTint="@color/sandy_brown"
+        android:insetTop="@dimen/zero_margin"
+        android:insetBottom="@dimen/zero_margin"
+        android:paddingTop="@dimen/normal_margin"
+        android:text="@string/cancelled"
+        android:textAppearance="@style/TextAppearance.OpenSans.Medium.Body2"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/glButton"
+        app:layout_constraintTop_toBottomOf="@+id/tvConfirm" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

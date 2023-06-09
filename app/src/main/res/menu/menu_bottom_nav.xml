@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/home"
+        android:title="@string/nav_worker"
+        android:contentDescription="@string/nav_worker"
+        android:icon="@drawable/ic_list"/>
+
+    <item
+        android:id="@+id/land"
+        android:title="@string/nav_land"
+        android:contentDescription="@string/nav_worker"
+        android:icon="@drawable/ic_map" />
+</menu>

@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/cvPlot"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardBackgroundColor="@color/white"
+        android:layout_marginStart="@dimen/screen_margin"
+        android:layout_marginEnd="@dimen/screen_margin"
+        android:layout_marginTop="@dimen/normal_margin"
+        app:cardCornerRadius="@dimen/normal_margin"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/tvTitlePlot"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/screen_margin"
+                android:layout_marginTop="@dimen/screen_margin"
+                android:text="Title Plot"
+                android:textAppearance="@style/TextAppearance.OpenSans.Bold.Body1"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/tvPolaTanam"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/screen_margin"
+                android:layout_marginTop="@dimen/small_margin"
+                android:text="@string/pola_tanam"
+                android:textAppearance="@style/TextAppearance.OpenSans.SemiBold.Body1"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvTitlePlot" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/tvComodity"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/screen_margin"
+                android:layout_marginTop="@dimen/small_margin"
+                android:layout_marginBottom="@dimen/screen_margin"
+                android:text="@string/comodity"
+                android:textAppearance="@style/TextAppearance.OpenSans.SemiBold.Body1"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvPolaTanam" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/glPlot"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.4" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/tvPolaTanamValue"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/screen_margin"
+                android:text=": Monokultur"
+                android:textAppearance="@style/TextAppearance.OpenSans.Regular.Body1"
+                app:layout_constraintBottom_toBottomOf="@id/tvPolaTanam"
+                app:layout_constraintStart_toEndOf="@+id/glPlot"
+                app:layout_constraintTop_toTopOf="@+id/tvPolaTanam" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/tvComodityValue"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/screen_margin"
+                android:text=": Kopi"
+                android:textAppearance="@style/TextAppearance.OpenSans.Regular.Body1"
+                app:layout_constraintBottom_toBottomOf="@id/tvComodity"
+                app:layout_constraintStart_toEndOf="@+id/glPlot"
+                app:layout_constraintTop_toTopOf="@+id/tvComodity" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
