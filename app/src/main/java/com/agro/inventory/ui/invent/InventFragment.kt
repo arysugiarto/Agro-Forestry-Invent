@@ -95,21 +95,6 @@ class InventFragment : Fragment(R.layout.fragment_invent), OnMapReadyCallback {
 
 
     private fun initViewModel() {
-        viewModel.setCodePlot.observe(viewLifecycleOwner, EventObserver { result ->
-            if (result.state.orEmpty) {
-
-                viewModel.requestDetailsPlot(
-                    "Sobi+Apps:ae7cda7f7b0e6f38638e40ad3ebb78a4",
-                    "1550446421",
-                    plotId = result.code.toString()
-                )
-
-
-                viewModel.setCodePlotNothing()
-            }
-        })
-
-
 
     }
 

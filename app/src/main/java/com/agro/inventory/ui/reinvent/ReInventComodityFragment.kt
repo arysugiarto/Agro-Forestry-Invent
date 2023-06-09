@@ -7,7 +7,6 @@ import android.view.View
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.hilt.navigation.fragment.hiltNavGraphViewModels
-import com.agro.inventory.ui.invent.ComodityFragmentDirections
 import com.agro.inventory.R
 import com.agro.inventory.databinding.FragmentComodityBinding
 import com.agro.inventory.ui.main.MainFragment.Companion.parentBottomAppBar
@@ -19,7 +18,7 @@ import com.agro.inventory.viewmodel.HomeViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class ComodityFragment : Fragment(R.layout.fragment_comodity) {
+class ReInventComodityFragment : Fragment(R.layout.fragment_comodity) {
 
     private val binding by viewBinding<FragmentComodityBinding>()
     private val viewModel by hiltNavGraphViewModels<HomeViewModel>(R.id.home)
@@ -74,7 +73,7 @@ class ComodityFragment : Fragment(R.layout.fragment_comodity) {
         when (view) {
             binding.tvTitle -> {
                 navController.navigateOrNull(
-                    ComodityFragmentDirections.actionComodityFragmentToInventFragment()
+                    ReInventComodityFragmentDirections.actionReinventComodityFragmentToMonitoringWorkerFragment()
                 )
             }
         }

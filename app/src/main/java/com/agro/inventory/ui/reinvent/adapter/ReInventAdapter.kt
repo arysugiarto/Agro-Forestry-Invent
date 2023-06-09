@@ -6,7 +6,7 @@ import com.agro.inventory.databinding.ItemPlotBinding
 import com.agro.inventory.util.textOrNull
 
 
-object InventAdapter {
+object ReInventAdapter {
 
     val codePlotAdapter  =
         BaseAdapter.adapterOf<ListPlotResponse.Data, ItemPlotBinding>(

@@ -49,25 +49,6 @@ interface ApiCallback {
         @Query("plot_id") plotId: String
     ): Response<DetailsPlotResponse>
 
-    @GET(Const.NETWORK.LIST_JOB )
-    suspend fun requestListJob(
-        @Header("Authorization") token: String,
-        @Header("Sobi-Date") sobiDate: String
-    ): Response<ListJobResponse>
-
-    @GET(Const.NETWORK.ACTIVITIES )
-    suspend fun requestActivities(
-        @Header("Authorization") token: String,
-        @Header("Sobi-Date") sobiDate: String,
-        @Query("pekerjaan_id") JobId: String
-    ): Response<ActivitiesResponse>
-
-    @GET(Const.NETWORK.WORKER )
-    suspend fun requestWorker(
-        @Header("Authorization") token: String,
-        @Header("Sobi-Date") sobiDate: String,
-        @Query("mandor_id") mandorId: String
-    ): Response<WorkerResponse>
 
     @POST(Const.NETWORK.SAVE_MONITORING_WORKER_ALL)
     suspend fun requestSaveMonitoringWorkerAll(

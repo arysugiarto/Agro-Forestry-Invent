@@ -25,14 +25,6 @@ class HomeRepository(
     override fun requestDetailsPlot(token:String, sobiDate:String,plotid: String) =
         remoteDataSource.requestDetailsPlot(token,sobiDate,plotid)
 
-    override fun requestListJob(token:String, sobiDate:String) =
-        remoteDataSource.requestListJob(token,sobiDate)
-
-    override fun requestActivities(token:String, sobiDate:String,jobId: String) =
-        remoteDataSource.requestActivities(token,sobiDate,jobId)
-
-    override fun requestWorker(token:String, sobiDate:String,mandorId: String) =
-        remoteDataSource.requestWorker(token,sobiDate,mandorId)
 
     override fun requestSaveMonitoringWorkerAll(
         token: String,

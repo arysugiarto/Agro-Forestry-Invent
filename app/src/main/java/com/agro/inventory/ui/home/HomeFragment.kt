@@ -61,24 +61,24 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
             tvTitle.setOnClickListener(onClickCallback)
             fab.setOnClickListener(onClickCallback)
 //            ivLogout.setOnClickListener(onClickCallback)
-            btnMonitoringWorker.setOnClickListener(onClickCallback)
-            btnMonitoringArea.setOnClickListener(onClickCallback)
+            btnInvent.setOnClickListener(onClickCallback)
+            btnReInvent.setOnClickListener(onClickCallback)
         }
     }
 
     private val onClickCallback = View.OnClickListener { view ->
         when (view) {
-            binding.btnMonitoringWorker->{
+            binding.btnInvent->{
                 navController.navigateOrNull(
                     HomeFragmentDirections.actionHomeFragmentToInventAssigmentFragment()
                 )
             }
 
-//            binding.btnMonitoringArea->{
-//                navController.navigateOrNull(
-//                    HomeFragmentDirections.actionHomeFragmentToAreaMonitoringFragment()
-//                )
-//            }
+            binding.btnReInvent->{
+                navController.navigateOrNull(
+                    HomeFragmentDirections.actionHomeFragmentToReInventAssigmentFragment()
+                )
+            }
 
 //            binding.ivLogout -> {
 //                val popupMenu = PopupMenu(requireContext(), view)

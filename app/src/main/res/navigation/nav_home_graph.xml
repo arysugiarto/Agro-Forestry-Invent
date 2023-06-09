@@ -15,6 +15,27 @@
         <action
             android:id="@+id/action_home_fragment_to_invent_assigment_fragment"
             app:destination="@id/invent_assigment_fragment" />
+        <action
+            android:id="@+id/action_home_fragment_to_re_invent_assigment_fragment"
+            app:destination="@id/re_invent_assigment_fragment" />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/re_invent_assigment_fragment"
+        android:name="com.agro.inventory.ui.invent.ReInventAssigmentFragment"
+        android:label="@string/nav_home"
+        tools:layout="@layout/fragment_invent_assigment" >
+
+
+
+        <action
+            android:id="@+id/action_invent_assigment_fragment_to_home_fragment"
+            app:destination="@id/home_fragment" />
+        <action
+            android:id="@+id/action_re_invent_assigment_fragment_to_reinvent_kode_plot_fragment"
+            app:destination="@id/reinvent_kode_plot_fragment" />
+
     </fragment>
 
     <fragment
@@ -77,6 +98,51 @@
             app:destination="@id/invent_assigment_fragment" />
     </fragment>
 
+
+    <fragment
+        android:id="@+id/reinvent_kode_plot_fragment"
+        android:name="com.agro.inventory.ui.invent.ReInventPlotFragment"
+        android:label="@string/nav_home"
+        tools:layout="@layout/fragment_plot" >
+
+        <argument
+            android:name="areaId"
+            android:defaultValue="@null"
+            app:argType="string"
+            app:nullable="true" />
+
+        <argument
+            android:name="titleArea"
+            android:defaultValue="@null"
+            app:argType="string"
+            app:nullable="true" />
+
+        <argument
+            android:name="kode"
+            android:defaultValue="@null"
+            app:argType="string"
+            app:nullable="true" />
+
+        <argument
+            android:name="nameMember"
+            android:defaultValue="@null"
+            app:argType="string"
+            app:nullable="true" />
+        <argument
+            android:name="plotCount"
+            android:defaultValue="@null"
+            app:argType="string"
+            app:nullable="true" />
+
+
+        <action
+            android:id="@+id/action_reinvent_kode_plot_fragment_to_reinvent_comodity_fragment"
+            app:destination="@id/reinvent_comodity_fragment" />
+        <action
+            android:id="@+id/action_reinvent_kode_plot_fragment_to_re_invent_assigment_fragment"
+            app:destination="@id/re_invent_assigment_fragment" />
+    </fragment>
+
     <fragment
         android:id="@+id/comodity_fragment"
         android:name="com.agro.inventory.ui.invent.ComodityFragment"
@@ -114,12 +180,59 @@
 
 
         <action
-            android:id="@+id/action_kode_plot_fragment_to_monitoring_worker_fragment"
-            app:destination="@id/monitoring_worker_fragment" />
+            android:id="@+id/action_comodity_fragment_to_invent_fragment"
+            app:destination="@id/invent_fragment" />
+        <action
+            android:id="@+id/action_comodity_fragment_to_kode_plot_fragment"
+            app:destination="@id/kode_plot_fragment" />
     </fragment>
 
     <fragment
-        android:id="@+id/monitoring_worker_fragment"
+        android:id="@+id/reinvent_comodity_fragment"
+        android:name="com.agro.inventory.ui.invent.ReInventComodityFragment"
+        android:label="@string/nav_home"
+        tools:layout="@layout/fragment_comodity" >
+
+        <argument
+            android:name="areaId"
+            android:defaultValue="@null"
+            app:argType="string"
+            app:nullable="true" />
+
+        <argument
+            android:name="titleArea"
+            android:defaultValue="@null"
+            app:argType="string"
+            app:nullable="true" />
+
+        <argument
+            android:name="kode"
+            android:defaultValue="@null"
+            app:argType="string"
+            app:nullable="true" />
+
+        <argument
+            android:name="nameMember"
+            android:defaultValue="@null"
+            app:argType="string"
+            app:nullable="true" />
+        <argument
+            android:name="plotCount"
+            android:defaultValue="@null"
+            app:argType="string"
+            app:nullable="true" />
+        <action
+            android:id="@+id/action_reinvent_comodity_fragment_to_reinvent_kode_plot_fragment"
+            app:destination="@id/reinvent_kode_plot_fragment" />
+        <action
+            android:id="@+id/action_reinvent_comodity_fragment_to_monitoring_worker_fragment"
+            app:destination="@id/monitoring_worker_fragment" />
+
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/invent_fragment"
         android:name="com.agro.inventory.ui.invent.InventFragment"
         android:label="@string/nav_home"
         tools:layout="@layout/fragment_invent" >
@@ -159,6 +272,57 @@
             android:defaultValue="@null"
             app:argType="string"
             app:nullable="true" />
+        <action
+            android:id="@+id/action_invent_fragment_to_comodity_fragment"
+            app:destination="@id/comodity_fragment" />
+
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/monitoring_worker_fragment"
+        android:name="com.agro.inventory.ui.invent.ReInventFragment"
+        android:label="@string/nav_home"
+        tools:layout="@layout/fragment_invent" >
+
+        <argument
+            android:name="idPlot"
+            android:defaultValue="@null"
+            app:argType="string"
+            app:nullable="true" />
+
+        <argument
+            android:name="kodePlot"
+            android:defaultValue="@null"
+            app:argType="string"
+            app:nullable="true" />
+
+        <argument
+            android:name="polaTanam"
+            android:defaultValue="@null"
+            app:argType="string"
+            app:nullable="true" />
+
+        <argument
+            android:name="komoditas"
+            android:defaultValue="@null"
+            app:argType="string"
+            app:nullable="true" />
+
+        <argument
+            android:name="areaName"
+            android:defaultValue="@null"
+            app:argType="string"
+            app:nullable="true" />
+
+        <argument
+            android:name="memberNo"
+            android:defaultValue="@null"
+            app:argType="string"
+            app:nullable="true" />
+        <action
+            android:id="@+id/action_monitoring_worker_fragment_to_reinvent_comodity_fragment"
+            app:destination="@id/reinvent_comodity_fragment" />
 
 
     </fragment>
@@ -167,6 +331,86 @@
     <fragment
         android:id="@+id/edit_monitoring_worker_fragment"
         android:name="com.agro.inventory.ui.invent.editinvent.EditInventFragment"
+        android:label="@string/nav_home"
+        tools:layout="@layout/fragment_edit_invent" >
+
+        <argument
+            android:name="id"
+            android:defaultValue="@null"
+            app:argType="string"
+            app:nullable="true" />
+
+        <argument
+            android:name="kodePlot"
+            android:defaultValue="@null"
+            app:argType="string"
+            app:nullable="true" />
+
+        <argument
+            android:name="polaTanam"
+            android:defaultValue="@null"
+            app:argType="string"
+            app:nullable="true" />
+
+        <argument
+            android:name="komoditas"
+            android:defaultValue="@null"
+            app:argType="string"
+            app:nullable="true" />
+
+        <argument
+            android:name="namaPekerja"
+            android:defaultValue="@null"
+            app:argType="string"
+            app:nullable="true" />
+
+        <argument
+            android:name="pekerjaan"
+            android:defaultValue="@null"
+            app:argType="string"
+            app:nullable="true" />
+
+        <argument
+            android:name="activities"
+            android:defaultValue="@null"
+            app:argType="string"
+            app:nullable="true" />
+
+        <argument
+            android:name="volume"
+            android:defaultValue="@null"
+            app:argType="string"
+            app:nullable="true" />
+
+        <argument
+            android:name="satuan"
+            android:defaultValue="@null"
+            app:argType="string"
+            app:nullable="true" />
+
+        <argument
+            android:name="lat"
+            android:defaultValue="@null"
+            app:argType="string"
+            app:nullable="true" />
+
+        <argument
+            android:name="lng"
+            android:defaultValue="@null"
+            app:argType="string"
+            app:nullable="true" />
+
+        <argument
+            android:name="photo"
+            android:defaultValue="@null"
+            app:argType="string"
+            app:nullable="true" />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/edit_reinvent"
+        android:name="com.agro.inventory.ui.invent.editinvent.EditReInventFragment"
         android:label="@string/nav_home"
         tools:layout="@layout/fragment_edit_invent" >
 

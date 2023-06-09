@@ -23,12 +23,12 @@ import com.agro.inventory.viewmodel.HomeViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class PlotFragment : Fragment(R.layout.fragment_plot) {
+class ReInventPlotFragment : Fragment(R.layout.fragment_plot) {
 
     private val binding by viewBinding<FragmentPlotBinding>()
     private val viewModel by hiltNavGraphViewModels<HomeViewModel>(R.id.home)
 
-    private val args by navArgs<PlotFragmentArgs>()
+    private val args by navArgs<ReInventPlotFragmentArgs>()
 
     private val kodePlotAdapter = ReInventAdapter.codePlotAdapter
 
@@ -107,7 +107,7 @@ class PlotFragment : Fragment(R.layout.fragment_plot) {
     private fun initAdapterClick() {
         ReInventAdapter.setOnClickCodePlot { item ->
             navController.navigateOrNull(
-                PlotFragmentDirections.actionKodePlotFragmentToComodityFragment(
+                ReInventPlotFragmentDirections.actionReinventKodePlotFragmentToReinventComodityFragment(
 //                    item.id.toString(),
 //                    item.kodePlot,
 //                    item.polaTanamName,
@@ -130,7 +130,7 @@ class PlotFragment : Fragment(R.layout.fragment_plot) {
         when (view) {
             binding.tvTitle -> {
                 navController.navigateOrNull(
-                    PlotFragmentDirections.actionKodePlotFragmentToInventAssigmentFragment()
+                    ReInventPlotFragmentDirections.actionReinventKodePlotFragmentToReInventAssigmentFragment()
                 )
             }
         }

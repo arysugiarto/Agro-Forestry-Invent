@@ -33,23 +33,6 @@ interface HomeSourceCallback {
         plotId: String
     ): Flow<Result<DetailsPlotResponse>>
 
-    fun requestListJob(
-        token: String,
-        sobiDate: String
-    ): Flow<Result<ListJobResponse>>
-
-    fun requestActivities(
-        token: String,
-        sobiDate: String,
-        jobId: String
-    ): Flow<Result<ActivitiesResponse>>
-
-    fun requestWorker(
-        token: String,
-        sobiDate: String,
-        mandorId: String
-    ): Flow<Result<WorkerResponse>>
-
     fun requestSaveMonitoringWorkerAll(token: String, sobiDate: String,bodyRequest: List<AllMonitoringWorkerBodyRequest.Data> ):
             Flow<Result<AllMonitoringWorkerBodyRequest.Data>>
 

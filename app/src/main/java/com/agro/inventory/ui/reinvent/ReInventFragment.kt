@@ -1,4 +1,4 @@
-package com.agro.inventory.ui.invent.editinvent
+package com.agro.inventory.ui.invent
 
 //import com.arysugiarto.attendence.ui.main.MainFragment.Companion.parentBottomAppBar
 import android.Manifest
@@ -12,24 +12,24 @@ import android.location.Geocoder
 import android.location.Location
 import android.location.LocationManager
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
 import android.provider.Settings
 import android.view.View
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.view.isVisible
-import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.hilt.navigation.fragment.hiltNavGraphViewModels
 import androidx.navigation.fragment.navArgs
 import com.agro.inventory.R
-import com.agro.inventory.databinding.FragmentEditInventBinding
+import com.agro.inventory.data.local.entity.ActivitiesEntity
+import com.agro.inventory.databinding.FragmentInventBinding
 import com.agro.inventory.ui.main.MainFragment.Companion.parentBottomAppBar
 import com.agro.inventory.ui.main.MainFragment.Companion.parentNavigation
 import com.agro.inventory.ui.main.imagepicker.ImagePickerActivity
 import com.agro.inventory.util.*
-import com.agro.inventory.util.livevent.EventObserver
 import com.agro.inventory.viewmodel.HomeViewModel
 import com.agro.inventory.viewmodel.LocalViewModel
 import com.google.android.gms.location.FusedLocationProviderClient
@@ -46,63 +46,53 @@ import timber.log.Timber
 import java.util.*
 
 @AndroidEntryPoint
-class EditInventFragment : Fragment(R.layout.fragment_edit_invent), OnMapReadyCallback {
+class ReInventFragment : Fragment(R.layout.fragment_invent), OnMapReadyCallback {
 
-    private val binding by viewBinding<FragmentEditInventBinding>()
+    private val binding by viewBinding<FragmentInventBinding>()
     private val viewModel by hiltNavGraphViewModels<HomeViewModel>(R.id.home)
     private val viewModels by viewModels<LocalViewModel>()
 
-    private val args by navArgs<EditInventFragmentArgs>()
-
-
+    private val args by navArgs<ReInventFragmentArgs>()
 
     private lateinit var mFusedLocationClient: FusedLocationProviderClient
     private val permissionId = 2
 
-    private var latLong = LatLng(-6.1458491, 106.8918661)
     private var latitude = emptyString
     private var longitude = emptyString
     var lat = emptyString
     var long = emptyString
+
     var uriImage = emptyString
+
+    var plotCodeId = emptyString
+
+    private var activityEntity: ActivitiesEntity = ActivitiesEntity()
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        initViewModel()
+        initOnClick()
+
         parentBottomAppBar?.isVisible = false
         parentNavigation?.isVisible = false
 
 
-        initOnClick()
-        onInputTextChanged()
-
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(requireContext())
 
-        if (args.kodePlot !== emptyString){
+        if (args.kodePlot !== emptyString) {
+            plotCodeId = args.idPlot.toString()
             binding.etKodePlot.textOrNull = args.kodePlot
             binding.etPolaTanam.textOrNull = args.polaTanam
             binding.etKomoditas.textOrNull = args.komoditas
-            binding.etNameWorker.textOrNull = args.namaPekerja
-            binding.etWork.textOrNull = args.pekerjaan
-            binding.etVolumeWork.textOrNull = args.volume
-            binding.etSatuan.textOrNull = args.satuan
-            binding.etWorkActivities.textOrNull = args.activities
-            lat = args.lat.toString()
-            long = args.lng.toString()
-            latitude = args.lat.toString()
-            longitude = args.lng.toString()
-            binding.tvLattitude.text = args.lat.toString()
-            binding.tvLongitude.text = args.lng.toString()
-
-            binding.ivPhoto.loadImage(
-                args.photo,
-                ImageCornerOptions.ROUNDED
-            )
-
         }
 
-        initMap()
+
+    }
+
+
+    private fun initViewModel() {
 
     }
 
@@ -184,7 +174,11 @@ class EditInventFragment : Fragment(R.layout.fragment_edit_invent), OnMapReadyCa
     //photo
     private fun photoPicker() {
         val params =
-            arrayOf(Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE)
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                arrayOf(Manifest.permission.CAMERA, Manifest.permission.READ_MEDIA_IMAGES)
+            } else {
+                arrayOf(Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE)
+            }
         val pickerActivity = ImagePickerActivity()
 
         if (EasyPermissions.hasPermissions(requireContext(), *params)) {
@@ -242,64 +236,38 @@ class EditInventFragment : Fragment(R.layout.fragment_edit_invent), OnMapReadyCa
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         data.let { result ->
-
+            Timber.e(result.toString())
             if (requestCode == REQUEST_CAMERA_WRITE && resultCode == Activity.RESULT_OK) {
                 val uri: Uri? = result?.getParcelableExtra(Const.General.path)
                 uri?.copyAndGetPath(requireContext())
                     ?.fileOf()
                     ?.let { file ->
-                            binding.ivPhoto.loadImage(
-                                uri.toString(),
-                                ImageCornerOptions.ROUNDED
-                            )
-                        uriImage = uri.toString()
-
-                        getLocation()
-
-                        viewModel.requestImageUploadResult(
-                            "Sobi+Apps:11fbbd445c65d9a7f1c2b53ec88ba993",
-                            "1550471710",
-                            file
+                        binding.ivPhoto.loadImage(
+                            uri.toString(),
+                            ImageCornerOptions.ROUNDED
                         )
-
-                        binding.btnAdd.isVisible= true
-                        binding.btnAddFalse.isVisible= false
+                        uriImage = uri.toString()
+                        getLocation()
 
                     }
             }
         }
     }
 
-    private fun onInputTextChanged() {
-        binding.boxVolumeWork.editText?.addTextChangedListener {
-            if (binding.etVolumeWork.text?.isNotEmpty() == true && latitude.isNotEmpty() && longitude.isNotEmpty()){
-                binding.btnAddFalse.isVisible = false
-                binding.btnAdd.isVisible = true
-            }else{
-                binding.btnAddFalse.isVisible = true
-                binding.btnAdd.isVisible = false
-
-            }
-
-        }
-    }
-
-
     private fun initOnClick() {
         binding.apply {
-            etNameWorker.setOnClickListener(onClickCallback)
-            etWork.setOnClickListener(onClickCallback)
-            etWorkActivities.setOnClickListener(onClickCallback)
             etKodePlot.setOnClickListener(onClickCallback)
             btnTakePhoto.setOnClickListener(onClickCallback)
             btnCancel.setOnClickListener(onClickCallback)
             btnAdd.setOnClickListener(onClickCallback)
             tvTitle.setOnClickListener(onClickCallback)
+            btnAddFalse.setOnClickListener(onClickCallback)
         }
     }
 
     private val onClickCallback = View.OnClickListener { view ->
         when (view) {
+
             binding.btnTakePhoto -> {
                 photoPicker()
             }
@@ -309,10 +277,12 @@ class EditInventFragment : Fragment(R.layout.fragment_edit_invent), OnMapReadyCa
 
             binding.btnAdd -> {
 
-
             }
             binding.tvTitle -> {
                 navController.navigateUp()
+            }
+            binding.btnAddFalse -> {
+
             }
         }
 
@@ -336,7 +306,6 @@ class EditInventFragment : Fragment(R.layout.fragment_edit_invent), OnMapReadyCa
     }
 
     companion object {
-        private const val READ_EXTERNAL_STORAGE = 11
         private const val REQUEST_CAMERA_WRITE = 12
     }
 }

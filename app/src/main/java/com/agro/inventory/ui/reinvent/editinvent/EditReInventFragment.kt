@@ -29,7 +29,6 @@ import com.agro.inventory.ui.main.MainFragment.Companion.parentBottomAppBar
 import com.agro.inventory.ui.main.MainFragment.Companion.parentNavigation
 import com.agro.inventory.ui.main.imagepicker.ImagePickerActivity
 import com.agro.inventory.util.*
-import com.agro.inventory.util.livevent.EventObserver
 import com.agro.inventory.viewmodel.HomeViewModel
 import com.agro.inventory.viewmodel.LocalViewModel
 import com.google.android.gms.location.FusedLocationProviderClient
@@ -42,17 +41,16 @@ import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 import dagger.hilt.android.AndroidEntryPoint
 import pub.devrel.easypermissions.EasyPermissions
-import timber.log.Timber
 import java.util.*
 
 @AndroidEntryPoint
-class EditInventFragment : Fragment(R.layout.fragment_edit_invent), OnMapReadyCallback {
+class EditReInventFragment : Fragment(R.layout.fragment_edit_invent), OnMapReadyCallback {
 
     private val binding by viewBinding<FragmentEditInventBinding>()
     private val viewModel by hiltNavGraphViewModels<HomeViewModel>(R.id.home)
     private val viewModels by viewModels<LocalViewModel>()
 
-    private val args by navArgs<EditInventFragmentArgs>()
+    private val args by navArgs<EditReInventFragmentArgs>()
 
 
 

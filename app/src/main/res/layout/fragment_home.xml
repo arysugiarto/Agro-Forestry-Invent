@@ -175,7 +175,7 @@
         app:layout_constraintTop_toBottomOf="@+id/clToolbars">
 
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/btnMonitoringWorker"
+            android:id="@+id/btnInvent"
             android:layout_width="@dimen/zero_margin"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/screen_margin"
@@ -195,7 +195,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/btnMonitoringArea"
+            android:id="@+id/btnReInvent"
             android:layout_width="@dimen/zero_margin"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/screen_margin"
@@ -212,7 +212,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/btnMonitoringWorker" />
+            app:layout_constraintTop_toBottomOf="@+id/btnInvent" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
