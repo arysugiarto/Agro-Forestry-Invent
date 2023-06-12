@@ -108,11 +108,10 @@ class ReInventPlotFragment : Fragment(R.layout.fragment_plot) {
         ReInventAdapter.setOnClickCodePlot { item ->
             navController.navigateOrNull(
                 ReInventPlotFragmentDirections.actionReinventKodePlotFragmentToReinventComodityFragment(
-//                    item.id.toString(),
-//                    item.kodePlot,
-//                    item.polaTanamName,
-//                    item.komoditas,
-
+                    item.id.toString(),
+                    item.kodePlot,
+                    item.polaTanamName,
+                    item.komoditas,
                 )
             )
         }

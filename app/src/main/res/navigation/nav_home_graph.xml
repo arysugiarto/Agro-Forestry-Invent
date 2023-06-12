@@ -150,30 +150,31 @@
         tools:layout="@layout/fragment_comodity" >
 
         <argument
-            android:name="areaId"
+            android:name="idPlot"
             android:defaultValue="@null"
             app:argType="string"
             app:nullable="true" />
 
         <argument
-            android:name="titleArea"
+            android:name="kodePlot"
             android:defaultValue="@null"
             app:argType="string"
             app:nullable="true" />
 
         <argument
-            android:name="kode"
+            android:name="polaTanam"
             android:defaultValue="@null"
             app:argType="string"
             app:nullable="true" />
 
         <argument
-            android:name="nameMember"
+            android:name="komoditas"
             android:defaultValue="@null"
             app:argType="string"
             app:nullable="true" />
+
         <argument
-            android:name="plotCount"
+            android:name="status"
             android:defaultValue="@null"
             app:argType="string"
             app:nullable="true" />
@@ -194,30 +195,31 @@
         tools:layout="@layout/fragment_comodity" >
 
         <argument
-            android:name="areaId"
+            android:name="idPlot"
             android:defaultValue="@null"
             app:argType="string"
             app:nullable="true" />
 
         <argument
-            android:name="titleArea"
+            android:name="kodePlot"
             android:defaultValue="@null"
             app:argType="string"
             app:nullable="true" />
 
         <argument
-            android:name="kode"
+            android:name="polaTanam"
             android:defaultValue="@null"
             app:argType="string"
             app:nullable="true" />
 
         <argument
-            android:name="nameMember"
+            android:name="komoditas"
             android:defaultValue="@null"
             app:argType="string"
             app:nullable="true" />
+
         <argument
-            android:name="plotCount"
+            android:name="status"
             android:defaultValue="@null"
             app:argType="string"
             app:nullable="true" />

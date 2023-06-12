@@ -16,6 +16,8 @@ import android.os.Build
 import android.os.Bundle
 import android.provider.Settings
 import android.view.View
+import android.widget.AdapterView
+import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.view.isVisible
@@ -66,6 +68,7 @@ class ReInventFragment : Fragment(R.layout.fragment_reinvent), OnMapReadyCallbac
     var uriImage = emptyString
 
     var plotCodeId = emptyString
+    var reinvent = emptyString
 
     private var activityEntity: ActivitiesEntity = ActivitiesEntity()
 
@@ -89,12 +92,36 @@ class ReInventFragment : Fragment(R.layout.fragment_reinvent), OnMapReadyCallbac
             binding.etKomoditas.textOrNull = args.komoditas
         }
 
-
     }
 
 
     private fun initViewModel() {
+        spinner()
+    }
 
+    private fun spinner(){
+        val adapter = ArrayAdapter.createFromResource(
+            requireContext(),
+            R.array.reinvent,
+            android.R.layout.simple_spinner_item
+        )
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        binding.sBranch.adapter = adapter
+
+        binding.sBranch.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(
+                parent: AdapterView<*>?,
+                view: View?,
+                position: Int,
+                id: Long
+            ) {
+                reinvent = binding.sBranch.selectedItem.toString()
+            }
+
+            override fun onNothingSelected(parent: AdapterView<*>?) {
+            }
+
+        }
     }
 
 

@@ -415,7 +415,7 @@
                     app:placeholderTextColor="@color/dove_gray">
 
                     <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/etTinggiTanaman"
+                        android:id="@+id/etJmlTanaman"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:imeOptions="actionNext"
@@ -580,7 +580,6 @@
             android:insetTop="@dimen/zero_margin"
             android:insetBottom="@dimen/zero_margin"
             android:paddingTop="@dimen/normal_margin"
-            android:visibility="gone"
             android:text="@string/save"
             android:textAppearance="@style/TextAppearance.OpenSans.Medium.Body2"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -598,6 +597,7 @@
             android:layout_marginBottom="@dimen/large_margin"
             android:backgroundTint="@color/gray"
             android:insetTop="@dimen/zero_margin"
+            android:visibility="gone"
             android:insetBottom="@dimen/zero_margin"
             android:paddingTop="@dimen/normal_margin"
             android:text="@string/save"

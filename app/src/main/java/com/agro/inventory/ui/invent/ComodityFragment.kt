@@ -7,9 +7,12 @@ import android.view.View
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.hilt.navigation.fragment.hiltNavGraphViewModels
+import androidx.navigation.fragment.navArgs
 import com.agro.inventory.ui.invent.ComodityFragmentDirections
 import com.agro.inventory.R
+import com.agro.inventory.data.remote.model.invent.Comodity
 import com.agro.inventory.databinding.FragmentComodityBinding
+import com.agro.inventory.ui.invent.adapter.InventAdapter
 import com.agro.inventory.ui.main.MainFragment.Companion.parentBottomAppBar
 import com.agro.inventory.ui.main.MainFragment.Companion.parentNavigation
 import com.agro.inventory.util.navController
@@ -24,15 +27,18 @@ class ComodityFragment : Fragment(R.layout.fragment_comodity) {
     private val binding by viewBinding<FragmentComodityBinding>()
     private val viewModel by hiltNavGraphViewModels<HomeViewModel>(R.id.home)
 
+    private var listComodity = emptyList<Comodity>()
+    private val comodityAdapter = InventAdapter.cmodityAdapter
+
+    private val args by navArgs<ComodityFragmentArgs>()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        initViewModel()
-        initViewModelCallback()
+        initView()
         initOnClick()
         initAdapter()
-        initAdapterClick()
+        initClickAdapter()
 
         parentBottomAppBar?.isVisible = false
         parentNavigation?.isVisible = false
@@ -46,20 +52,40 @@ class ComodityFragment : Fragment(R.layout.fragment_comodity) {
     }
 
 
-    private fun initViewModel() {
-
+    private fun initView() {
+        listStaticData()
     }
 
-    private fun initViewModelCallback() {
-    }
+    private fun listStaticData() {
+        listComodity = listOf(
+            Comodity(
+                1,
+                "Kopi",
+            ),
+            Comodity(
+                2,
+                "Vannila",
+            )
+        )
 
+    }
 
     private fun initAdapter() {
-
+        comodityAdapter.items = listComodity
+        binding.rvComodity.adapter = comodityAdapter
     }
 
-
-    private fun initAdapterClick() {
+    private fun initClickAdapter() {
+        InventAdapter.setOnClickComodityPlot { item ->
+            navController.navigateOrNull(
+                ComodityFragmentDirections.actionComodityFragmentToInventFragment(
+                    args.idPlot,
+                    args.kodePlot,
+                    args.polaTanam,
+                    item.comodity
+                )
+            )
+        }
 
     }
 

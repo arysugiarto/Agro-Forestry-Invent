@@ -26,6 +26,7 @@ import androidx.navigation.fragment.navArgs
 import com.agro.inventory.ui.invent.InventFragmentArgs
 import com.agro.inventory.R
 import com.agro.inventory.data.local.entity.ActivitiesEntity
+import com.agro.inventory.data.local.entity.InventEntity
 import com.agro.inventory.databinding.FragmentInventBinding
 import com.agro.inventory.ui.main.MainFragment.Companion.parentBottomAppBar
 import com.agro.inventory.ui.main.MainFragment.Companion.parentNavigation
@@ -68,7 +69,7 @@ class InventFragment : Fragment(R.layout.fragment_invent), OnMapReadyCallback {
 
     var plotCodeId = emptyString
 
-    private var activityEntity: ActivitiesEntity = ActivitiesEntity()
+    private var inventEntity: InventEntity = InventEntity()
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -109,7 +110,11 @@ class InventFragment : Fragment(R.layout.fragment_invent), OnMapReadyCallback {
                     if (location != null) {
                         val geocoder = Geocoder(requireContext(), Locale.getDefault())
                         val list: List<Address> =
-                            geocoder.getFromLocation(location.latitude, location.longitude, 1) as List<Address>
+                            geocoder.getFromLocation(
+                                location.latitude,
+                                location.longitude,
+                                1
+                            ) as List<Address>
                         binding.apply {
                             tvLattitude.text = "${list[0].latitude}"
                             tvLongitude.text = "${list[0].longitude}"
@@ -278,6 +283,24 @@ class InventFragment : Fragment(R.layout.fragment_invent), OnMapReadyCallback {
             }
 
             binding.btnAdd -> {
+                inventEntity = InventEntity(
+                    idPlot = args.idPlot?.toInt(),
+                    kodePlot = "K-PP1",
+                    comodity = "kopi",
+                    polaTanam = "Monokultur",
+                    jmlTanam = binding.etJmlTanaman.text.toString(),
+                    keliling = binding.etKeliling.text.toString(),
+                    tinggi = binding.etTinggi.text.toString(),
+                    edit = true
+                )
+
+                viewModels.insertLocalInvent(inventEntity)
+
+                navController.navigateOrNull(
+                    InventFragmentDirections.actionInventFragmentToComodityFragment(
+                        status = "edit"
+                    )
+                )
 
             }
             binding.tvTitle -> {

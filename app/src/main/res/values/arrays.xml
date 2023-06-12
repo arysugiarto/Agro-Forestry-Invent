@@ -15,4 +15,11 @@
         <item>female</item>
     </string-array>
 
+
+    <array name="reinvent">
+        <item>Pendataan ulang 1</item>
+        <item>Pendataan ulang 2</item>
+        <item>Pendataan ulang 3</item>
+        <item>Pendataan ulang 4</item>
+    </array>
 </resources>

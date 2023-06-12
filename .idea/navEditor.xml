@@ -143,6 +143,11 @@
                                 <LayoutPositions />
                               </value>
                             </entry>
+                            <entry key="action_home_fragment_to_re_invent_assigment_fragment">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
                           </map>
                         </option>
                       </LayoutPositions>
@@ -179,9 +184,18 @@
                       <LayoutPositions>
                         <option name="myPosition">
                           <Point>
-                            <option name="x" value="56" />
-                            <option name="y" value="-104" />
+                            <option name="x" value="332" />
+                            <option name="y" value="100" />
                           </Point>
+                        </option>
+                        <option name="myPositions">
+                          <map>
+                            <entry key="action_invent_fragment_to_comodity_fragment">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                          </map>
                         </option>
                       </LayoutPositions>
                     </value>
@@ -217,9 +231,18 @@
                       <LayoutPositions>
                         <option name="myPosition">
                           <Point>
-                            <option name="x" value="-628" />
-                            <option name="y" value="336" />
+                            <option name="x" value="-639" />
+                            <option name="y" value="784" />
                           </Point>
+                        </option>
+                        <option name="myPositions">
+                          <map>
+                            <entry key="action_monitoring_worker_fragment_to_reinvent_comodity_fragment">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                          </map>
                         </option>
                       </LayoutPositions>
                     </value>

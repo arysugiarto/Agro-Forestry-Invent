@@ -11,6 +11,8 @@ import androidx.navigation.fragment.navArgs
 import com.agro.inventory.R
 import com.agro.inventory.data.remote.Result
 import com.agro.inventory.databinding.FragmentPlotBinding
+import com.agro.inventory.ui.invent.adapter.InventAdapter
+import com.agro.inventory.ui.invent.adapter.InventAdapter.setOnClickCodePlot
 import com.agro.inventory.ui.invent.adapter.ReInventAdapter
 import com.agro.inventory.ui.main.MainFragment.Companion.parentBottomAppBar
 import com.agro.inventory.ui.main.MainFragment.Companion.parentNavigation
@@ -30,7 +32,7 @@ class PlotFragment : Fragment(R.layout.fragment_plot) {
 
     private val args by navArgs<PlotFragmentArgs>()
 
-    private val kodePlotAdapter = ReInventAdapter.codePlotAdapter
+    private val kodePlotAdapter = InventAdapter.codePlotAdapter
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -105,14 +107,13 @@ class PlotFragment : Fragment(R.layout.fragment_plot) {
     }
 
     private fun initAdapterClick() {
-        ReInventAdapter.setOnClickCodePlot { item ->
+        setOnClickCodePlot { item ->
             navController.navigateOrNull(
                 PlotFragmentDirections.actionKodePlotFragmentToComodityFragment(
-//                    item.id.toString(),
-//                    item.kodePlot,
-//                    item.polaTanamName,
-//                    item.komoditas,
-
+                    item.id.toString(),
+                    item.kodePlot,
+                    item.polaTanamName,
+                    item.komoditas,
                 )
             )
         }

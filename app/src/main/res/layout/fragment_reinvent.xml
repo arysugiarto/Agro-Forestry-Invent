@@ -379,6 +379,42 @@
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/tvTitleObserve"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/boxJarakTanam"
+                    android:layout_marginTop="@dimen/screen_margin"
+                    android:layout_marginStart="@dimen/screen_margin"
+                    android:textAlignment="textStart"
+                    android:text="Pendataan ulang"
+                    android:textAppearance="@style/TextAppearance.OpenSans.Bold.Body1" />
+
+                <View
+                    android:id="@+id/vBranch"
+                    android:layout_width="@dimen/zero_margin"
+                    android:layout_height="@dimen/zero_margin"
+                    android:layout_marginStart="@dimen/screen_margin"
+                    android:layout_marginTop="@dimen/screen_margin"
+                    android:layout_marginEnd="@dimen/screen_margin"
+                    android:background="@drawable/bg_spinner"
+                    app:layout_constraintBottom_toBottomOf="@id/sBranch"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tvTitleObserve" />
+
+                <Spinner
+                    android:id="@+id/sBranch"
+                    android:layout_width="@dimen/zero_margin"
+                    android:layout_height="wrap_content"
+                    android:dropDownVerticalOffset="@dimen/_40sdp"
+                    android:padding="@dimen/medium_margin"
+                    app:layout_constraintEnd_toEndOf="@id/vBranch"
+                    app:layout_constraintStart_toStartOf="@id/vBranch"
+                    app:layout_constraintTop_toTopOf="@id/vBranch" />
+
+
+                <com.google.android.material.textview.MaterialTextView
                     android:id="@+id/tvJmlTanaman"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -410,7 +446,7 @@
                     app:expandedHintEnabled="false"
                     app:layout_constraintStart_toStartOf="@+id/glPolaTanam"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/boxKomoditas"
+                    app:layout_constraintTop_toBottomOf="@+id/vBranch"
                     app:placeholderTextAppearance="@style/TextAppearance.OpenSans.Regular.Body2"
                     app:placeholderTextColor="@color/dove_gray">
 
