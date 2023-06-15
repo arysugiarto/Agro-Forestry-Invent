@@ -13,6 +13,7 @@ data class InventEntity(
     val jarakTanam: String? = null,
     val polaTanam: String? = null,
     val comodity: String? = null,
+    val idComodity: String? = null,
     val jmlTanam: String? = null,
     val keliling: String? = null,
     val tinggi: String? = null,

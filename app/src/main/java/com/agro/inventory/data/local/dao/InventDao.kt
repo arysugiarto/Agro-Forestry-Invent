@@ -18,14 +18,18 @@ interface InventDao {
     @Query("SELECT * FROM invent_entity")
     fun getInventAll(): Flow<List<InventEntity>>
 
-    @Query("SELECT * FROM invent_entity WHERE kodePlot = :idPlot")
-     fun getInvent(idPlot: String): Flow<List<InventEntity>>
+    @Query("SELECT * FROM invent_entity WHERE idComodity =:idComodity")
+     fun getInvent(idComodity: String): Flow<List<InventEntity>>
 
-    @Query("UPDATE invent_entity SET jmlTanam =:jmlTanam, keliling =:keliling, tinggi =:tinggi, photo =:photo, lat =:lat, lng =:lng WHERE id =:id")
+    @Query("SELECT kodePlot FROM invent_entity")
+    fun getKodePlot(): Int
+
+    @Query("UPDATE invent_entity SET jmlTanam =:jmlTanam, keliling =:keliling, tinggi =:tinggi, idComodity =:idComodity, photo =:photo, lat =:lat, lng =:lng WHERE id =:id")
     suspend fun updateInvent(
         jmlTanam: String?,
         keliling: String?,
         tinggi: String?,
+        idComodity: Int?,
         photo: String?,
         lat: String?,
         lng: String?,

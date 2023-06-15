@@ -24,52 +24,40 @@ class LocalViewModel @Inject constructor(
 ) : BaseViewModel(application) {
     private val repository = localRepository
 
-    private var _localActivities: MutableLiveData<List<ActivitiesEntity>> = MutableLiveData()
-    val localActivities: LiveData<List<ActivitiesEntity>> get() = _localActivities
+
+    private var _getInvent: MutableLiveData<List<InventEntity>> = MutableLiveData()
+    val getInvent: LiveData<List<InventEntity>> get() = _getInvent
 
 
-
-    val getLocalActivitiesAll
-        get() = repository
-            .getLocalActivitiesAll()
-            .asLiveData(viewModelScope.coroutineContext)
-
-    fun getLocalActivities(idPlot: String, pekerjaanId: String) =
-        repository.getLocalActivities(idPlot, pekerjaanId)
-            .onEach { result ->
-                _localActivities.value = result
-            }.launchIn(viewModelScope)
-
-
-
-    fun updateActivities(
-        pekerja: String? = null,
-        namaPekerjaan: String? = null,
-        idPekerjaan: String? = null,
-        nameActivity: String? = null,
+    fun updateInvent(
+        jmlTanam: String? = null,
+        keliling: String? = null,
+        tinggi: String? = null,
+        idComodity: Int? = null,
+        photo: String? = null,
         lat: String? = null,
         lng: String? = null,
-        volume: String? = null,
-        satuan: String? = null,
-        photo: String? = null,
-        workersId: String? = null,
         id: String? = null
     ) =
         viewModelScope.launch {
-            repository.updateActivities(
-                pekerja,
-                namaPekerjaan,
-                idPekerjaan,
-                nameActivity,
+            repository.updateInvent(
+                jmlTanam,
+                keliling,
+                tinggi,
+                idComodity,
+                photo,
                 lat,
                 lng,
-                volume,
-                satuan,
-                photo,
-                workersId,
                 id
             )
         }
+
+    fun getLocalInvent(idComodity: String) =
+        repository.getInvent(idComodity)
+            .onEach { result ->
+                _getInvent.value = result
+            }.launchIn(viewModelScope)
+
 
     fun insertLocalArea(areaEntity: List<AreaEntity>) =
         viewModelScope.launch {
@@ -101,6 +89,7 @@ class LocalViewModel @Inject constructor(
     fun deleteAllArea() = viewModelScope.launch {
         repository.deleteArea()
     }
+
     fun deleteLocalItemActivities(id: Int? = null) =
         viewModelScope.launch {
             repository.deleteLocalItemActivities(id)

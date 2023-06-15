@@ -19,32 +19,6 @@ class LocalRepository(
 
     override  fun getLocalActivitiesByIdJob(idPlot: String, pekerjaanId: String) = localDataSource.getActivitiesByIdJob(idPlot, pekerjaanId)
 
-    override suspend fun updateActivities(
-        pekerja: String?,
-        namaPekerjaan:String?,
-        idPekerjaan: String?,
-        nameActivity: String?,
-        lat: String?,
-        lng: String?,
-        volume: String?,
-        satuan: String?,
-        photo: String?,
-        workersId: String?,
-        id: String?
-    ) =
-        localDataSource.updateActivities(
-            pekerja,
-            namaPekerjaan,
-            idPekerjaan,
-            nameActivity,
-            lat,
-            lng,
-            volume,
-            satuan,
-            photo,
-            workersId,
-            id
-        )
 
     override suspend fun insertAreaLocal(areaEntity: List<AreaEntity>) = localDataSource.insertArea(areaEntity)
 
@@ -64,6 +38,29 @@ class LocalRepository(
     override suspend fun deleteLocalItemActivities(id: Int?) = localDataSource.deleteItemActivities(id)
 
     override suspend fun insertInventLocal(inventEntity: InventEntity) = localDataSource.insertInvent(inventEntity)
+
+    override fun getInvent(idComodity: String) = localDataSource.getInvent(idComodity)
+    override suspend fun updateInvent(
+        jmlTanam: String?,
+        keliling: String?,
+        tinggi: String?,
+        idComodity: Int?,
+        photo: String?,
+        lat: String?,
+        lng: String?,
+        id: String?
+    ) =
+        localDataSource.updateInvent(
+            jmlTanam,
+            keliling,
+            tinggi,
+            idComodity,
+            photo,
+            lat,
+            lng,
+            id
+        )
+
 
     override suspend fun insertReInventLocal(reInventEntity: ReinventEntity) = localDataSource.insertReInvent(reInventEntity)
 

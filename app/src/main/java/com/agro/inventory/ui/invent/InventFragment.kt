@@ -66,16 +66,21 @@ class InventFragment : Fragment(R.layout.fragment_invent), OnMapReadyCallback {
     var long = emptyString
 
     var uriImage = emptyString
-
     var plotCodeId = emptyString
+    var idComodity = emptyString
+    var edit = emptyBoolean
+    var id = emptyString
 
     private var inventEntity: InventEntity = InventEntity()
+    private lateinit var invent: List<InventEntity>
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         initOnClick()
+        initViewModel()
+        getInvent()
 
         parentBottomAppBar?.isVisible = false
         parentNavigation?.isVisible = false
@@ -92,6 +97,33 @@ class InventFragment : Fragment(R.layout.fragment_invent), OnMapReadyCallback {
 
     }
 
+    private fun initViewModel() {
+        viewModels.getLocalInvent(args.idKomoditas.toString())
+    }
+
+    //getInventEdit
+    private fun getInvent() {
+        var data = emptyList<InventEntity>()
+        viewModels.getInvent.observe(viewLifecycleOwner) { result ->
+            data = result.orEmpty()
+
+            if (data.firstOrNull()?.edit == true) {
+                edit = data.firstOrNull()?.edit.orEmpty
+                id = data.firstOrNull()?.id.toString()
+                binding.etKodePlot.textOrNull = data.firstOrNull()?.kodePlot
+                binding.etKomoditas.textOrNull = data.firstOrNull()?.comodity
+                binding.etKeliling.textOrNull = data.firstOrNull()?.keliling
+                binding.etTinggi.textOrNull = data.firstOrNull()?.tinggi
+                binding.etJmlTanaman.textOrNull = data.firstOrNull()?.jmlTanam
+                binding.etPolaTanam.textOrNull = data.firstOrNull()?.polaTanam
+                idComodity = data.firstOrNull()?.idComodity.toString()
+            }
+
+
+            Timber.e("test%s", data.toString())
+
+        }
+    }
 
     // Lat Long Location
     @SuppressLint("MissingPermission", "SetTextI18n")
@@ -271,23 +303,40 @@ class InventFragment : Fragment(R.layout.fragment_invent), OnMapReadyCallback {
             binding.btnTakePhoto -> {
                 photoPicker()
             }
+
             binding.btnCancel -> {
                 navController.navigateUp()
             }
 
             binding.btnAdd -> {
-                inventEntity = InventEntity(
-                    idPlot = args.idPlot?.toInt(),
-                    kodePlot = "K-PP1",
-                    comodity = "kopi",
-                    polaTanam = "Monokultur",
-                    jmlTanam = binding.etJmlTanaman.text.toString(),
-                    keliling = binding.etKeliling.text.toString(),
-                    tinggi = binding.etTinggi.text.toString(),
-                    edit = true
-                )
 
-                viewModels.insertLocalInvent(inventEntity)
+                if (edit == true) {
+                    viewModels.updateInvent(
+                        jmlTanam = binding.etJmlTanaman.text.toString(),
+                        keliling = binding.etKeliling.text.toString(),
+                        tinggi = binding.etTinggi.text.toString(),
+                        idComodity = args.idKomoditas?.toInt(),
+                        photo = "",
+                        lat= "",
+                        lng= "",
+                        id= id
+                    )
+                } else {
+                    inventEntity = InventEntity(
+                        idPlot = args.idPlot?.toInt(),
+                        kodePlot = binding.etKodePlot.text.toString(),
+                        comodity = binding.etKomoditas.text.toString(),
+                        idComodity = args.idKomoditas,
+                        polaTanam = binding.etPolaTanam.text.toString(),
+                        jmlTanam = binding.etJmlTanaman.text.toString(),
+                        keliling = binding.etKeliling.text.toString(),
+                        tinggi = binding.etTinggi.text.toString(),
+                        edit = true
+                    )
+
+                    viewModels.insertLocalInvent(inventEntity)
+                }
+
 
                 navController.navigateOrNull(
                     InventFragmentDirections.actionInventFragmentToComodityFragment(
@@ -296,9 +345,11 @@ class InventFragment : Fragment(R.layout.fragment_invent), OnMapReadyCallback {
                 )
 
             }
+
             binding.tvTitle -> {
                 navController.navigateUp()
             }
+
             binding.btnAddFalse -> {
 
             }

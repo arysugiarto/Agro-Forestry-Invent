@@ -23,24 +23,26 @@ class LocalDataSource(
     private val daoReInvent = reInventDao
 
 
-
     fun getActivitiesAll() = daoActivities.getActivitiesAll()
-    fun getActivities(idPlot: String, pekerjaanId: String) = daoActivities.getActivities(idPlot, pekerjaanId)
+    fun getActivities(idPlot: String, pekerjaanId: String) =
+        daoActivities.getActivities(idPlot, pekerjaanId)
 
-    fun getActivitiesByIdJob(idPlot: String, pekerjaanId: String) = daoActivities.getActivitiesByIdJob(idPlot, pekerjaanId)
+    fun getActivitiesByIdJob(idPlot: String, pekerjaanId: String) =
+        daoActivities.getActivitiesByIdJob(idPlot, pekerjaanId)
 
 
-    suspend fun updateActivities(pekerja: String?,
-                                 namaPekerjaan:String?,
-                                 idPekerjaan: String?,
-                                 nameActivity: String?,
-                                 lat: String?,
-                                 lng: String?,
-                                 volume: String?,
-                                 satuan: String?,
-                                 photo: String?,
-                                 workersId: String?,
-                                 id: String?
+    suspend fun updateActivities(
+        pekerja: String?,
+        namaPekerjaan: String?,
+        idPekerjaan: String?,
+        nameActivity: String?,
+        lat: String?,
+        lng: String?,
+        volume: String?,
+        satuan: String?,
+        photo: String?,
+        workersId: String?,
+        id: String?
     ) =
         daoActivities.updateActivities(
             pekerja,
@@ -63,7 +65,7 @@ class LocalDataSource(
 
     suspend fun updateArea(
         status: Boolean?,
-        memberno:String?,
+        memberno: String?,
         statusDone: Boolean?
     ) =
         daoArea.updateStatusArea(
@@ -81,6 +83,31 @@ class LocalDataSource(
 
     suspend fun insertInvent(inventEntity: InventEntity) =
         daoInvent.insertInvent(inventEntity)
+
+    fun getInvent(idComodity: String) =
+        daoInvent.getInvent(idComodity)
+
+    suspend fun updateInvent(
+        jmlTanam: String?,
+        keliling: String?,
+        tinggi: String?,
+        idComodity: Int?,
+        photo: String?,
+        lat: String?,
+        lng: String?,
+        id: String?
+    ) =
+        daoInvent.updateInvent(
+            jmlTanam,
+            keliling,
+            tinggi,
+            idComodity,
+            photo,
+            lat,
+            lng,
+            id
+        )
+
 
     suspend fun insertReInvent(reInventEntity: ReinventEntity) =
         daoReInvent.insertReInvent(reInventEntity)

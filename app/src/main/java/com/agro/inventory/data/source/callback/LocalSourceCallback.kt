@@ -14,21 +14,6 @@ interface LocalSourceCallback {
 
     fun getLocalActivitiesByIdJob(idPlot: String,pekerjaanId: String): Flow<List<ActivitiesEntity>>
 
-    suspend fun updateActivities(
-        pekerja: String?,
-        namaPekerjaan:String?,
-        idPekerjaan: String?,
-        nameActivity: String?,
-        lat: String?,
-        lng: String?,
-        volume: String?,
-        satuan: String?,
-        photo: String?,
-        workerId: String?,
-        id: String?
-    )
-
-
     suspend fun insertAreaLocal(areaEntity: List<AreaEntity>)
 
     fun getLocalArea(): Flow<List<AreaEntity>>
@@ -49,5 +34,19 @@ interface LocalSourceCallback {
     suspend fun insertReInventLocal(reinventEntity: ReinventEntity)
 
     suspend fun insertInventLocal(inventEntity: InventEntity)
+
+    fun getInvent(idComodity: String): Flow<List<InventEntity>>
+
+    suspend fun updateInvent(
+        jmlTanam: String?,
+        keliling: String?,
+        tinggi: String?,
+        idComodity: Int?,
+        photo: String?,
+        lat: String?,
+        lng: String?,
+        id: String?
+    )
+
 
 }

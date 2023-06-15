@@ -52,7 +52,6 @@ class ReInventAssigmentFragment : Fragment(R.layout.fragment_reinvent_assigment)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        initViewModel()
         initCallback()
         initViewModelCallback()
         initOnClick()
@@ -61,39 +60,6 @@ class ReInventAssigmentFragment : Fragment(R.layout.fragment_reinvent_assigment)
         parentBottomAppBar?.isVisible = false
         parentNavigation?.isVisible = false
 
-    }
-
-    private fun initViewModel() {
-        var data = emptyList<ActivitiesEntity>()
-        viewModels.getLocalActivitiesAll.observe(viewLifecycleOwner) { result ->
-            data = result.orEmpty()
-
-
-
-            dataActivities =
-                data.map {
-                    AllMonitoringWorkerBodyRequest.Data(
-                        AllMonitoringWorkerBodyRequest.Data.Monitoring(
-                            idPlot = it.idPlot,
-                            workersId = it.workersId.toString(),
-                            pekerjaanId = it.pekerjaanId,
-                            activityId = it.activityId,
-                            volume = it.volume,
-                            photo = it.photo,
-                            lat = it.lat,
-                            lng = it.lng,
-                            uid = it.uid,
-                            appSource = it.appSource,
-                            createdBy = it.createdBy,
-                            deleted = it.deleted
-
-                        )
-
-                    )
-                }
-            Timber.e(dataActivities?.firstOrNull()?.monitoring?.workersId)
-
-        }
     }
 
     private fun initViewModelCallback() {
