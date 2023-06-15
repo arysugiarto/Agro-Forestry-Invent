@@ -75,7 +75,6 @@ class InventFragment : Fragment(R.layout.fragment_invent), OnMapReadyCallback {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        initViewModel()
         initOnClick()
 
         parentBottomAppBar?.isVisible = false
@@ -90,12 +89,6 @@ class InventFragment : Fragment(R.layout.fragment_invent), OnMapReadyCallback {
             binding.etPolaTanam.textOrNull = args.polaTanam
             binding.etKomoditas.textOrNull = args.komoditas
         }
-
-
-    }
-
-
-    private fun initViewModel() {
 
     }
 

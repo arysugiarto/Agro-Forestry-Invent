@@ -74,11 +74,12 @@
     <string name="input_data">Tambah pendataan</string>
     <string name="edit_input">Ubah input data</string>
     <string name="list_data">Daftar data</string>
-    <string name="jarak_tanam">Jarak Tanam</string>
+    <string name="jarak_tanam">Jarak tanam</string>
     <string name="list_comodity">Daftar Komoditas</string>
     <string name="invent">Pendataan</string>
     <string name="reinvent">Pendataan Ulang</string>
     <string name="main_exit_app">Klik dua kali untuk keluar</string>
     <string name="input_data_reinvent">Tambah pendataan ulang</string>
+    <string name="logout">Keluar</string>
 
 </resources>

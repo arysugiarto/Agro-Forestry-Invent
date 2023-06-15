@@ -3,11 +3,14 @@ package com.agro.inventory.ui.home
 import android.os.Bundle
 import android.os.Handler
 import android.view.View
+import android.widget.PopupMenu
 import androidx.activity.addCallback
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.hilt.navigation.fragment.hiltNavGraphViewModels
+import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import com.agro.inventory.ui.home.HomeFragmentDirections
 import com.agro.inventory.R
 import com.agro.inventory.data.local.entity.AreaEntity
@@ -20,6 +23,7 @@ import com.agro.inventory.viewmodel.AuthViewModel
 import com.agro.inventory.viewmodel.HomeViewModel
 import com.agro.inventory.viewmodel.LocalViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -42,7 +46,6 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         super.onViewCreated(view, savedInstanceState)
 
         initOnClick()
-        initAdapterClick()
         onBackPressed()
 
         parentBottomAppBar?.isVisible = false
@@ -52,15 +55,11 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
     }
 
 
-    private fun initAdapterClick() {
-
-    }
-
     private fun initOnClick() {
         binding.apply {
             tvTitle.setOnClickListener(onClickCallback)
             fab.setOnClickListener(onClickCallback)
-//            ivLogout.setOnClickListener(onClickCallback)
+            ivLogout.setOnClickListener(onClickCallback)
             btnInvent.setOnClickListener(onClickCallback)
             btnReInvent.setOnClickListener(onClickCallback)
         }
@@ -80,32 +79,32 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
                 )
             }
 
-//            binding.ivLogout -> {
-//                val popupMenu = PopupMenu(requireContext(), view)
-//
-//                popupMenu.menuInflater.inflate(R.menu.menu_logout, popupMenu.menu)
-//
-//                popupMenu.show()
-//
-//                popupMenu.setOnMenuItemClickListener { item ->
-//                    when (item.itemId) {
-//                        R.id.logout ->{
-//                            lifecycleScope.launch {
-//                                accessManager.setSession(
-//                                    session =  false
-//                                )
-//                            }
-//
-//                            findNavController().navigateOrNull(
-//                                HomeFragmentDirections.actionLogout()
-//                            )
-//                        }
-//
-//                    }
-//                    true
-//                }
-//
-//            }
+            binding.ivLogout -> {
+                val popupMenu = PopupMenu(requireContext(), view)
+
+                popupMenu.menuInflater.inflate(R.menu.menu_logout, popupMenu.menu)
+
+                popupMenu.show()
+
+                popupMenu.setOnMenuItemClickListener { item ->
+                    when (item.itemId) {
+                        R.id.logout ->{
+                            lifecycleScope.launch {
+                                accessManager.setSession(
+                                    session =  false
+                                )
+                            }
+
+                            findNavController().navigateOrNull(
+                                HomeFragmentDirections.actionLogout()
+                            )
+                        }
+
+                    }
+                    true
+                }
+
+            }
 
         }
 

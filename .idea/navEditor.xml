@@ -82,8 +82,8 @@
                       <LayoutPositions>
                         <option name="myPosition">
                           <Point>
-                            <option name="x" value="-376" />
-                            <option name="y" value="-82" />
+                            <option name="x" value="70" />
+                            <option name="y" value="-719" />
                           </Point>
                         </option>
                         <option name="myPositions">
@@ -120,8 +120,8 @@
                       <LayoutPositions>
                         <option name="myPosition">
                           <Point>
-                            <option name="x" value="-196" />
-                            <option name="y" value="447" />
+                            <option name="x" value="180" />
+                            <option name="y" value="610" />
                           </Point>
                         </option>
                       </LayoutPositions>
@@ -144,6 +144,11 @@
                               </value>
                             </entry>
                             <entry key="action_home_fragment_to_re_invent_assigment_fragment">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                            <entry key="action_logout">
                               <value>
                                 <LayoutPositions />
                               </value>
@@ -184,8 +189,8 @@
                       <LayoutPositions>
                         <option name="myPosition">
                           <Point>
-                            <option name="x" value="332" />
-                            <option name="y" value="100" />
+                            <option name="x" value="345" />
+                            <option name="y" value="-239" />
                           </Point>
                         </option>
                         <option name="myPositions">
@@ -205,8 +210,8 @@
                       <LayoutPositions>
                         <option name="myPosition">
                           <Point>
-                            <option name="x" value="-329" />
-                            <option name="y" value="-603" />
+                            <option name="x" value="-256" />
+                            <option name="y" value="-873" />
                           </Point>
                         </option>
                         <option name="myPositions">
@@ -226,23 +231,14 @@
                       </LayoutPositions>
                     </value>
                   </entry>
-                  <entry key="monitoring_worker_fragment">
+                  <entry key="nav_auth_graph">
                     <value>
                       <LayoutPositions>
                         <option name="myPosition">
                           <Point>
-                            <option name="x" value="-639" />
-                            <option name="y" value="784" />
+                            <option name="x" value="-748" />
+                            <option name="y" value="-1199" />
                           </Point>
-                        </option>
-                        <option name="myPositions">
-                          <map>
-                            <entry key="action_monitoring_worker_fragment_to_reinvent_comodity_fragment">
-                              <value>
-                                <LayoutPositions />
-                              </value>
-                            </entry>
-                          </map>
                         </option>
                       </LayoutPositions>
                     </value>
@@ -284,12 +280,33 @@
                         </option>
                         <option name="myPositions">
                           <map>
-                            <entry key="action_reinvent_comodity_fragment_to_monitoring_worker_fragment">
+                            <entry key="action_reinvent_comodity_fragment_to_reinvent_fragment">
                               <value>
                                 <LayoutPositions />
                               </value>
                             </entry>
                             <entry key="action_reinvent_comodity_fragment_to_reinvent_kode_plot_fragment">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                          </map>
+                        </option>
+                      </LayoutPositions>
+                    </value>
+                  </entry>
+                  <entry key="reinvent_fragment">
+                    <value>
+                      <LayoutPositions>
+                        <option name="myPosition">
+                          <Point>
+                            <option name="x" value="-700" />
+                            <option name="y" value="646" />
+                          </Point>
+                        </option>
+                        <option name="myPositions">
+                          <map>
+                            <entry key="action_monitoring_worker_fragment_to_reinvent_comodity_fragment">
                               <value>
                                 <LayoutPositions />
                               </value>

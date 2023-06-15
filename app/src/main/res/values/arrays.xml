@@ -15,11 +15,37 @@
         <item>female</item>
     </string-array>
 
-
-    <array name="reinvent">
-        <item>Pendataan ulang 1</item>
-        <item>Pendataan ulang 2</item>
-        <item>Pendataan ulang 3</item>
-        <item>Pendataan ulang 4</item>
+    <array name="observe">
+        <item>Pilih</item>
+        <item>Ke 1</item>
+        <item>Ke 2</item>
+        <item>Ke 3</item>
+        <item>Ke 4</item>
+        <item>Ke 5</item>
+        <item>Ke 6</item>
+        <item>Ke 7</item>
+        <item>Ke 8</item>
+        <item>Ke 9</item>
+        <item>Ke 10</item>
+        <item>Ke 11</item>
+        <item>Ke 12</item>
+        <item>Ke 13</item>
+        <item>Ke 14</item>
+        <item>Ke 15</item>
+        <item>Ke 16</item>
+        <item>Ke 17</item>
+        <item>Ke 18</item>
+        <item>Ke 19</item>
+        <item>Ke 20</item>
+        <item>Ke 21</item>
+        <item>Ke 22</item>
+        <item>Ke 23</item>
+        <item>Ke 24</item>
+        <item>Ke 25</item>
+        <item>Ke 26</item>
+        <item>Ke 27</item>
+        <item>Ke 28</item>
+        <item>Ke 29</item>
+        <item>Ke 30</item>
     </array>
 </resources>

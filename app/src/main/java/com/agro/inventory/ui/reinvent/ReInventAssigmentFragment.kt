@@ -16,6 +16,7 @@ import com.agro.inventory.data.remote.Result
 import com.agro.inventory.data.remote.model.AllMonitoringWorkerBodyRequest
 import com.agro.inventory.data.remote.model.AreaResponse
 import com.agro.inventory.databinding.FragmentInventAssigmentBinding
+import com.agro.inventory.databinding.FragmentReinventAssigmentBinding
 import com.agro.inventory.ui.home.adapter.HomeAdapter
 import com.agro.inventory.ui.main.MainFragment.Companion.parentBottomAppBar
 import com.agro.inventory.ui.main.MainFragment.Companion.parentNavigation
@@ -32,9 +33,9 @@ import timber.log.Timber
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class ReInventAssigmentFragment : Fragment(R.layout.fragment_invent_assigment) {
+class ReInventAssigmentFragment : Fragment(R.layout.fragment_reinvent_assigment) {
 
-    private val binding by viewBinding<FragmentInventAssigmentBinding>()
+    private val binding by viewBinding<FragmentReinventAssigmentBinding>()
     private val viewModel by hiltNavGraphViewModels<HomeViewModel>(R.id.home)
     private val viewModels by viewModels<LocalViewModel>()
 
@@ -248,7 +249,9 @@ class ReInventAssigmentFragment : Fragment(R.layout.fragment_invent_assigment) {
     private val onClickCallback = View.OnClickListener { view ->
         when (view) {
             binding.tvTitle -> {
-
+                navController.navigateOrNull(
+                    ReInventAssigmentFragmentDirections.actionInventAssigmentFragmentToHomeFragment()
+                )
             }
             binding.fab -> {
 

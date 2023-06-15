@@ -24,6 +24,7 @@ import com.agro.inventory.util.emptyString
 import com.agro.inventory.util.livevent.EventObserver
 import com.agro.inventory.util.navController
 import com.agro.inventory.util.navigateOrNull
+import com.agro.inventory.util.textOrNull
 import com.agro.inventory.util.viewBinding
 import com.agro.inventory.viewmodel.HomeViewModel
 import com.agro.inventory.viewmodel.LocalViewModel
@@ -60,6 +61,8 @@ class InventAssigmentFragment : Fragment(R.layout.fragment_invent_assigment) {
 
         parentBottomAppBar?.isVisible = false
         parentNavigation?.isVisible = false
+
+        binding.tvTitle.textOrNull = ""
 
     }
 
@@ -249,7 +252,9 @@ class InventAssigmentFragment : Fragment(R.layout.fragment_invent_assigment) {
     private val onClickCallback = View.OnClickListener { view ->
         when (view) {
             binding.tvTitle -> {
-
+                navController.navigateOrNull(
+                    InventAssigmentFragmentDirections.actionInventAssigmentFragmentToHomeFragment()
+                )
             }
             binding.fab -> {
 

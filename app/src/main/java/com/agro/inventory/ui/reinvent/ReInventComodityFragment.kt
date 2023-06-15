@@ -12,6 +12,8 @@ import com.agro.inventory.R
 import com.agro.inventory.data.remote.model.invent.Comodity
 import com.agro.inventory.databinding.FragmentComodityBinding
 import com.agro.inventory.ui.invent.adapter.InventAdapter
+import com.agro.inventory.ui.invent.adapter.ReInventAdapter
+import com.agro.inventory.ui.invent.adapter.ReInventAdapter.setOnClickComodityPlot
 import com.agro.inventory.ui.main.MainFragment.Companion.parentBottomAppBar
 import com.agro.inventory.ui.main.MainFragment.Companion.parentNavigation
 import com.agro.inventory.util.navController
@@ -27,7 +29,7 @@ class ReInventComodityFragment : Fragment(R.layout.fragment_comodity) {
     private val viewModel by hiltNavGraphViewModels<HomeViewModel>(R.id.home)
 
     private var listComodity = emptyList<Comodity>()
-    private val comodityAdapter = InventAdapter.cmodityAdapter
+    private val comodityAdapter = ReInventAdapter.cmodityAdapter
 
     private val args by navArgs<ReInventComodityFragmentArgs>()
 
@@ -75,9 +77,9 @@ class ReInventComodityFragment : Fragment(R.layout.fragment_comodity) {
     }
 
     private fun initClickAdapter() {
-        InventAdapter.setOnClickComodityPlot { item ->
+        setOnClickComodityPlot { item ->
             navController.navigateOrNull(
-                ReInventComodityFragmentDirections.actionReinventComodityFragmentToMonitoringWorkerFragment(
+                ReInventComodityFragmentDirections.actionReinventComodityFragmentToReinventFragment(
                     args.idPlot,
                     args.kodePlot,
                     args.polaTanam,
@@ -99,7 +101,7 @@ class ReInventComodityFragment : Fragment(R.layout.fragment_comodity) {
         when (view) {
             binding.tvTitle -> {
                 navController.navigateOrNull(
-                    ReInventComodityFragmentDirections.actionReinventComodityFragmentToMonitoringWorkerFragment()
+                    ReInventComodityFragmentDirections.actionReinventComodityFragmentToReinventKodePlotFragment()
                 )
             }
         }

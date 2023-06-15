@@ -25,14 +25,18 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.hilt.navigation.fragment.hiltNavGraphViewModels
 import androidx.navigation.fragment.navArgs
+import com.agro.inventory.ui.invent.InventFragmentArgs
 import com.agro.inventory.R
 import com.agro.inventory.data.local.entity.ActivitiesEntity
+import com.agro.inventory.data.local.entity.InventEntity
+import com.agro.inventory.data.local.entity.ReinventEntity
 import com.agro.inventory.databinding.FragmentInventBinding
 import com.agro.inventory.databinding.FragmentReinventBinding
 import com.agro.inventory.ui.main.MainFragment.Companion.parentBottomAppBar
 import com.agro.inventory.ui.main.MainFragment.Companion.parentNavigation
 import com.agro.inventory.ui.main.imagepicker.ImagePickerActivity
 import com.agro.inventory.util.*
+import com.agro.inventory.util.livevent.EventObserver
 import com.agro.inventory.viewmodel.HomeViewModel
 import com.agro.inventory.viewmodel.LocalViewModel
 import com.google.android.gms.location.FusedLocationProviderClient
@@ -55,7 +59,7 @@ class ReInventFragment : Fragment(R.layout.fragment_reinvent), OnMapReadyCallbac
     private val viewModel by hiltNavGraphViewModels<HomeViewModel>(R.id.home)
     private val viewModels by viewModels<LocalViewModel>()
 
-    private val args by navArgs<ReInventFragmentArgs>()
+    private val args by navArgs<InventFragmentArgs>()
 
     private lateinit var mFusedLocationClient: FusedLocationProviderClient
     private val permissionId = 2
@@ -70,13 +74,12 @@ class ReInventFragment : Fragment(R.layout.fragment_reinvent), OnMapReadyCallbac
     var plotCodeId = emptyString
     var reinvent = emptyString
 
-    private var activityEntity: ActivitiesEntity = ActivitiesEntity()
+    private var reInventEntity: ReinventEntity = ReinventEntity()
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        initViewModel()
         initOnClick()
 
         parentBottomAppBar?.isVisible = false
@@ -92,17 +95,13 @@ class ReInventFragment : Fragment(R.layout.fragment_reinvent), OnMapReadyCallbac
             binding.etKomoditas.textOrNull = args.komoditas
         }
 
-    }
-
-
-    private fun initViewModel() {
         spinner()
     }
 
-    private fun spinner(){
+    private fun spinner() {
         val adapter = ArrayAdapter.createFromResource(
             requireContext(),
-            R.array.reinvent,
+            R.array.observe,
             android.R.layout.simple_spinner_item
         )
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
@@ -125,6 +124,7 @@ class ReInventFragment : Fragment(R.layout.fragment_reinvent), OnMapReadyCallbac
     }
 
 
+
     // Lat Long Location
     @SuppressLint("MissingPermission", "SetTextI18n")
     private fun getLocation() {
@@ -135,7 +135,11 @@ class ReInventFragment : Fragment(R.layout.fragment_reinvent), OnMapReadyCallbac
                     if (location != null) {
                         val geocoder = Geocoder(requireContext(), Locale.getDefault())
                         val list: List<Address> =
-                            geocoder.getFromLocation(location.latitude, location.longitude, 1) as List<Address>
+                            geocoder.getFromLocation(
+                                location.latitude,
+                                location.longitude,
+                                1
+                            ) as List<Address>
                         binding.apply {
                             tvLattitude.text = "${list[0].latitude}"
                             tvLongitude.text = "${list[0].longitude}"
@@ -305,9 +309,32 @@ class ReInventFragment : Fragment(R.layout.fragment_reinvent), OnMapReadyCallbac
 
             binding.btnAdd -> {
 
+                reInventEntity = ReinventEntity(
+                    idPlot = args.idPlot?.toInt(),
+                    kodePlot = "K-PP1",
+                    comodity = "kopi",
+                    polaTanam = "Monokultur",
+                    reinventPhase = reinvent,
+                    jmlTanam = binding.etJmlTanam.text.toString(),
+                    keliling = binding.etKeliling.text.toString(),
+                    tinggi = binding.etTinggi.text.toString(),
+                    edit = true,
+                    penyulaman = binding.etPenyulaman.text.toString()
+                )
+
+                viewModels.insertLocalReinvent(reInventEntity)
+
+                navController.navigateOrNull(
+                    ReInventFragmentDirections.actionMonitoringWorkerFragmentToReinventComodityFragment(
+                        status = "edit"
+                    )
+                )
+
             }
             binding.tvTitle -> {
-                navController.navigateUp()
+                navController.navigateOrNull(
+                    ReInventFragmentDirections.actionMonitoringWorkerFragmentToReinventComodityFragment()
+                )
             }
             binding.btnAddFalse -> {
 

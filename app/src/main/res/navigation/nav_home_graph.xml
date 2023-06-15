@@ -5,6 +5,8 @@
     android:id="@+id/home"
     app:startDestination="@id/home_fragment">
 
+    <include app:graph="@navigation/nav_auth_graph"/>
+
     <fragment
         android:id="@+id/home_fragment"
         android:name="com.agro.inventory.ui.home.HomeFragment"
@@ -18,6 +20,11 @@
         <action
             android:id="@+id/action_home_fragment_to_re_invent_assigment_fragment"
             app:destination="@id/re_invent_assigment_fragment" />
+
+        <action
+            android:id="@+id/action_logout"
+            app:popUpToInclusive="true"
+            app:destination="@id/auth" />
 
     </fragment>
 
@@ -134,7 +141,6 @@
             app:argType="string"
             app:nullable="true" />
 
-
         <action
             android:id="@+id/action_reinvent_kode_plot_fragment_to_reinvent_comodity_fragment"
             app:destination="@id/reinvent_comodity_fragment" />
@@ -227,8 +233,8 @@
             android:id="@+id/action_reinvent_comodity_fragment_to_reinvent_kode_plot_fragment"
             app:destination="@id/reinvent_kode_plot_fragment" />
         <action
-            android:id="@+id/action_reinvent_comodity_fragment_to_monitoring_worker_fragment"
-            app:destination="@id/monitoring_worker_fragment" />
+            android:id="@+id/action_reinvent_comodity_fragment_to_reinvent_fragment"
+            app:destination="@id/reinvent_fragment" />
 
 
     </fragment>
@@ -282,10 +288,10 @@
     </fragment>
 
     <fragment
-        android:id="@+id/monitoring_worker_fragment"
+        android:id="@+id/reinvent_fragment"
         android:name="com.agro.inventory.ui.invent.ReInventFragment"
         android:label="@string/nav_home"
-        tools:layout="@layout/fragment_invent" >
+        tools:layout="@layout/fragment_reinvent" >
 
         <argument
             android:name="idPlot"

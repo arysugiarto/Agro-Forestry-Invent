@@ -22,7 +22,7 @@
             android:layout_marginStart="@dimen/screen_margin"
             android:layout_marginTop="@dimen/screen_margin"
             android:layout_marginBottom="@dimen/screen_margin"
-            android:text="@string/invent"
+            android:text="@string/reinvent"
             android:drawableLeft="@drawable/ic_arrow_back"
             android:drawablePadding="@dimen/screen_margin"
             android:textAppearance="@style/TextAppearance.OpenSans.Bold.Headline6"

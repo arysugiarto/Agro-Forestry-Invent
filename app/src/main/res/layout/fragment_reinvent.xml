@@ -383,12 +383,13 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/boxJarakTanam"
+                    app:layout_constraintTop_toTopOf="@+id/vBranch"
+                    app:layout_constraintBottom_toBottomOf="@+id/vBranch"
                     android:layout_marginTop="@dimen/screen_margin"
                     android:layout_marginStart="@dimen/screen_margin"
                     android:textAlignment="textStart"
                     android:text="Pendataan ulang"
-                    android:textAppearance="@style/TextAppearance.OpenSans.Bold.Body1" />
+                    android:textAppearance="@style/TextAppearance.OpenSans.SemiBold.Body2" />
 
                 <View
                     android:id="@+id/vBranch"
@@ -400,8 +401,8 @@
                     android:background="@drawable/bg_spinner"
                     app:layout_constraintBottom_toBottomOf="@id/sBranch"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/tvTitleObserve" />
+                    app:layout_constraintStart_toEndOf="@+id/glPolaTanam"
+                    app:layout_constraintTop_toBottomOf="@+id/boxJarakTanam" />
 
                 <Spinner
                     android:id="@+id/sBranch"
@@ -451,7 +452,7 @@
                     app:placeholderTextColor="@color/dove_gray">
 
                     <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/etTinggiTanaman"
+                        android:id="@+id/etJmlTanam"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:imeOptions="actionNext"
@@ -621,7 +622,6 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="@+id/boxTinggi"
                     app:layout_constraintBottom_toBottomOf="@id/boxTinggi"
-                    android:layout_marginTop="@dimen/normal_margin"
                     android:layout_marginStart="@dimen/screen_margin"
                     android:textAlignment="textStart"
                     android:text="Tinggi(cm)"
@@ -653,6 +653,56 @@
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/etTinggi"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:imeOptions="actionNext"
+                        android:inputType="number"
+                        android:maxLength="25"
+                        android:maxLines="1"
+                        android:textAppearance="@style/TextAppearance.OpenSans.Regular.Body2"
+                        android:textColor="@color/dove_gray"
+                        tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/tvPenyulaman"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/boxPenyulaman"
+                    app:layout_constraintBottom_toBottomOf="@id/boxPenyulaman"
+                    android:layout_marginStart="@dimen/screen_margin"
+                    android:textAlignment="textStart"
+                    android:text="Penyulaman"
+                    android:textAppearance="@style/TextAppearance.OpenSans.SemiBold.Body2" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/boxPenyulaman"
+                    style="@style/TextInputLayout.Login.Form.Outlined.Dense"
+                    android:layout_width="@dimen/zero_margin"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/screen_margin"
+                    android:layout_marginEnd="@dimen/screen_margin"
+                    android:layout_marginTop="@dimen/screen_margin"
+                    app:boxBackgroundColor="@color/white"
+                    app:boxCornerRadiusBottomEnd="@dimen/_8sdp"
+                    app:boxCornerRadiusBottomStart="@dimen/_8sdp"
+                    app:boxCornerRadiusTopEnd="@dimen/_8sdp"
+                    app:boxCornerRadiusTopStart="@dimen/_8sdp"
+                    app:boxStrokeColor="@drawable/bg_input_text"
+                    app:boxStrokeWidth="@dimen/_1sdp"
+                    android:paddingBottom="@dimen/screen_margin"
+                    app:boxStrokeWidthFocused="1dp"
+                    app:expandedHintEnabled="false"
+                    app:layout_constraintStart_toStartOf="@+id/glPolaTanam"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/boxTinggi"
+                    app:placeholderTextAppearance="@style/TextAppearance.OpenSans.Regular.Body2"
+                    app:placeholderTextColor="@color/dove_gray">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/etPenyulaman"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:imeOptions="actionNext"
@@ -716,7 +766,6 @@
             android:insetTop="@dimen/zero_margin"
             android:insetBottom="@dimen/zero_margin"
             android:paddingTop="@dimen/normal_margin"
-            android:visibility="gone"
             android:text="@string/save"
             android:textAppearance="@style/TextAppearance.OpenSans.Medium.Body2"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -733,6 +782,7 @@
             android:layout_marginEnd="@dimen/screen_margin"
             android:layout_marginBottom="@dimen/large_margin"
             android:backgroundTint="@color/gray"
+            android:visibility="gone"
             android:insetTop="@dimen/zero_margin"
             android:insetBottom="@dimen/zero_margin"
             android:paddingTop="@dimen/normal_margin"
