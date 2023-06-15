@@ -73,6 +73,9 @@ class ReInventFragment : Fragment(R.layout.fragment_reinvent), OnMapReadyCallbac
 
     var plotCodeId = emptyString
     var reinvent = emptyString
+    var idComodity = emptyString
+    var edit = emptyBoolean
+    var id = emptyString
 
     private var reInventEntity: ReinventEntity = ReinventEntity()
 
@@ -81,6 +84,8 @@ class ReInventFragment : Fragment(R.layout.fragment_reinvent), OnMapReadyCallbac
         super.onViewCreated(view, savedInstanceState)
 
         initOnClick()
+        initViewModel()
+        getReInvent()
 
         parentBottomAppBar?.isVisible = false
         parentNavigation?.isVisible = false
@@ -97,6 +102,37 @@ class ReInventFragment : Fragment(R.layout.fragment_reinvent), OnMapReadyCallbac
 
         spinner()
     }
+
+    private fun initViewModel() {
+        viewModels.getLocalReInvent(args.idKomoditas.toString())
+    }
+
+    //getInventEdit
+    private fun getReInvent() {
+        var data = emptyList<ReinventEntity>()
+        viewModels.getReInvent.observe(viewLifecycleOwner) { result ->
+            data = result.orEmpty()
+
+            if (data.firstOrNull()?.edit == true) {
+                edit = data.firstOrNull()?.edit.orEmpty
+                id = data.firstOrNull()?.id.toString()
+                binding.etKodePlot.textOrNull = data.firstOrNull()?.kodePlot
+                binding.etKomoditas.textOrNull = data.firstOrNull()?.comodity
+                binding.etKeliling.textOrNull = data.firstOrNull()?.keliling
+                binding.etTinggi.textOrNull = data.firstOrNull()?.tinggi
+                binding.etJmlTanam.textOrNull = data.firstOrNull()?.jmlTanam
+                binding.etJmlHidup.textOrNull = data.firstOrNull()?.jmlHidup
+                binding.etJmlSakit.textOrNull = data.firstOrNull()?.jmlSakit
+                binding.etPolaTanam.textOrNull = data.firstOrNull()?.polaTanam
+                idComodity = data.firstOrNull()?.idComodity.toString()
+            }
+
+
+            Timber.e("test%s", data.toString())
+
+        }
+    }
+
 
     private fun spinner() {
         val adapter = ArrayAdapter.createFromResource(
@@ -309,20 +345,39 @@ class ReInventFragment : Fragment(R.layout.fragment_reinvent), OnMapReadyCallbac
 
             binding.btnAdd -> {
 
-                reInventEntity = ReinventEntity(
-                    idPlot = args.idPlot?.toInt(),
-                    kodePlot = "K-PP1",
-                    comodity = "kopi",
-                    polaTanam = "Monokultur",
-                    reinventPhase = reinvent,
-                    jmlTanam = binding.etJmlTanam.text.toString(),
-                    keliling = binding.etKeliling.text.toString(),
-                    tinggi = binding.etTinggi.text.toString(),
-                    edit = true,
-                    penyulaman = binding.etPenyulaman.text.toString()
-                )
+                if (edit == true){
+                    viewModels.updateReInvent(
+                        jmlTanam = binding.etJmlTanam.text.toString(),
+                        jmlHidup = binding.etJmlHidup.text.toString(),
+                        jmlSakit = binding.etJmlSakit.text.toString(),
+                        keliling = binding.etKeliling.text.toString(),
+                        tinggi = binding.etTinggi.text.toString(),
+                        photo = "",
+                        lat= "",
+                        lng= "",
+                        idComodity = args.idKomoditas?.toInt(),
+                        id= id
+                    )
+                }else{
+                    reInventEntity = ReinventEntity(
+                        idPlot = args.idPlot?.toInt(),
+                        kodePlot = binding.etKodePlot.text.toString(),
+                        comodity = binding.etKomoditas.text.toString(),
+                        polaTanam = binding.etPolaTanam.text.toString(),
+                        reinventPhase = reinvent,
+                        jmlTanam = binding.etJmlTanam.text.toString(),
+                        jmlHidup = binding.etJmlHidup.text.toString(),
+                        jmlSakit = binding.etJmlSakit.text.toString(),
+                        keliling = binding.etKeliling.text.toString(),
+                        tinggi = binding.etTinggi.text.toString(),
+                        edit = true,
+                        penyulaman = binding.etPenyulaman.text.toString(),
+                        idComodity = args.idKomoditas
+                    )
 
-                viewModels.insertLocalReinvent(reInventEntity)
+                    viewModels.insertLocalReinvent(reInventEntity)
+
+                }
 
                 navController.navigateOrNull(
                     ReInventFragmentDirections.actionMonitoringWorkerFragmentToReinventComodityFragment(

@@ -112,4 +112,31 @@ class LocalDataSource(
     suspend fun insertReInvent(reInventEntity: ReinventEntity) =
         daoReInvent.insertReInvent(reInventEntity)
 
+    fun getReInvent(idComodity: String) =
+        daoReInvent.getReInvent(idComodity)
+
+    suspend fun updateReInvent(
+        jmlTanam: String?,
+        jmlHidup: String?,
+        jmlSakit: String?,
+        keliling: String?,
+        tinggi: String?,
+        photo: String?,
+        lat: String?,
+        lng: String?,
+        idComodity: Int?,
+        id: String?
+    ) =
+        daoReInvent.updateReInvent(
+            jmlTanam,
+            jmlHidup,
+            jmlSakit,
+            keliling,
+            tinggi,
+            photo,
+            lat,
+            lng,
+            idComodity,
+            id
+        )
 }

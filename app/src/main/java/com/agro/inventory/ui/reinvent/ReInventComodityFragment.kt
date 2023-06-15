@@ -83,7 +83,8 @@ class ReInventComodityFragment : Fragment(R.layout.fragment_comodity) {
                     args.idPlot,
                     args.kodePlot,
                     args.polaTanam,
-                    item.comodity
+                    item.comodity,
+                    item.id.toString()
                 )
             )
         }

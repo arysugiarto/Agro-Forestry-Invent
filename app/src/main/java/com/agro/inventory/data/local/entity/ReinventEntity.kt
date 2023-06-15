@@ -24,6 +24,7 @@ data class ReinventEntity(
     val photo: String? = null,
     val lat: String? = null,
     val lng: String? = null,
+    val idComodity: String? = null
 )
 
 

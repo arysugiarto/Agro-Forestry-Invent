@@ -64,4 +64,30 @@ class LocalRepository(
 
     override suspend fun insertReInventLocal(reInventEntity: ReinventEntity) = localDataSource.insertReInvent(reInventEntity)
 
+    override fun getReInvent(idComodity: String) = localDataSource.getReInvent(idComodity)
+    override suspend fun updateReInvent(
+        jmlTanam: String?,
+        jmlHidup: String?,
+        jmlSakit: String?,
+        keliling: String?,
+        tinggi: String?,
+        photo: String?,
+        lat: String?,
+        lng: String?,
+        idComodity: Int?,
+        id: String?
+    ) =
+        localDataSource.updateReInvent(
+            jmlTanam,
+            jmlHidup,
+            jmlSakit,
+            keliling,
+            tinggi,
+            photo,
+            lat,
+            lng,
+            idComodity,
+            id
+        )
+
 }
