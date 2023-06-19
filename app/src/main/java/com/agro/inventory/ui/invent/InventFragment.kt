@@ -117,6 +117,16 @@ class InventFragment : Fragment(R.layout.fragment_invent), OnMapReadyCallback {
                 binding.etJmlTanaman.textOrNull = data.firstOrNull()?.jmlTanam
                 binding.etPolaTanam.textOrNull = data.firstOrNull()?.polaTanam
                 idComodity = data.firstOrNull()?.idComodity.toString()
+                binding.tvLattitude.textOrNull = data.firstOrNull()?.lat
+                binding.tvLongitude.textOrNull = data.firstOrNull()?.lng
+                binding.ivPhoto.loadImage(
+                    data.firstOrNull()?.photo,
+                    ImageCornerOptions.ROUNDED
+                )
+
+                uriImage = data.firstOrNull()?.photo.toString()
+                lat = data.firstOrNull()?.lat.toString()
+                long = data.firstOrNull()?.lng.toString()
             }
 
 
@@ -316,9 +326,9 @@ class InventFragment : Fragment(R.layout.fragment_invent), OnMapReadyCallback {
                         keliling = binding.etKeliling.text.toString(),
                         tinggi = binding.etTinggi.text.toString(),
                         idComodity = args.idKomoditas?.toInt(),
-                        photo = "",
-                        lat= "",
-                        lng= "",
+                        photo = uriImage,
+                        lat= lat,
+                        lng= long,
                         id= id
                     )
                 } else {
@@ -331,7 +341,10 @@ class InventFragment : Fragment(R.layout.fragment_invent), OnMapReadyCallback {
                         jmlTanam = binding.etJmlTanaman.text.toString(),
                         keliling = binding.etKeliling.text.toString(),
                         tinggi = binding.etTinggi.text.toString(),
-                        edit = true
+                        edit = true,
+                        lat = lat,
+                        lng = long,
+                        photo = uriImage
                     )
 
                     viewModels.insertLocalInvent(inventEntity)

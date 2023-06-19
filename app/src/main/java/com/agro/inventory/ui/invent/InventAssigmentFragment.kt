@@ -61,11 +61,8 @@ class InventAssigmentFragment : Fragment(R.layout.fragment_invent_assigment) {
         parentBottomAppBar?.isVisible = false
         parentNavigation?.isVisible = false
 
-        binding.tvTitle.textOrNull = ""
 
     }
-
-
 
     private fun initViewModelCallback() {
 

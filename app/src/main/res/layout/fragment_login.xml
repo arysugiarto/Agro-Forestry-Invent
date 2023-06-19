@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/sandy_brown">
+    android:background="@color/white">
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
@@ -195,9 +195,9 @@
                 android:layout_marginTop="@dimen/screen_margin"
                 android:layout_marginEnd="@dimen/screen_margin"
                 android:insetTop="@dimen/zero_margin"
-                android:backgroundTint="@color/green"
+                android:backgroundTint="@color/sandy_brown"
                 android:insetBottom="@dimen/zero_margin"
-                android:textColor="@color/sandy_brown"
+                android:textColor="@color/green"
                 android:text="@string/login_login"
                 android:textAppearance="@style/TextAppearance.Poppins.Medium.Body2"
                 app:layout_constraintEnd_toEndOf="parent"

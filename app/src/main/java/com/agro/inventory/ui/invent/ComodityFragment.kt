@@ -101,7 +101,7 @@ class ComodityFragment : Fragment(R.layout.fragment_comodity) {
         when (view) {
             binding.tvTitle -> {
                 navController.navigateOrNull(
-                    ComodityFragmentDirections.actionComodityFragmentToInventFragment()
+                    ComodityFragmentDirections.actionComodityFragmentToKodePlotFragment()
                 )
             }
         }

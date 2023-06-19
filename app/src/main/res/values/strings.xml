@@ -14,7 +14,7 @@
     <string name="welcome_register">Register</string>
     <string name="welcome">Welcome</string>
     <string name="welcome_name_app">Agroforestry</string>
-    <string name="welcome_login_app">Inventary Agroforestry</string>
+    <string name="welcome_login_app">Inventory Agroforestry</string>
     <string name="login_forgot_password">Lupa password</string>
     <string name="login_login">Masuk</string>
     <string name="login_password_hint">Masukan password</string>

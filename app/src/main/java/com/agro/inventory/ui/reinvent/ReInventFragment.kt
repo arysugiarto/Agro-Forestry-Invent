@@ -125,6 +125,16 @@ class ReInventFragment : Fragment(R.layout.fragment_reinvent), OnMapReadyCallbac
                 binding.etJmlSakit.textOrNull = data.firstOrNull()?.jmlSakit
                 binding.etPolaTanam.textOrNull = data.firstOrNull()?.polaTanam
                 idComodity = data.firstOrNull()?.idComodity.toString()
+                binding.tvLattitude.textOrNull = data.firstOrNull()?.lat
+                binding.tvLongitude.textOrNull = data.firstOrNull()?.lng
+                binding.ivPhoto.loadImage(
+                    data.firstOrNull()?.photo,
+                    ImageCornerOptions.ROUNDED
+                )
+
+                uriImage = data.firstOrNull()?.photo.toString()
+                lat = data.firstOrNull()?.lat.toString()
+                long = data.firstOrNull()?.lng.toString()
             }
 
 
@@ -158,8 +168,6 @@ class ReInventFragment : Fragment(R.layout.fragment_reinvent), OnMapReadyCallbac
 
         }
     }
-
-
 
     // Lat Long Location
     @SuppressLint("MissingPermission", "SetTextI18n")
@@ -352,9 +360,9 @@ class ReInventFragment : Fragment(R.layout.fragment_reinvent), OnMapReadyCallbac
                         jmlSakit = binding.etJmlSakit.text.toString(),
                         keliling = binding.etKeliling.text.toString(),
                         tinggi = binding.etTinggi.text.toString(),
-                        photo = "",
-                        lat= "",
-                        lng= "",
+                        photo = uriImage,
+                        lat= lat,
+                        lng= long,
                         idComodity = args.idKomoditas?.toInt(),
                         id= id
                     )
@@ -372,7 +380,10 @@ class ReInventFragment : Fragment(R.layout.fragment_reinvent), OnMapReadyCallbac
                         tinggi = binding.etTinggi.text.toString(),
                         edit = true,
                         penyulaman = binding.etPenyulaman.text.toString(),
-                        idComodity = args.idKomoditas
+                        idComodity = args.idKomoditas,
+                        photo = uriImage,
+                        lat= lat,
+                        lng= long,
                     )
 
                     viewModels.insertLocalReinvent(reInventEntity)
