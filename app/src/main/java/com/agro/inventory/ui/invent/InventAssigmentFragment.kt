@@ -161,7 +161,7 @@ class InventAssigmentFragment : Fragment(R.layout.fragment_invent_assigment) {
                         idPlot,
                         kodePlot,
                         polaTanam,
-                        komoditas,
+                        item.comodity,
                         item.id.toString()
                     )
                 )

@@ -18,10 +18,10 @@ object InventAdapter {
                     view.run {
 
                         tvTitlePlot.textOrNull = item.kodePlot
-                        tvPolaTanamValue.textOrNull = ":" + item.polaTanamName
-                        tvComodityValue.textOrNull = ":" + item.komoditas
+                        tvPolaTanam.textOrNull = item.polaTanamName
+                        tvComodity.textOrNull = item.komoditas
 
-                        cvPlot.setOnClickListener {
+                        btnNext.setOnClickListener {
                             onClickCodePlotCallback.invoke(item)
                         }
 

@@ -32,6 +32,20 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/tvLahan"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/screen_margin"
+                android:layout_marginTop="@dimen/screen_margin"
+                android:text="Lahan 1"
+                android:padding="2dp"
+                android:visibility="gone"
+                android:background="@color/sandy_brown"
+                android:textAppearance="@style/TextAppearance.OpenSans.Bold.Body1"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
 
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/tvPolaTanam"
@@ -62,7 +76,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                app:layout_constraintGuide_percent="0.4" />
+                app:layout_constraintGuide_percent="0.3" />
 
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/tvPolaTanamValue"
@@ -70,6 +84,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/screen_margin"
                 android:text=": Monokultur"
+                android:visibility="gone"
                 android:textAppearance="@style/TextAppearance.OpenSans.Regular.Body1"
                 app:layout_constraintBottom_toBottomOf="@id/tvPolaTanam"
                 app:layout_constraintStart_toEndOf="@+id/glPlot"
@@ -81,10 +96,53 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/screen_margin"
                 android:text=": Kopi"
+                android:visibility="gone"
                 android:textAppearance="@style/TextAppearance.OpenSans.Regular.Body1"
                 app:layout_constraintBottom_toBottomOf="@id/tvComodity"
                 app:layout_constraintStart_toEndOf="@+id/glPlot"
                 app:layout_constraintTop_toTopOf="@+id/tvComodity" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnNext"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/small_margin"
+                android:layout_marginEnd="@dimen/screen_margin"
+                android:backgroundTint="@color/green"
+                android:text="Mulai"
+                android:textAllCaps="false"
+                android:textAppearance="@style/TextAppearance.OpenSans.SemiBold.Button"
+                app:layout_constraintBottom_toTopOf="@id/btnDone"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnDone"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/screen_margin"
+                android:layout_marginBottom="@dimen/normal_margin"
+                android:backgroundTint="@color/sandy_brown"
+                android:text="@string/done"
+                android:textAllCaps="false"
+                android:textAppearance="@style/TextAppearance.OpenSans.SemiBold.Button"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/tvDone"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/screen_margin"
+                android:layout_marginEnd="@dimen/screen_margin"
+                android:text="Selesai"
+                android:textAppearance="@style/TextAppearance.OpenSans.SemiBold.Body1"
+                android:textColor="@color/jungle_green"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

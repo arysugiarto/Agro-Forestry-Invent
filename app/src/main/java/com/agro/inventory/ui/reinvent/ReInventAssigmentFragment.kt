@@ -1,4 +1,4 @@
-package com.agro.inventory.ui.invent
+package com.agro.inventory.ui.reinvent
 
 import android.os.Bundle
 import android.view.View
@@ -6,21 +6,12 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.hilt.navigation.fragment.hiltNavGraphViewModels
-import androidx.lifecycle.lifecycleScope
-import cn.pedant.SweetAlert.SweetAlertDialog
 import com.agro.inventory.R
-import com.agro.inventory.data.local.entity.ActivitiesEntity
-import com.agro.inventory.data.local.entity.AreaEntity
 import com.agro.inventory.data.preferences.AccessManager
 import com.agro.inventory.data.remote.Result
-import com.agro.inventory.data.remote.model.AllMonitoringWorkerBodyRequest
-import com.agro.inventory.data.remote.model.AreaResponse
 import com.agro.inventory.data.remote.model.invent.Comodity
-import com.agro.inventory.databinding.FragmentInventAssigmentBinding
 import com.agro.inventory.databinding.FragmentReinventAssigmentBinding
 import com.agro.inventory.databinding.LayoutChooseComodityBinding
-import com.agro.inventory.ui.home.adapter.HomeAdapter
-import com.agro.inventory.ui.invent.adapter.InventAdapter
 import com.agro.inventory.ui.invent.adapter.ReInventAdapter
 import com.agro.inventory.ui.invent.adapter.ReInventAdapter.setOnClickCodePlot
 import com.agro.inventory.ui.invent.adapter.ReInventAdapter.setOnClickComodityPlot
@@ -35,8 +26,6 @@ import com.agro.inventory.util.viewBinding
 import com.agro.inventory.viewmodel.HomeViewModel
 import com.agro.inventory.viewmodel.LocalViewModel
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.launch
-import timber.log.Timber
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -88,7 +77,6 @@ class ReInventAssigmentFragment : Fragment(R.layout.fragment_reinvent_assigment)
 
     private fun initAdapter() {
         binding.rvLand.adapter = kodePlotAdapter
-
     }
 
 
@@ -156,7 +144,7 @@ class ReInventAssigmentFragment : Fragment(R.layout.fragment_reinvent_assigment)
                         idPlot,
                         kodePlot,
                         polaTanam,
-                        komoditas,
+                        item.comodity,
                         item.id.toString()
                     )
                 )

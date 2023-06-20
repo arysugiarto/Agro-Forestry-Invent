@@ -77,25 +77,13 @@
             <LayoutPositions>
               <option name="myPositions">
                 <map>
-                  <entry key="comodity_fragment">
-                    <value>
-                      <LayoutPositions>
-                        <option name="myPosition">
-                          <Point>
-                            <option name="x" value="766" />
-                            <option name="y" value="9" />
-                          </Point>
-                        </option>
-                      </LayoutPositions>
-                    </value>
-                  </entry>
                   <entry key="home_fragment">
                     <value>
                       <LayoutPositions>
                         <option name="myPosition">
                           <Point>
-                            <option name="x" value="-1210" />
-                            <option name="y" value="-864" />
+                            <option name="x" value="-1817" />
+                            <option name="y" value="-1055" />
                           </Point>
                         </option>
                         <option name="myPositions">
@@ -125,8 +113,8 @@
                       <LayoutPositions>
                         <option name="myPosition">
                           <Point>
-                            <option name="x" value="-796" />
-                            <option name="y" value="-684" />
+                            <option name="x" value="-723" />
+                            <option name="y" value="-1184" />
                           </Point>
                         </option>
                         <option name="myPositions">
@@ -172,8 +160,8 @@
                       <LayoutPositions>
                         <option name="myPosition">
                           <Point>
-                            <option name="x" value="-748" />
-                            <option name="y" value="-1199" />
+                            <option name="x" value="-1209" />
+                            <option name="y" value="-1452" />
                           </Point>
                         </option>
                       </LayoutPositions>
@@ -201,18 +189,6 @@
                               </value>
                             </entry>
                           </map>
-                        </option>
-                      </LayoutPositions>
-                    </value>
-                  </entry>
-                  <entry key="reinvent_comodity_fragment">
-                    <value>
-                      <LayoutPositions>
-                        <option name="myPosition">
-                          <Point>
-                            <option name="x" value="445" />
-                            <option name="y" value="592" />
-                          </Point>
                         </option>
                       </LayoutPositions>
                     </value>

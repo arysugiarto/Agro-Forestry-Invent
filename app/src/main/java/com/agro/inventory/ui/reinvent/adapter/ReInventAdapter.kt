@@ -20,7 +20,7 @@ object ReInventAdapter {
                         tvPolaTanamValue.textOrNull = ":" + item.polaTanamName
                         tvComodityValue.textOrNull = ":" + item.komoditas
 
-                        cvPlot.setOnClickListener {
+                        btnNext.setOnClickListener {
                             onClickCodePlotCallback.invoke(item)
                         }
 

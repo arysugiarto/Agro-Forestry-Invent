@@ -23,14 +23,14 @@
     <string name="title_coordinate">Koordinat</string>
     <string name="lattitude">Latitude :</string>
     <string name="title_logitude">Longitude :</string>
-    <string name="login_photo">Ambil photo plot</string>
+    <string name="login_photo">Ambil Photo plot</string>
     <string name="title_accurate">Akurasi</string>
-    <string name="kode_plot">Kode plot</string>
-    <string name="pola_tanam">Pola tanam</string>
-    <string name="name_worker">Nama pekerja</string>
+    <string name="kode_plot">Kode Plot</string>
+    <string name="pola_tanam">Pola Tanam</string>
+    <string name="name_worker">Nama Pekerja</string>
     <string name="login_comodity_hint">Masukan Komoditas</string>
     <string name="comodity">Komoditas</string>
-    <string name="work_hint">Pilih pekerjaan</string>
+    <string name="work_hint">Pilih Pekerjaan</string>
     <string name="work">Pekerjaan</string>
     <string name="volume_work_hint">Volume</string>
     <string name="satuan_hint">Satuan</string>
@@ -74,12 +74,12 @@
     <string name="input_data">Tambah pendataan</string>
     <string name="edit_input">Ubah input data</string>
     <string name="list_data">Daftar data</string>
-    <string name="jarak_tanam">Jarak tanam</string>
+    <string name="jarak_tanam">Jarak Tanam</string>
     <string name="list_comodity">Daftar Komoditas</string>
     <string name="invent">Pendataan</string>
     <string name="reinvent">Pendataan Ulang</string>
     <string name="main_exit_app">Klik dua kali untuk keluar</string>
-    <string name="input_data_reinvent">Tambah pendataan ulang</string>
+    <string name="input_data_reinvent">Tambah Pendataan Ulang</string>
     <string name="logout">Keluar</string>
 
 </resources>
