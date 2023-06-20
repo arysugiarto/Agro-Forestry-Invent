@@ -81,5 +81,6 @@
     <string name="main_exit_app">Klik dua kali untuk keluar</string>
     <string name="input_data_reinvent">Tambah Pendataan Ulang</string>
     <string name="logout">Keluar</string>
+    <string name="permission_access_request_location">Fitur ini memerlukan izin untuk mengakses lokasi terkini.</string>
 
 </resources>

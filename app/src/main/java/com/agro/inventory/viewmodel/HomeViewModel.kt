@@ -26,8 +26,6 @@ class HomeViewModel @Inject constructor(
     private val repository = homeRepository
     private val stateHandler = savedStateHandle
 
-    private var _area: MutableLiveData<Result<AreaResponse>> = MutableLiveData()
-    val area: LiveData<Result<AreaResponse>>get() = _area
     private var _plot: MutableLiveData<Event<Result<ListPlotResponse>>> = MutableLiveData()
     val plot: LiveData<Event<Result<ListPlotResponse>>>get() = _plot
     private var _plotDetails: MutableLiveData<Event<Result<DetailsPlotResponse>>> = MutableLiveData()
@@ -67,12 +65,6 @@ class HomeViewModel @Inject constructor(
         _plotDatastore.value = it.toString()
     }.launchIn(viewModelScope)
 
-
-    fun requestArea(token: String,sobiDate:String,userAccessId:String, memberId:String) =
-        repository.requestArea(token,sobiDate,userAccessId,memberId)
-            .onEach { result ->
-                _area.value = result
-            }.launchIn(viewModelScope)
 
     fun requestListPlot(token: String,sobiDate:String, areaId:String) =
         repository.requestListPlot(token,sobiDate, areaId)

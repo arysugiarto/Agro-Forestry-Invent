@@ -443,6 +443,7 @@
                     app:boxCornerRadiusTopStart="@dimen/_8sdp"
                     app:boxStrokeColor="@drawable/bg_input_text"
                     app:boxStrokeWidth="@dimen/_1sdp"
+                    android:enabled="false"
                     app:boxStrokeWidthFocused="1dp"
                     app:expandedHintEnabled="false"
                     app:layout_constraintStart_toStartOf="@+id/glPolaTanam"

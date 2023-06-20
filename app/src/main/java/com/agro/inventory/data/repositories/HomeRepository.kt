@@ -16,8 +16,6 @@ class HomeRepository(
         gambar: File?
     ) = remoteDataSource.handleUploadImage(token, sobiDate, gambar)
 
-    override fun requestArea(token:String, sobiDate:String, userAccessId:String, memberId:String) =
-        remoteDataSource.requestArea(token,sobiDate,userAccessId,memberId)
 
     override fun requestListPlot(token:String, sobiDate:String, areaId:String) =
         remoteDataSource.requestListPlot(token,sobiDate, areaId)

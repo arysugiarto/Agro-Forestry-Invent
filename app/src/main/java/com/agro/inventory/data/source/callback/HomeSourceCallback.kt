@@ -14,13 +14,6 @@ interface HomeSourceCallback {
         gambar: File?
     ): Flow<Result<Files>>
 
-    fun requestArea(
-        token: String,
-        sobiDate: String,
-        userAccesId:String,
-        memberId: String
-    ): Flow<Result<AreaResponse>>
-
     fun requestListPlot(
         token: String,
         sobiDate: String,

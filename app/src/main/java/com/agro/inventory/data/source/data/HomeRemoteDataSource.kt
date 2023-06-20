@@ -26,10 +26,6 @@ class HomeRemoteDataSource(callback: ApiCallback) {
         )
     }
 
-    fun requestArea(token: String, sobiDate: String, userAccesId: String, memberId: String) =
-        flowResponse {
-            apiCallback.requestArea(token, sobiDate, userAccesId, memberId)
-        }
 
     fun requestListPlot(token: String, sobiDate: String, areaid: String) =
         flowResponse {

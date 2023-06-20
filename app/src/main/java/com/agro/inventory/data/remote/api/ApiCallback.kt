@@ -27,14 +27,6 @@ interface ApiCallback {
     suspend fun requestToken(
     ): Response<TokenResponse>
 
-    @GET(Const.NETWORK.AREA)
-    suspend fun requestArea(
-        @Header("Authorization") token: String,
-        @Header("Sobi-Date") sobiDate: String,
-        @Query("user_access_id") userAccessId: String,
-        @Query("member_id") memberId: String
-    ): Response<AreaResponse>
-
     @GET(Const.NETWORK.LIST_PLOT)
     suspend fun requestListPlot(
         @Header("Authorization") token: String,
