@@ -19,8 +19,8 @@ interface ReInventDao {
     @Query("SELECT * FROM reinvent_entity")
     fun getReInventAll(): Flow<List<ReinventEntity>>
 
-    @Query("SELECT * FROM reinvent_entity WHERE idComodity =:idComodity")
-     fun getReInvent(idComodity: String): Flow<List<ReinventEntity>>
+    @Query("SELECT * FROM reinvent_entity WHERE idComodity =:idComodity AND kodePlot =:kodePlot")
+     fun getReInvent(idComodity: String, kodePlot: String): Flow<List<ReinventEntity>>
 
     @Query("UPDATE reinvent_entity SET jmlTanam =:jmlTanam,jmlHidup =:jmlHidup, jmlSakit =:jmlSakit, keliling =:keliling, tinggi =:tinggi, photo =:photo, lat =:lat, lng =:lng, idComodity =:idComodity WHERE id =:id")
     suspend fun updateReInvent(

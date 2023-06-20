@@ -39,7 +39,7 @@ class LocalRepository(
 
     override suspend fun insertInventLocal(inventEntity: InventEntity) = localDataSource.insertInvent(inventEntity)
 
-    override fun getInvent(idComodity: String) = localDataSource.getInvent(idComodity)
+    override fun getInvent(idComodity: String, kodePlot: String) = localDataSource.getInvent(idComodity, kodePlot)
     override suspend fun updateInvent(
         jmlTanam: String?,
         keliling: String?,
@@ -64,7 +64,7 @@ class LocalRepository(
 
     override suspend fun insertReInventLocal(reInventEntity: ReinventEntity) = localDataSource.insertReInvent(reInventEntity)
 
-    override fun getReInvent(idComodity: String) = localDataSource.getReInvent(idComodity)
+    override fun getReInvent(idComodity: String, kodePlot: String) = localDataSource.getReInvent(idComodity,kodePlot)
     override suspend fun updateReInvent(
         jmlTanam: String?,
         jmlHidup: String?,

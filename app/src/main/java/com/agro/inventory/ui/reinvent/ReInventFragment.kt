@@ -104,7 +104,7 @@ class ReInventFragment : Fragment(R.layout.fragment_reinvent), OnMapReadyCallbac
     }
 
     private fun initViewModel() {
-        viewModels.getLocalReInvent(args.idKomoditas.toString())
+        viewModels.getLocalReInvent(args.idKomoditas.toString(), args.kodePlot.toString())
     }
 
     //getInventEdit
@@ -391,15 +391,13 @@ class ReInventFragment : Fragment(R.layout.fragment_reinvent), OnMapReadyCallbac
                 }
 
                 navController.navigateOrNull(
-                    ReInventFragmentDirections.actionMonitoringWorkerFragmentToReinventComodityFragment(
-                        status = "edit"
-                    )
+                    ReInventFragmentDirections.actionReinventFragmentToReInventAssigmentFragment()
                 )
 
             }
             binding.tvTitle -> {
                 navController.navigateOrNull(
-                    ReInventFragmentDirections.actionMonitoringWorkerFragmentToReinventComodityFragment()
+                    ReInventFragmentDirections.actionReinventFragmentToReInventAssigmentFragment()
                 )
             }
             binding.btnAddFalse -> {

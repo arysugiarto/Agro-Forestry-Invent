@@ -53,7 +53,7 @@
     <string name="image_picker_select_image_dialog_title">Ambil foto plot</string>
     <string name="image_picker_permission_access_camera">We Need Permission To Access Camera or Gallery!</string>
     <string name="add_activities">Kegiatan pekerjaan</string>
-    <string name="list_land">Daftar Lahan</string>
+    <string name="list_land">Daftar Penugasan</string>
     <string name="success">Berhasil</string>
     <string name="register_employee">Berhasil menambahkan data monitoring pekerja</string>
     <string name="list_plot">Daftar Kode Plot</string>

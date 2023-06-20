@@ -84,8 +84,8 @@ class LocalDataSource(
     suspend fun insertInvent(inventEntity: InventEntity) =
         daoInvent.insertInvent(inventEntity)
 
-    fun getInvent(idComodity: String) =
-        daoInvent.getInvent(idComodity)
+    fun getInvent(idComodity: String, kodePlot: String) =
+        daoInvent.getInvent(idComodity, kodePlot)
 
     suspend fun updateInvent(
         jmlTanam: String?,
@@ -112,8 +112,8 @@ class LocalDataSource(
     suspend fun insertReInvent(reInventEntity: ReinventEntity) =
         daoReInvent.insertReInvent(reInventEntity)
 
-    fun getReInvent(idComodity: String) =
-        daoReInvent.getReInvent(idComodity)
+    fun getReInvent(idComodity: String, kodePlot: String) =
+        daoReInvent.getReInvent(idComodity, kodePlot)
 
     suspend fun updateReInvent(
         jmlTanam: String?,

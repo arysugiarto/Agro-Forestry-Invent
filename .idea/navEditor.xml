@@ -82,46 +82,8 @@
                       <LayoutPositions>
                         <option name="myPosition">
                           <Point>
-                            <option name="x" value="70" />
-                            <option name="y" value="-719" />
-                          </Point>
-                        </option>
-                        <option name="myPositions">
-                          <map>
-                            <entry key="action_comodity_fragment_to_invent_fragment">
-                              <value>
-                                <LayoutPositions />
-                              </value>
-                            </entry>
-                            <entry key="action_comodity_fragment_to_kode_plot_fragment">
-                              <value>
-                                <LayoutPositions />
-                              </value>
-                            </entry>
-                          </map>
-                        </option>
-                      </LayoutPositions>
-                    </value>
-                  </entry>
-                  <entry key="edit_monitoring_worker_fragment">
-                    <value>
-                      <LayoutPositions>
-                        <option name="myPosition">
-                          <Point>
-                            <option name="x" value="465" />
-                            <option name="y" value="448" />
-                          </Point>
-                        </option>
-                      </LayoutPositions>
-                    </value>
-                  </entry>
-                  <entry key="edit_reinvent">
-                    <value>
-                      <LayoutPositions>
-                        <option name="myPosition">
-                          <Point>
-                            <option name="x" value="180" />
-                            <option name="y" value="610" />
+                            <option name="x" value="766" />
+                            <option name="y" value="9" />
                           </Point>
                         </option>
                       </LayoutPositions>
@@ -169,12 +131,12 @@
                         </option>
                         <option name="myPositions">
                           <map>
-                            <entry key="action_home_fragment_to_kode_plot_fragment">
+                            <entry key="action_invent_assigment_fragment_to_home_fragment">
                               <value>
                                 <LayoutPositions />
                               </value>
                             </entry>
-                            <entry key="action_invent_assigment_fragment_to_home_fragment">
+                            <entry key="action_invent_assigment_fragment_to_invent_fragment">
                               <value>
                                 <LayoutPositions />
                               </value>
@@ -189,39 +151,13 @@
                       <LayoutPositions>
                         <option name="myPosition">
                           <Point>
-                            <option name="x" value="345" />
-                            <option name="y" value="-239" />
+                            <option name="x" value="221" />
+                            <option name="y" value="-540" />
                           </Point>
                         </option>
                         <option name="myPositions">
                           <map>
-                            <entry key="action_invent_fragment_to_comodity_fragment">
-                              <value>
-                                <LayoutPositions />
-                              </value>
-                            </entry>
-                          </map>
-                        </option>
-                      </LayoutPositions>
-                    </value>
-                  </entry>
-                  <entry key="kode_plot_fragment">
-                    <value>
-                      <LayoutPositions>
-                        <option name="myPosition">
-                          <Point>
-                            <option name="x" value="-256" />
-                            <option name="y" value="-873" />
-                          </Point>
-                        </option>
-                        <option name="myPositions">
-                          <map>
-                            <entry key="action_kode_plot_fragment_to_comodity_fragment">
-                              <value>
-                                <LayoutPositions />
-                              </value>
-                            </entry>
-                            <entry key="action_kode_plot_fragment_to_invent_assigment_fragment">
+                            <entry key="action_invent_fragment_to_invent_assigment_fragment">
                               <value>
                                 <LayoutPositions />
                               </value>
@@ -259,7 +195,7 @@
                                 <LayoutPositions />
                               </value>
                             </entry>
-                            <entry key="action_re_invent_assigment_fragment_to_reinvent_kode_plot_fragment">
+                            <entry key="action_re_invent_assigment_fragment_to_reinvent_fragment">
                               <value>
                                 <LayoutPositions />
                               </value>
@@ -274,23 +210,9 @@
                       <LayoutPositions>
                         <option name="myPosition">
                           <Point>
-                            <option name="x" value="-766" />
-                            <option name="y" value="31" />
+                            <option name="x" value="445" />
+                            <option name="y" value="592" />
                           </Point>
-                        </option>
-                        <option name="myPositions">
-                          <map>
-                            <entry key="action_reinvent_comodity_fragment_to_reinvent_fragment">
-                              <value>
-                                <LayoutPositions />
-                              </value>
-                            </entry>
-                            <entry key="action_reinvent_comodity_fragment_to_reinvent_kode_plot_fragment">
-                              <value>
-                                <LayoutPositions />
-                              </value>
-                            </entry>
-                          </map>
                         </option>
                       </LayoutPositions>
                     </value>
@@ -306,33 +228,7 @@
                         </option>
                         <option name="myPositions">
                           <map>
-                            <entry key="action_monitoring_worker_fragment_to_reinvent_comodity_fragment">
-                              <value>
-                                <LayoutPositions />
-                              </value>
-                            </entry>
-                          </map>
-                        </option>
-                      </LayoutPositions>
-                    </value>
-                  </entry>
-                  <entry key="reinvent_kode_plot_fragment">
-                    <value>
-                      <LayoutPositions>
-                        <option name="myPosition">
-                          <Point>
-                            <option name="x" value="-1166" />
-                            <option name="y" value="-61" />
-                          </Point>
-                        </option>
-                        <option name="myPositions">
-                          <map>
-                            <entry key="action_reinvent_kode_plot_fragment_to_re_invent_assigment_fragment">
-                              <value>
-                                <LayoutPositions />
-                              </value>
-                            </entry>
-                            <entry key="action_reinvent_kode_plot_fragment_to_reinvent_comodity_fragment">
+                            <entry key="action_reinvent_fragment_to_re_invent_assigment_fragment">
                               <value>
                                 <LayoutPositions />
                               </value>

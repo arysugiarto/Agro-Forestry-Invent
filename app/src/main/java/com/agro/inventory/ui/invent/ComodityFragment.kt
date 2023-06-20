@@ -8,7 +8,7 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.hilt.navigation.fragment.hiltNavGraphViewModels
 import androidx.navigation.fragment.navArgs
-import com.agro.inventory.ui.invent.ComodityFragmentDirections
+//import com.agro.inventory.ui.invent.ComodityFragmentDirections
 import com.agro.inventory.R
 import com.agro.inventory.data.remote.model.invent.Comodity
 import com.agro.inventory.databinding.FragmentComodityBinding
@@ -76,17 +76,17 @@ class ComodityFragment : Fragment(R.layout.fragment_comodity) {
     }
 
     private fun initClickAdapter() {
-        InventAdapter.setOnClickComodityPlot { item ->
-            navController.navigateOrNull(
-                ComodityFragmentDirections.actionComodityFragmentToInventFragment(
-                    args.idPlot,
-                    args.kodePlot,
-                    args.polaTanam,
-                    item.comodity,
-                    item.id.toString()
-                )
-            )
-        }
+//        InventAdapter.setOnClickComodityPlot { item ->
+//            navController.navigateOrNull(
+//                ComodityFragmentDirections.actionComodityFragmentToInventFragment(
+//                    args.idPlot,
+//                    args.kodePlot,
+//                    args.polaTanam,
+//                    item.comodity,
+//                    item.id.toString()
+//                )
+//            )
+//        }
 
     }
 
@@ -99,11 +99,11 @@ class ComodityFragment : Fragment(R.layout.fragment_comodity) {
 
     private val onClickCallback = View.OnClickListener { view ->
         when (view) {
-            binding.tvTitle -> {
-                navController.navigateOrNull(
-                    ComodityFragmentDirections.actionComodityFragmentToKodePlotFragment()
-                )
-            }
+//            binding.tvTitle -> {
+//                navController.navigateOrNull(
+//                    ComodityFragmentDirections.actionComodityFragmentToInventAssigmentFragment()
+//                )
+//            }
         }
 
     }

@@ -18,8 +18,8 @@ interface InventDao {
     @Query("SELECT * FROM invent_entity")
     fun getInventAll(): Flow<List<InventEntity>>
 
-    @Query("SELECT * FROM invent_entity WHERE idComodity =:idComodity")
-     fun getInvent(idComodity: String): Flow<List<InventEntity>>
+    @Query("SELECT * FROM invent_entity WHERE idComodity =:idComodity AND kodePlot =:kodePlot")
+     fun getInvent(idComodity: String, kodePlot: String): Flow<List<InventEntity>>
 
     @Query("SELECT kodePlot FROM invent_entity")
     fun getKodePlot(): Int

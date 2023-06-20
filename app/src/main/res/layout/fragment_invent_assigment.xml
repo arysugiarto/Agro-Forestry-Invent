@@ -71,14 +71,14 @@
                 android:layout_marginStart="@dimen/screen_margin"
                 android:layout_marginTop="@dimen/screen_margin"
                 android:layout_marginBottom="@dimen/screen_margin"
-                android:text="@string/list_land"
+                android:text="@string/list_plot"
                 android:textAppearance="@style/TextAppearance.OpenSans.Bold.Body1"
                 android:textColor="@color/black"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rvLand"
+                android:id="@+id/rvPlot"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/small_margin"

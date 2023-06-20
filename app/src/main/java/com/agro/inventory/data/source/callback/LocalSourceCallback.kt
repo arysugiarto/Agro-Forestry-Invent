@@ -33,7 +33,7 @@ interface LocalSourceCallback {
 
     suspend fun insertReInventLocal(reinventEntity: ReinventEntity)
 
-    fun getReInvent(idComodity: String): Flow<List<ReinventEntity>>
+    fun getReInvent(idComodity: String, kodePlot: String): Flow<List<ReinventEntity>>
 
     suspend fun updateReInvent(
         jmlTanam: String?,
@@ -50,7 +50,7 @@ interface LocalSourceCallback {
 
     suspend fun insertInventLocal(inventEntity: InventEntity)
 
-    fun getInvent(idComodity: String): Flow<List<InventEntity>>
+    fun getInvent(idComodity: String, kodePlot: String): Flow<List<InventEntity>>
 
     suspend fun updateInvent(
         jmlTanam: String?,

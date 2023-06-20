@@ -77,17 +77,17 @@ class ReInventComodityFragment : Fragment(R.layout.fragment_comodity) {
     }
 
     private fun initClickAdapter() {
-        setOnClickComodityPlot { item ->
-            navController.navigateOrNull(
-                ReInventComodityFragmentDirections.actionReinventComodityFragmentToReinventFragment(
-                    args.idPlot,
-                    args.kodePlot,
-                    args.polaTanam,
-                    item.comodity,
-                    item.id.toString()
-                )
-            )
-        }
+//        setOnClickComodityPlot { item ->
+//            navController.navigateOrNull(
+//                ReInventComodityFragmentDirections.actionReinventComodityFragmentToReinventFragment(
+//                    args.idPlot,
+//                    args.kodePlot,
+//                    args.polaTanam,
+//                    item.comodity,
+//                    item.id.toString()
+//                )
+//            )
+//        }
 
     }
 
@@ -100,11 +100,11 @@ class ReInventComodityFragment : Fragment(R.layout.fragment_comodity) {
 
     private val onClickCallback = View.OnClickListener { view ->
         when (view) {
-            binding.tvTitle -> {
-                navController.navigateOrNull(
-                    ReInventComodityFragmentDirections.actionReinventComodityFragmentToReinventKodePlotFragment()
-                )
-            }
+//            binding.tvTitle -> {
+//                navController.navigateOrNull(
+//                    ReInventComodityFragmentDirections.actionReinventComodityFragmentToReInventAssigmentFragment()
+//                )
+//            }
         }
 
     }

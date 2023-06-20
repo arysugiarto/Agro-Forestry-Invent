@@ -98,7 +98,7 @@ class InventFragment : Fragment(R.layout.fragment_invent), OnMapReadyCallback {
     }
 
     private fun initViewModel() {
-        viewModels.getLocalInvent(args.idKomoditas.toString())
+        viewModels.getLocalInvent(args.idKomoditas.toString() , args.kodePlot.toString())
     }
 
     //getInventEdit
@@ -352,9 +352,7 @@ class InventFragment : Fragment(R.layout.fragment_invent), OnMapReadyCallback {
 
 
                 navController.navigateOrNull(
-                    InventFragmentDirections.actionInventFragmentToComodityFragment(
-                        status = "edit"
-                    )
+                    InventFragmentDirections.actionInventFragmentToInventAssigmentFragment()
                 )
 
             }

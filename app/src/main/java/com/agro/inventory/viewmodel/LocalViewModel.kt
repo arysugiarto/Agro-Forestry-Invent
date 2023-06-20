@@ -58,8 +58,8 @@ class LocalViewModel @Inject constructor(
             )
         }
 
-    fun getLocalReInvent(idComodity: String) =
-        repository.getReInvent(idComodity)
+    fun getLocalReInvent(idComodity: String, kodePlot: String) =
+        repository.getReInvent(idComodity, kodePlot)
             .onEach { result ->
                 _getReInvent.value = result
             }.launchIn(viewModelScope)
@@ -87,8 +87,8 @@ class LocalViewModel @Inject constructor(
             )
         }
 
-    fun getLocalInvent(idComodity: String) =
-        repository.getInvent(idComodity)
+    fun getLocalInvent(idComodity: String, kodePlot: String) =
+        repository.getInvent(idComodity, kodePlot)
             .onEach { result ->
                 _getInvent.value = result
             }.launchIn(viewModelScope)

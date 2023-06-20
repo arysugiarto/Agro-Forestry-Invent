@@ -16,10 +16,16 @@ import com.agro.inventory.data.preferences.AccessManager
 import com.agro.inventory.data.remote.Result
 import com.agro.inventory.data.remote.model.AllMonitoringWorkerBodyRequest
 import com.agro.inventory.data.remote.model.AreaResponse
+import com.agro.inventory.data.remote.model.invent.Comodity
 import com.agro.inventory.databinding.FragmentInventAssigmentBinding
+import com.agro.inventory.databinding.LayoutChooseComodityBinding
 import com.agro.inventory.ui.home.adapter.HomeAdapter
+import com.agro.inventory.ui.invent.adapter.InventAdapter
+import com.agro.inventory.ui.invent.adapter.InventAdapter.setOnClickComodityPlot
+import com.agro.inventory.ui.invent.adapter.ReInventAdapter
 import com.agro.inventory.ui.main.MainFragment.Companion.parentBottomAppBar
 import com.agro.inventory.ui.main.MainFragment.Companion.parentNavigation
+import com.agro.inventory.util.alertDialog
 import com.agro.inventory.util.emptyString
 import com.agro.inventory.util.livevent.EventObserver
 import com.agro.inventory.util.navController
@@ -40,171 +46,128 @@ class InventAssigmentFragment : Fragment(R.layout.fragment_invent_assigment) {
     private val viewModel by hiltNavGraphViewModels<HomeViewModel>(R.id.home)
     private val viewModels by viewModels<LocalViewModel>()
 
+    private var listComodity = emptyList<Comodity>()
+    private val comodityAdapter = InventAdapter.cmodityAdapter
+
+
     @Inject
     lateinit var accessManager: AccessManager
 
-    private val landAdapter = HomeAdapter.codePlotAdapter
-    var memberNo = emptyString
+    private val kodePlotAdapter = InventAdapter.codePlotAdapter
 
-    private var dataActivities = listOf<AllMonitoringWorkerBodyRequest.Data>()
-    private var item = AreaResponse()
-    private lateinit var area: List<AreaEntity>
+    var polaTanam = emptyString
+    var kodePlot = emptyString
+    var idPlot = emptyString
+    var komoditas = emptyString
+
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        initCallback()
+        initViewModel()
         initViewModelCallback()
         initOnClick()
+        initAdapter()
         initAdapterClick()
 
         parentBottomAppBar?.isVisible = false
         parentNavigation?.isVisible = false
 
+    }
 
+
+    private fun initViewModel() {
+        viewModel.requestListPlot(
+            "Sobi+Apps:ae7cda7f7b0e6f38638e40ad3ebb78a4",
+            "1550446421",
+           "2"
+        )
     }
 
     private fun initViewModelCallback() {
-
-        var data = emptyList<AreaEntity>()
-        viewModels.getAreaLocal.observe(viewLifecycleOwner) { result ->
-            data = result.orEmpty()
-            if (data.isEmpty()) {
-                binding.ivEmptyState.isVisible = true
-                binding.tvEmptyState.isVisible = true
-                binding.fab.isVisible = true
-                binding.rvLand.isVisible = false
-                binding.label.isVisible = false
-            } else {
-                binding.ivEmptyState.isVisible = false
-                binding.tvEmptyState.isVisible = false
-                binding.fab.isVisible = false
-                binding.rvLand.isVisible = true
-                binding.label.isVisible = true
-            }
-
-        }
-
-        viewModel.requestSaveMonitoringWorkerAll(
-            "Sobi+Apps:ae7cda7f7b0e6f38638e40ad3ebb78a4",
-            "1550446421",
-            dataActivities
-        )
-
-        Timber.e(dataActivities.toString())
+        initPlotCallback()
     }
 
-    private fun initCallback() {
-        initAreaLocalCallback()
+
+    private fun initAdapter() {
+        binding.rvPlot.adapter = kodePlotAdapter
+
     }
 
-    private fun iniSaveMonitoringWorker() {
-        viewModel.saveMonitoringWorkerAll.observe(viewLifecycleOwner, EventObserver { result ->
+
+    private fun initPlotCallback() {
+        viewModel.plot.observe(viewLifecycleOwner, EventObserver { result ->
             when (result) {
                 is Result.Loading -> {}
                 is Result.Success -> {
-                    Timber.e("Berhasil")
-                    SweetAlertDialog(requireContext(), SweetAlertDialog.SUCCESS_TYPE)
-                        .setTitleText(context?.getString(R.string.success))
-                        .setContentText(context?.getString(R.string.register_employee))
-                        .setConfirmClickListener {
-                            it.dismissWithAnimation()
-                            viewModels.deleteAllActivities()
-                            viewModels.deleteAllArea()
-
-                            initAreaLocalCallback()
-
-                        }
-                        .show()
-
-                    viewModel.setSaveAllMonitoringNothing()
-                }
-                is Result.Error -> {
-
-                }
-                else -> Unit
-            }
-        })
-
-    }
-
-    private fun initAreaCallback() =
-        viewModel.area.observe(viewLifecycleOwner) { result ->
-            when (result) {
-                is Result.Loading -> {}
-                is Result.Success -> {
-                    viewModels.deleteAllArea()
-
-                    item = result.data!!
-                    area = item.data?.map {
-                        AreaEntity(
-                            areaId = it.areaId,
-                            memberno = it.memberNo,
-                            namearea = it.namaLahan,
-                            nameMember = it.memberName,
-                            plotCount = it.jumlahPlot,
-                            status = false
-                        )
-                    }.orEmpty()
-
-                    viewModels.insertLocalArea(area)
-                    Timber.e(area.toString())
+                    kodePlotAdapter.items = result.data?.data.orEmpty()
 
                 }
                 is Result.Error<*> -> {}
                 else -> {}
             }
-        }
-
-
-    private fun initAreaLocalCallback() {
-        var data = emptyList<AreaEntity>()
-        viewModels.getAreaLocal.observe(viewLifecycleOwner) { result ->
-            data = result.orEmpty()
-            landAdapter.items = data
-            binding.rvLand.adapter = landAdapter
-
-        }
+        })
     }
 
     private fun initAdapterClick() {
-        HomeAdapter.setOnClickLandListener { item ->
-            memberNo = item.memberno.toString()
-
-            lifecycleScope.launch {
-                accessManager.setAreaAccess(
-                    item.namearea.toString()
+        InventAdapter.setOnClickCodePlot { item ->
+            Timber.e(item.polaTanam)
+            if (item.polaTanamName.toString() == "Monokultur") {
+                navController.navigateOrNull(
+                    InventAssigmentFragmentDirections.actionInventAssigmentFragmentToInventFragment(
+                        item.id.toString(),
+                        item.kodePlot,
+                        item.polaTanamName,
+                        item.komoditas,
+                    )
                 )
-                accessManager.setNameMemberAccess(
-                    item.nameMember.toString(),
-                )
-                accessManager.setNoMemberAccess(
-                    item.memberno.toString(),
-                )
-                accessManager.setPlotAccess(
-                    item.plotCount.toString()
-                )
+            } else if (item.polaTanamName.toString() == "Polikultur") {
+                idPlot = item.id.toString()
+                kodePlot = item.kodePlot.toString()
+                polaTanam = item.polaTanamName.toString()
+                komoditas = item.komoditas.toString()
+                dialogChoosePlot()
             }
 
-            navController.navigateOrNull(
-                InventAssigmentFragmentDirections.actionHomeFragmentToKodePlotFragment(
-                    item.areaId.toString(),
-                    item.namearea,
-                    item.memberno,
-                    item.nameMember,
-                    item.plotCount
+        }
+
+    }
+
+    private fun dialogChoosePlot() {
+        val dialogBinding = LayoutChooseComodityBinding.inflate(layoutInflater)
+        context?.alertDialog(dialogBinding.root)?.apply {
+            show()
+
+            listComodity = listOf(
+                Comodity(
+                    1,
+                    "Kopi",
+                ),
+                Comodity(
+                    2,
+                    "Vannila",
                 )
             )
-        }
 
-        HomeAdapter.setOnClickDoneListener { item ->
-            viewModels.updateStatus(
-                status = false,
-                memberno = item.memberno,
-                statusDone = true
-            )
-        }
+            dialogBinding.apply {
 
+                comodityAdapter.items = listComodity
+                rvComodity.adapter = comodityAdapter
+
+            }
+            setOnClickComodityPlot { item ->
+                navController.navigateOrNull(
+                    InventAssigmentFragmentDirections.actionInventAssigmentFragmentToInventFragment(
+                        idPlot,
+                        kodePlot,
+                        polaTanam,
+                        komoditas,
+                        item.id.toString()
+                    )
+                )
+                dismiss()
+            }
+        }
     }
 
     private fun initOnClick() {
@@ -223,14 +186,6 @@ class InventAssigmentFragment : Fragment(R.layout.fragment_invent_assigment) {
             }
             binding.fab -> {
 
-                viewModel.requestArea(
-                    "Sobi+Apps:ae7cda7f7b0e6f38638e40ad3ebb78a4",
-                    "1550446421",
-                    "2303",
-                    "0"
-                )
-
-                initAreaCallback()
             }
         }
 
