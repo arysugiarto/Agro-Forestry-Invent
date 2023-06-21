@@ -19,7 +19,7 @@ object InventAdapter {
 
                         tvTitlePlot.textOrNull = item.kodePlot
                         tvPolaTanam.textOrNull = item.polaTanamName
-                        tvComodity.textOrNull = item.komoditas
+                        tvPolaTanamValue.textOrNull = ":" + " " +item.komoditas
 
                         btnNext.setOnClickListener {
                             onClickCodePlotCallback.invoke(item)

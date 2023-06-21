@@ -1,35 +1,26 @@
 package com.agro.inventory.data.source.callback
 
-import com.agro.inventory.data.local.entity.ActivitiesEntity
-import com.agro.inventory.data.local.entity.AreaEntity
+import com.agro.inventory.data.local.entity.InventPlotEntity
 import com.agro.inventory.data.local.entity.InventEntity
 import com.agro.inventory.data.local.entity.ReinventEntity
 import kotlinx.coroutines.flow.Flow
 
 interface LocalSourceCallback {
 
+    suspend fun insertInventPlotLocal(areaEntity: List<InventPlotEntity>)
 
-    fun getLocalActivitiesAll(): Flow<List<ActivitiesEntity>>
-     fun getLocalActivities(idPlot: String,pekerjaanId: String): Flow<List<ActivitiesEntity>>
+    fun getLocalInventPlot(): Flow<List<InventPlotEntity>>
 
-    fun getLocalActivitiesByIdJob(idPlot: String,pekerjaanId: String): Flow<List<ActivitiesEntity>>
-
-    suspend fun insertAreaLocal(areaEntity: List<AreaEntity>)
-
-    fun getLocalArea(): Flow<List<AreaEntity>>
-
-    suspend fun updateStatusArea(
+    suspend fun updateStatusInventPlot(
         status: Boolean?,
         memberno: String?,
         statusDone: Boolean?
 
     )
 
-    suspend fun deleteActivities()
+    suspend fun deleteInventPlot()
 
-    suspend fun deleteArea()
-
-    suspend fun deleteLocalItemActivities(idActivities: Int?)
+//  input
 
     suspend fun insertReInventLocal(reinventEntity: ReinventEntity)
 

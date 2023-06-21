@@ -22,15 +22,26 @@
             android:layout_height="wrap_content">
 
             <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/tvTitlePlot"
+                android:id="@+id/tvLand"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/screen_margin"
                 android:layout_marginTop="@dimen/screen_margin"
-                android:text="Title Plot"
+                android:text="Lahan 1"
                 android:textAppearance="@style/TextAppearance.OpenSans.Bold.Body1"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/tvTitlePlot"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/screen_margin"
+                android:layout_marginTop="@dimen/small_margin"
+                android:text="Title Plot"
+                android:textAppearance="@style/TextAppearance.OpenSans.Bold.Body1"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvLand" />
 
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/tvLahan"
@@ -42,7 +53,7 @@
                 android:padding="2dp"
                 android:visibility="gone"
                 android:background="@color/sandy_brown"
-                android:textAppearance="@style/TextAppearance.OpenSans.Bold.Body1"
+                android:textAppearance="@style/TextAppearance.OpenSans.Bold.Body2"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -54,7 +65,9 @@
                 android:layout_marginStart="@dimen/screen_margin"
                 android:layout_marginTop="@dimen/small_margin"
                 android:text="@string/pola_tanam"
-                android:textAppearance="@style/TextAppearance.OpenSans.SemiBold.Body1"
+                android:layout_marginBottom="@dimen/screen_margin"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:textAppearance="@style/TextAppearance.OpenSans.SemiBold.Body2"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tvTitlePlot" />
 
@@ -66,7 +79,8 @@
                 android:layout_marginTop="@dimen/small_margin"
                 android:layout_marginBottom="@dimen/screen_margin"
                 android:text="@string/comodity"
-                android:textAppearance="@style/TextAppearance.OpenSans.SemiBold.Body1"
+                android:visibility="gone"
+                android:textAppearance="@style/TextAppearance.OpenSans.SemiBold.Body2"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tvPolaTanam" />
@@ -82,10 +96,8 @@
                 android:id="@+id/tvPolaTanamValue"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/screen_margin"
-                android:text=": Monokultur"
-                android:visibility="gone"
-                android:textAppearance="@style/TextAppearance.OpenSans.Regular.Body1"
+                android:text=": "
+                android:textAppearance="@style/TextAppearance.OpenSans.SemiBold.Body2"
                 app:layout_constraintBottom_toBottomOf="@id/tvPolaTanam"
                 app:layout_constraintStart_toEndOf="@+id/glPlot"
                 app:layout_constraintTop_toTopOf="@+id/tvPolaTanam" />

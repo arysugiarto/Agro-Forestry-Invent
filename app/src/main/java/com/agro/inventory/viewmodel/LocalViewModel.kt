@@ -6,8 +6,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
 import com.agro.inventory.base.BaseViewModel
-import com.agro.inventory.data.local.entity.ActivitiesEntity
-import com.agro.inventory.data.local.entity.AreaEntity
+import com.agro.inventory.data.local.entity.InventPlotEntity
 import com.agro.inventory.data.local.entity.InventEntity
 import com.agro.inventory.data.local.entity.ReinventEntity
 import com.agro.inventory.data.repositories.LocalRepository
@@ -94,41 +93,35 @@ class LocalViewModel @Inject constructor(
             }.launchIn(viewModelScope)
 
 
-    fun insertLocalArea(areaEntity: List<AreaEntity>) =
+    fun insertLocalInventPlot(inventPlotEntity: List<InventPlotEntity>) =
         viewModelScope.launch {
-            repository.insertAreaLocal(areaEntity)
+            repository.insertInventPlotLocal(inventPlotEntity)
         }
 
-    val getAreaLocal
+    val getInventLocal
         get() = repository
-            .getLocalArea()
+            .getLocalInventPlot()
             .asLiveData(viewModelScope.coroutineContext)
 
-    fun updateStatus(
+    fun updateStatusInventPlot(
         status: Boolean? = null,
         memberno: String? = null,
         statusDone: Boolean? = null
     ) =
         viewModelScope.launch {
-            repository.updateStatusArea(
+            repository.updateStatusInventPlot(
                 status,
                 memberno,
                 statusDone
             )
         }
 
-    fun deleteAllActivities() = viewModelScope.launch {
-        repository.deleteActivities()
+
+    fun deleteAllInventPlot() = viewModelScope.launch {
+        repository.deleteInventPlot()
     }
 
-    fun deleteAllArea() = viewModelScope.launch {
-        repository.deleteArea()
-    }
-
-    fun deleteLocalItemActivities(id: Int? = null) =
-        viewModelScope.launch {
-            repository.deleteLocalItemActivities(id)
-        }
+    // input
 
     fun insertLocalInvent(inventEntity: InventEntity) =
         viewModelScope.launch {

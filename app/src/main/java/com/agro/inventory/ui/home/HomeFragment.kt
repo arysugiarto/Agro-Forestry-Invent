@@ -11,9 +11,8 @@ import androidx.fragment.app.viewModels
 import androidx.hilt.navigation.fragment.hiltNavGraphViewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
-import com.agro.inventory.ui.home.HomeFragmentDirections
 import com.agro.inventory.R
-import com.agro.inventory.data.local.entity.AreaEntity
+import com.agro.inventory.data.local.entity.InventPlotEntity
 import com.agro.inventory.data.preferences.AccessManager
 import com.agro.inventory.databinding.FragmentHomeBinding
 import com.agro.inventory.ui.main.MainFragment.Companion.parentBottomAppBar
@@ -38,7 +37,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
     lateinit var accessManager: AccessManager
 
 
-    private lateinit var area: List<AreaEntity>
+    private lateinit var area: List<InventPlotEntity>
     private var doubleBackToExitOnce: Boolean = emptyBoolean
     var userAccessId = emptyString
 

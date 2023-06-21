@@ -4,8 +4,8 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.agro.inventory.util.Const
 
-@Entity(tableName = Const.Database.Table.AREA)
-data class AreaEntity(
+@Entity(tableName = Const.Database.Table.PLOT_INVENT)
+data class InventPlotEntity(
     @PrimaryKey(autoGenerate = true)
     val id: Int? = null,
     val areaId: Int? = null,
