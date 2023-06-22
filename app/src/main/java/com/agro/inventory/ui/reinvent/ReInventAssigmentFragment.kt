@@ -25,6 +25,7 @@ import com.agro.inventory.util.emptyString
 import com.agro.inventory.util.livevent.EventObserver
 import com.agro.inventory.util.navController
 import com.agro.inventory.util.navigateOrNull
+import com.agro.inventory.util.textOrNull
 import com.agro.inventory.util.viewBinding
 import com.agro.inventory.viewmodel.HomeViewModel
 import com.agro.inventory.viewmodel.LocalViewModel
@@ -86,7 +87,6 @@ class ReInventAssigmentFragment : Fragment(R.layout.fragment_reinvent_assigment)
             }
 
         }
-
 
 
     }

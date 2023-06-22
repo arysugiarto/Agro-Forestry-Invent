@@ -10,7 +10,7 @@ interface LocalSourceCallback {
 
     suspend fun insertInventPlotLocal(areaEntity: List<InventPlotEntity>)
 
-    fun getLocalInventPlot(): Flow<List<InventPlotEntity>>
+    fun getLocalInventPlot(kodePlot: String): Flow<List<InventPlotEntity>>
 
     suspend fun updateStatusInventPlot(
         status: Boolean?,

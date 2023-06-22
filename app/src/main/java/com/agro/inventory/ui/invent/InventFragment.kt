@@ -363,6 +363,7 @@ class InventFragment : Fragment(R.layout.fragment_invent) , OnMapReadyCallback {
 
             binding.btnAdd -> {
 
+
                 if (edit == true) {
                     viewModels.updateInvent(
                         jmlTanam = binding.etJmlTanaman.text.toString(),

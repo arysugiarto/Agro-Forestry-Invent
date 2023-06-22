@@ -14,8 +14,13 @@ interface InvenPlotDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertPlotInvent(inventPlotEntity: List<InventPlotEntity>)
 
-    @Query("SELECT * FROM plot_invent_entity")
-    fun getPlotInvent(): Flow<List<InventPlotEntity>>
+//    @Query("SELECT * FROM plot_invent_entity WHERE " +
+//            "kodePlot LIKE :queryString" + ORDER BY id ASC")
+//    fun getPlotInvent(kodePlot : String?): Flow<List<InventPlotEntity>>
+//
+        @Query("SELECT * FROM plot_invent_entity WHERE " +
+                "kodePlot LIKE :queryString OR allData LIKE :queryString " + "ORDER BY id ASC")
+        fun getPlotInvent(queryString: String): Flow<List<InventPlotEntity>>
 
     @Query("UPDATE plot_invent_entity SET status =:status, statusDone =:statusDone WHERE memberno =:memberno")
     suspend fun updateStatusPlotInvent(

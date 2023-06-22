@@ -15,7 +15,7 @@ class LocalRepository(
 
     override suspend fun insertInventPlotLocal(inventPlotEntity: List<InventPlotEntity>) = localDataSource.insertInventPlot(inventPlotEntity)
 
-    override  fun getLocalInventPlot() = localDataSource.getPlotInvent()
+    override  fun getLocalInventPlot(search: String) = localDataSource.getPlotInvent(search)
 
     override suspend fun updateStatusInventPlot(status: Boolean?, memberno: String?, statusDone: Boolean?) =
         localDataSource.updatePlotInvent(

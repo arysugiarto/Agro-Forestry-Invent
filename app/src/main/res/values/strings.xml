@@ -82,5 +82,8 @@
     <string name="input_data_reinvent">Tambah Pendataan Ulang</string>
     <string name="logout">Keluar</string>
     <string name="permission_access_request_location">Fitur ini memerlukan izin untuk mengakses lokasi terkini.</string>
+    <string name="alert_reinvent_jumlah_hidup">Angka melebihi jumlah tanam</string>
+    <string name="alert_reinvent_jumlah_sakit">Angka melebihi jumlah hidup</string>
+    <string name="search_hint">Cari lahan atau kode plot</string>
 
 </resources>

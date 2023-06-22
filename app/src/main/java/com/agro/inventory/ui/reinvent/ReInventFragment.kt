@@ -18,6 +18,7 @@ import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import androidx.core.app.ActivityCompat
 import androidx.core.view.isVisible
+import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.hilt.navigation.fragment.hiltNavGraphViewModels
@@ -73,6 +74,11 @@ class ReInventFragment : Fragment(R.layout.fragment_reinvent), OnMapReadyCallbac
     var edit = emptyBoolean
     var id = emptyString
 
+    var jumlahHidup = emptyString
+    var jumlahSakit = emptyString
+    var jumlahHIdupSakit = emptyInt
+    var jumlahTanam = emptyInt
+
     private var reInventEntity: ReinventEntity = ReinventEntity()
 
 
@@ -83,6 +89,7 @@ class ReInventFragment : Fragment(R.layout.fragment_reinvent), OnMapReadyCallbac
         initOnClick()
         initViewModel()
         getReInvent()
+        onInputTextChanged()
 
         parentBottomAppBar?.isVisible = false
         parentNavigation?.isVisible = false
@@ -98,6 +105,9 @@ class ReInventFragment : Fragment(R.layout.fragment_reinvent), OnMapReadyCallbac
         }
 
         spinner()
+
+         binding.etJmlTanam.textOrNull = "100"
+         jumlahTanam = binding.etJmlTanam.text.toString()?.toInt().orEmpty
     }
 
     private fun initViewModel() {
@@ -132,6 +142,8 @@ class ReInventFragment : Fragment(R.layout.fragment_reinvent), OnMapReadyCallbac
                 uriImage = data.firstOrNull()?.photo.toString()
                 lat = data.firstOrNull()?.lat.toString()
                 long = data.firstOrNull()?.lng.toString()
+
+
             }
 
 
@@ -181,7 +193,8 @@ class ReInventFragment : Fragment(R.layout.fragment_reinvent), OnMapReadyCallbac
                         latitude = location.latitude
                         longitude = location.longitude
 
-                        Timber.tag(ContentValues.TAG).d("Latidude : $latitude longitude : $longitude")
+                        Timber.tag(ContentValues.TAG)
+                            .d("Latidude : $latitude longitude : $longitude")
 
                         // Set coordinate to textview
                         binding.tvLattitude.text = latitude.toString()
@@ -357,6 +370,95 @@ class ReInventFragment : Fragment(R.layout.fragment_reinvent), OnMapReadyCallbac
         }
     }
 
+    private fun onInputTextChanged() {
+        binding.boxJmlHidup.editText?.addTextChangedListener {
+            if (binding.etJmlHidup.text?.isEmpty().orEmpty){
+                binding.etJmlHidup.textOrNull = "0"
+            }
+            if (binding.etJmlSakit.text?.isEmpty().orEmpty){
+                binding.etJmlSakit.textOrNull = "0"
+            }
+
+            if ((binding.etJmlHidup.text?.toString()?.toInt().orEmpty + binding.etJmlSakit.text?.toString()?.toInt().orEmpty) >  jumlahTanam) {
+                Timber.e(binding.etJmlHidup.text.toString())
+                binding.boxJmlHidup.warning(
+                    context?.getString(R.string.alert_reinvent_jumlah_hidup)
+                )
+
+            } else {
+                binding.boxJmlHidup.error = null
+            }
+
+            if (latitude.toString().isNotEmpty() && longitude.toString()
+                    .isNotEmpty() && binding.etJmlSakit.text?.isNotEmpty().orEmpty && binding.etJmlHidup.text?.isNotEmpty().orEmpty
+                && binding.etKeliling.text?.isNotEmpty().orEmpty &&  binding.etTinggi.text?.isNotEmpty().orEmpty
+            ){
+                binding.btnAdd.isVisible = true
+                binding.btnAddFalse.isVisible = false
+            }else{
+                binding.btnAdd.isVisible = false
+                binding.btnAddFalse.isVisible = true
+            }
+        }
+
+        binding.boxJmlSakit.editText?.addTextChangedListener {
+            if (binding.etJmlHidup.text?.isEmpty().orEmpty){
+                binding.etJmlHidup.textOrNull = "0"
+            }
+            if (binding.etJmlSakit.text?.isEmpty().orEmpty){
+                binding.etJmlSakit.textOrNull = "0"
+            }
+            if ((binding.etJmlSakit.text?.toString()?.toInt().orEmpty + binding.etJmlHidup.text?.toString()?.toInt().orEmpty) > jumlahTanam) {
+                binding.boxJmlSakit.warning(
+                    context?.getString(R.string.alert_reinvent_jumlah_sakit)
+                )
+                binding.btnAdd.isVisible = false
+            } else {
+                binding.boxJmlSakit.error = null
+                binding.btnAdd.isVisible = true
+            }
+
+            if (latitude.toString().isNotEmpty() && longitude.toString()
+                    .isNotEmpty() && binding.etJmlSakit.text?.isNotEmpty().orEmpty && binding.etJmlHidup.text?.isNotEmpty().orEmpty
+                && binding.etKeliling.text?.isNotEmpty().orEmpty &&  binding.etTinggi.text?.isNotEmpty().orEmpty
+            ){
+                binding.btnAdd.isVisible = true
+                binding.btnAddFalse.isVisible = false
+            }else{
+                binding.btnAdd.isVisible = false
+                binding.btnAddFalse.isVisible = true
+            }
+        }
+
+        binding.boxTinggi.editText?.addTextChangedListener {
+            if (latitude.toString().isNotEmpty() && longitude.toString()
+                    .isNotEmpty() && binding.etJmlSakit.text?.isNotEmpty().orEmpty && binding.etJmlHidup.text?.isNotEmpty().orEmpty
+                && binding.etKeliling.text?.isNotEmpty().orEmpty &&  binding.etTinggi.text?.isNotEmpty().orEmpty
+            ){
+                binding.btnAdd.isVisible = true
+                binding.btnAddFalse.isVisible = false
+            }else{
+                binding.btnAdd.isVisible = false
+                binding.btnAddFalse.isVisible = true
+            }
+        }
+
+        binding.boxKeliling.editText?.addTextChangedListener {
+            if (latitude.toString().isNotEmpty() && longitude.toString()
+                    .isNotEmpty() && binding.etJmlSakit.text?.isNotEmpty().orEmpty && binding.etJmlHidup.text?.isNotEmpty().orEmpty
+                && binding.etKeliling.text?.isNotEmpty().orEmpty &&  binding.etTinggi.text?.isNotEmpty().orEmpty
+            ){
+                binding.btnAdd.isVisible = true
+                binding.btnAddFalse.isVisible = false
+            }else{
+                binding.btnAdd.isVisible = false
+                binding.btnAddFalse.isVisible = true
+            }
+        }
+
+
+    }
+
     private fun initOnClick() {
         binding.apply {
             etKodePlot.setOnClickListener(onClickCallback)
@@ -374,13 +476,14 @@ class ReInventFragment : Fragment(R.layout.fragment_reinvent), OnMapReadyCallbac
             binding.btnTakePhoto -> {
                 photoPicker()
             }
+
             binding.btnCancel -> {
                 navController.navigateUp()
             }
 
             binding.btnAdd -> {
 
-                if (edit == true){
+                if (edit == true) {
                     viewModels.updateReInvent(
                         jmlTanam = binding.etJmlTanam.text.toString(),
                         jmlHidup = binding.etJmlHidup.text.toString(),
@@ -388,12 +491,12 @@ class ReInventFragment : Fragment(R.layout.fragment_reinvent), OnMapReadyCallbac
                         keliling = binding.etKeliling.text.toString(),
                         tinggi = binding.etTinggi.text.toString(),
                         photo = uriImage,
-                        lat= latitude.toString(),
-                        lng= longitude.toString(),
+                        lat = latitude.toString(),
+                        lng = longitude.toString(),
                         idComodity = args.idKomoditas?.toInt(),
-                        id= id
+                        id = id
                     )
-                }else{
+                } else {
                     reInventEntity = ReinventEntity(
                         idPlot = args.idPlot?.toInt(),
                         kodePlot = binding.etKodePlot.text.toString(),
@@ -409,8 +512,8 @@ class ReInventFragment : Fragment(R.layout.fragment_reinvent), OnMapReadyCallbac
                         penyulaman = binding.etPenyulaman.text.toString(),
                         idComodity = args.idKomoditas,
                         photo = uriImage,
-                        lat= latitude.toString(),
-                        lng= longitude.toString(),
+                        lat = latitude.toString(),
+                        lng = longitude.toString(),
                     )
 
                     viewModels.insertLocalReinvent(reInventEntity)
@@ -420,13 +523,17 @@ class ReInventFragment : Fragment(R.layout.fragment_reinvent), OnMapReadyCallbac
                 navController.navigateOrNull(
                     ReInventFragmentDirections.actionReinventFragmentToReInventAssigmentFragment()
                 )
+//                }
+
 
             }
+
             binding.tvTitle -> {
                 navController.navigateOrNull(
                     ReInventFragmentDirections.actionReinventFragmentToReInventAssigmentFragment()
                 )
             }
+
             binding.btnAddFalse -> {
 
             }

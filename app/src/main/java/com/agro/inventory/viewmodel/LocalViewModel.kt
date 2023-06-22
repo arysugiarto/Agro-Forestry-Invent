@@ -30,6 +30,9 @@ class LocalViewModel @Inject constructor(
     private var _getReInvent: MutableLiveData<List<ReinventEntity>> = MutableLiveData()
     val getReInvent: LiveData<List<ReinventEntity>> get() = _getReInvent
 
+    private var _getInventPlot: MutableLiveData<List<InventPlotEntity>> = MutableLiveData()
+    val getInventPlot: LiveData<List<InventPlotEntity>> get() = _getInventPlot
+
 
     fun updateReInvent(
         jmlTanam: String? = null,
@@ -99,10 +102,17 @@ class LocalViewModel @Inject constructor(
             repository.insertInventPlotLocal(inventPlotEntity)
         }
 
-    val getInventLocal
-        get() = repository
-            .getLocalInventPlot()
-            .asLiveData(viewModelScope.coroutineContext)
+//    val getInventLocal
+//        get() = repository
+//            .getLocalInventPlot()
+//            .asLiveData(viewModelScope.coroutineContext)
+
+    fun getInventLocal(search: String) =
+        repository.getLocalInventPlot(search)
+            .onEach { result ->
+                _getInventPlot.value = result
+            }.launchIn(viewModelScope)
+
 
     fun updateStatusInventPlot(
         status: Boolean? = null,

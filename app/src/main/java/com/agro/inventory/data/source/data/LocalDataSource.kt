@@ -27,7 +27,7 @@ class LocalDataSource(
     suspend fun insertInventPlot(areaEntity: List<InventPlotEntity>) =
         daoInventPlot.insertPlotInvent(areaEntity)
 
-    fun getPlotInvent() = daoInventPlot.getPlotInvent()
+    fun getPlotInvent(search: String) = daoInventPlot.getPlotInvent(search)
 
     suspend fun updatePlotInvent(
         status: Boolean?,

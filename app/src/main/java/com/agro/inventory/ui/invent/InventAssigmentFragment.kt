@@ -2,10 +2,13 @@ package com.agro.inventory.ui.invent
 
 import android.os.Bundle
 import android.view.View
+import android.view.inputmethod.EditorInfo
+import android.widget.TextView
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.hilt.navigation.fragment.hiltNavGraphViewModels
+import androidx.lifecycle.lifecycleScope
 import com.agro.inventory.R
 import com.agro.inventory.data.local.entity.InventPlotEntity
 import com.agro.inventory.data.preferences.AccessManager
@@ -18,11 +21,14 @@ import com.agro.inventory.ui.invent.adapter.InventAdapter
 import com.agro.inventory.ui.invent.adapter.InventAdapter.setOnClickComodityPlot
 import com.agro.inventory.ui.main.MainFragment.Companion.parentBottomAppBar
 import com.agro.inventory.ui.main.MainFragment.Companion.parentNavigation
+import com.agro.inventory.util.addDelayOnTypeWithScope
 import com.agro.inventory.util.alertDialog
 import com.agro.inventory.util.emptyString
+import com.agro.inventory.util.hideKeyboard
 import com.agro.inventory.util.livevent.EventObserver
 import com.agro.inventory.util.navController
 import com.agro.inventory.util.navigateOrNull
+import com.agro.inventory.util.orEmpty
 import com.agro.inventory.util.viewBinding
 import com.agro.inventory.viewmodel.HomeViewModel
 import com.agro.inventory.viewmodel.LocalViewModel
@@ -51,6 +57,7 @@ class InventAssigmentFragment : Fragment(R.layout.fragment_invent_assigment) {
     var idPlot = emptyString
     var komoditas = emptyString
 
+    var keyword = emptyString
     private var item = ListPlotResponse()
     private lateinit var inventPlotEntity: List<InventPlotEntity>
 
@@ -58,17 +65,19 @@ class InventAssigmentFragment : Fragment(R.layout.fragment_invent_assigment) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        initViewModel()
         initViewModelCallback()
         initOnClick()
         initAdapter()
         initAdapterClick()
+        initTextDelayOnType()
 
         parentBottomAppBar?.isVisible = false
         parentNavigation?.isVisible = false
 
+        viewModels.getInventLocal( "ALL")
+
         var data = emptyList<InventPlotEntity>()
-        viewModels.getInventLocal.observe(viewLifecycleOwner) { result ->
+        viewModels.getInventPlot.observe(viewLifecycleOwner) { result ->
             data = result.orEmpty()
             if (data.isEmpty()) {
                 binding.ivEmptyState.isVisible = true
@@ -89,29 +98,27 @@ class InventAssigmentFragment : Fragment(R.layout.fragment_invent_assigment) {
     }
 
 
-    private fun initViewModel() {
-    }
 
     private fun initViewModelCallback() {
-
         initLocalPlotCallback()
     }
 
     private fun initLocalPlotCallback(){
-
-
+        viewModels.getInventLocal("ALL")
         var data = emptyList<InventPlotEntity>()
-        viewModels.getInventLocal.observe(viewLifecycleOwner) { result ->
+        viewModels.getInventPlot.observe(viewLifecycleOwner) { result ->
             data = result.orEmpty()
             kodePlotAdapter.items = data
             binding.rvPlot.adapter = kodePlotAdapter
 
         }
+        Timber.e("test%s", data.toString())
     }
 
 
     private fun initAdapter() {
         binding.rvPlot.adapter = kodePlotAdapter
+        binding.etSearch.setOnEditorActionListener(onImeSearchClicked)
     }
 
     private fun initPlotCallback() {
@@ -132,14 +139,12 @@ class InventAssigmentFragment : Fragment(R.layout.fragment_invent_assigment) {
 //                            nameMember = it.memberName,
                             komoditas = it.komoditas,
                             polaTanam = it.polaTanamName,
-                            status = false
+                            status = false,
+                            allData = "ALL"
                         )
                     }.orEmpty()
 
                     viewModels.insertLocalInventPlot(inventPlotEntity)
-
-
-
                 }
                 is Result.Error<*> -> {}
                 else -> {}
@@ -208,6 +213,43 @@ class InventAssigmentFragment : Fragment(R.layout.fragment_invent_assigment) {
         }
     }
 
+    private fun initTextDelayOnType() {
+        binding.apply {
+            boxSearch.editText?.addDelayOnTypeWithScope(200, lifecycleScope) {
+                if (etSearch.text?.isNotEmpty().orEmpty) {
+                    boxSearch.setEndIconDrawable(R.drawable.ic_clear)
+                } else boxSearch.setEndIconDrawable(R.drawable.ic_search)
+                boxSearch.setEndIconOnClickListener {
+                    etSearch.setText(emptyString)
+                    boxSearch.setEndIconDrawable(R.drawable.ic_search)
+                    keyword = etSearch.text.toString()
+                    initLocalPlotCallback()
+
+                }
+            }
+        }
+    }
+
+    private val onImeSearchClicked = TextView.OnEditorActionListener { v, actionId, _ ->
+        if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+
+            val keyword = binding.etSearch.text.toString()
+            binding.etSearch.clearFocus()
+
+            if (keyword != emptyString) {
+
+                viewModels.getInventLocal(keyword)
+
+            } else {
+
+
+            }
+            activity?.hideKeyboard(v)
+
+            return@OnEditorActionListener true
+        }
+        false
+    }
     private fun initOnClick() {
         binding.apply {
             tvTitle.setOnClickListener(onClickCallback)
@@ -228,7 +270,8 @@ class InventAssigmentFragment : Fragment(R.layout.fragment_invent_assigment) {
                     "1550446421",
                     "2"
                 )
-
+                viewModels.getInventLocal("")
+                initLocalPlotCallback()
                 initPlotCallback()
             }
         }

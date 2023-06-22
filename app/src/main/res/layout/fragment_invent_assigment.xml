@@ -22,9 +22,9 @@
             android:layout_marginStart="@dimen/screen_margin"
             android:layout_marginTop="@dimen/screen_margin"
             android:layout_marginBottom="@dimen/screen_margin"
-            android:text="@string/invent"
             android:drawableLeft="@drawable/ic_arrow_back"
             android:drawablePadding="@dimen/screen_margin"
+            android:text="@string/invent"
             android:textAppearance="@style/TextAppearance.OpenSans.Bold.Headline6"
             android:textColor="@color/green"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -64,6 +64,47 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/boxSearch"
+                style="@style/TextInputLayout.Login.Form.Outlined.Dense"
+                android:layout_width="@dimen/zero_margin"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/screen_margin"
+                android:layout_marginTop="@dimen/normal_margin"
+                android:layout_marginEnd="@dimen/screen_margin"
+                android:layout_marginBottom="@dimen/screen_margin"
+                app:boxBackgroundColor="@color/white"
+                app:boxCornerRadiusBottomEnd="@dimen/_8sdp"
+                app:boxCornerRadiusBottomStart="@dimen/_8sdp"
+                app:boxCornerRadiusTopEnd="@dimen/_8sdp"
+                app:boxCornerRadiusTopStart="@dimen/_8sdp"
+                app:boxStrokeColor="@color/green"
+                app:boxStrokeWidth="@dimen/_1sdp"
+                app:boxStrokeWidthFocused="1dp"
+                app:endIconDrawable="@drawable/ic_search"
+                app:endIconMode="custom"
+                app:endIconTint="@color/nobel"
+                app:expandedHintEnabled="false"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:placeholderText="@string/search_hint"
+                app:placeholderTextAppearance="@style/TextAppearance.OpenSans.Regular.Body2"
+                app:placeholderTextColor="@color/gray">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/etSearch"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:imeOptions="actionSearch"
+                    android:inputType="text"
+                    android:maxLength="255"
+                    android:maxLines="1"
+                    android:textAppearance="@style/TextAppearance.OpenSans.Regular.Caption"
+                    android:textColor="@color/dove_gray" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/label"
                 android:layout_width="wrap_content"
@@ -75,7 +116,7 @@
                 android:textAppearance="@style/TextAppearance.OpenSans.Bold.Body1"
                 android:textColor="@color/black"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toBottomOf="@+id/boxSearch" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rvPlot"
@@ -130,15 +171,15 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="end|bottom"
+        android:layout_margin="16dp"
+        android:backgroundTintMode="add"
+        android:contentDescription="TODO"
+        android:src="@drawable/ic_refresh"
+        android:visibility="gone"
         app:backgroundTint="@color/sandy_brown"
         app:borderWidth="@dimen/_1sdp"
-        android:visibility="gone"
-        android:backgroundTintMode="add"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
-        android:src="@drawable/ic_refresh"
-        android:layout_margin="16dp"
-        android:contentDescription="TODO" />
+        app:layout_constraintEnd_toEndOf="parent" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/glEmpty"

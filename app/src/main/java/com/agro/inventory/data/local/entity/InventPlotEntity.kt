@@ -16,7 +16,8 @@ data class InventPlotEntity(
     val komoditas: String? = null,
     val polaTanam: String? = null,
     val status: Boolean? = null,
-    val statusDone: Boolean? = null
+    val statusDone: Boolean? = null,
+    val allData: String? = null
 )
 
 

@@ -251,6 +251,9 @@ fun TextInputLayout.warn(boxName: CharSequence? = "") {
     error = "Mohon isi kolom $boxName"
 }
 
+fun TextInputLayout.warning(boxName: CharSequence? = "") {
+    error = "$boxName"
+}
 
 fun Activity?.hideKeyboard(view: View) {
     val imm = this?.getSystemService(Context.INPUT_METHOD_SERVICE) as? InputMethodManager
