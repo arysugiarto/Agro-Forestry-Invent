@@ -3,6 +3,7 @@ package com.agro.inventory.data.repositories
 import com.agro.inventory.data.source.callback.LocalSourceCallback
 import com.agro.inventory.data.local.entity.InventPlotEntity
 import com.agro.inventory.data.local.entity.InventEntity
+import com.agro.inventory.data.local.entity.ReInventPlotEntity
 import com.agro.inventory.data.local.entity.ReinventEntity
 import com.agro.inventory.data.source.data.LocalDataSource
 
@@ -24,6 +25,22 @@ class LocalRepository(
         )
 
     override suspend fun deleteInventPlot() = localDataSource.deleteInventPlot()
+
+    // reinvent
+
+    override suspend fun insertReInventPlotLocal(reInventPlotEntity: List<ReInventPlotEntity>) = localDataSource.insertReInventPlot(reInventPlotEntity)
+
+    override  fun getLocalReInventPlot() = localDataSource.getPlotReInvent()
+
+    override suspend fun updateStatusReInventPlot(status: Boolean?, memberno: String?, statusDone: Boolean?) =
+        localDataSource.updatePlotReInvent(
+            status,
+            memberno,
+            statusDone
+        )
+
+    override suspend fun deleteReInventPlot() = localDataSource.deleteReInventPlot()
+
 
     //input
     override suspend fun insertInventLocal(inventEntity: InventEntity) = localDataSource.insertInvent(inventEntity)

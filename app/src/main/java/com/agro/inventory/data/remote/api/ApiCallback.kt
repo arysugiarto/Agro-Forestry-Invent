@@ -42,11 +42,4 @@ interface ApiCallback {
     ): Response<DetailsPlotResponse>
 
 
-    @POST(Const.NETWORK.SAVE_MONITORING_WORKER_ALL)
-    suspend fun requestSaveMonitoringWorkerAll(
-        @Header("Authorization") token: String,
-        @Header("Sobi-Date") sobiDate: String,
-        @Body body: JsonElement
-    ): Response<AllMonitoringWorkerBodyRequest.Data>
-
 }

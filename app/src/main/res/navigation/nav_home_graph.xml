@@ -32,8 +32,7 @@
         android:id="@+id/re_invent_assigment_fragment"
         android:name="com.agro.inventory.ui.reinvent.ReInventAssigmentFragment"
         android:label="@string/nav_home"
-        tools:layout="@layout/fragment_invent_assigment" >
-
+        tools:layout="@layout/fragment_reinvent_assigment" >
 
 
         <action

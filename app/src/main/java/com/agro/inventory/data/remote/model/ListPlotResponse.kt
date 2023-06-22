@@ -5,22 +5,22 @@ import com.google.gson.annotations.SerializedName
 
 data class ListPlotResponse(
     @SerializedName("status")
-    val status: Int,
+    val status: Int? = null,
     @SerializedName("message")
-    val message: String,
+    val message: String? = null,
     @SerializedName("data")
-    val `data`: List<Data>
+    val `data`: List<Data>? = null
 ) {
     data class Data(
         @SerializedName("id")
-        val id: Int,
+        val id: Int? = null,
         @SerializedName("kode_plot")
-        val kodePlot: String,
+        val kodePlot: String? = null,
         @SerializedName("pola_tanam")
-        val polaTanam: String,
+        val polaTanam: String? = null,
         @SerializedName("komoditas")
-        val komoditas: String,
+        val komoditas: String? = null,
         @SerializedName("polaTanamtxt")
-        val polaTanamName: String,
+        val polaTanamName: String? = null,
     )
 }

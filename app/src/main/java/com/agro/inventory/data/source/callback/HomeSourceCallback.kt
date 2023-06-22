@@ -26,8 +26,5 @@ interface HomeSourceCallback {
         plotId: String
     ): Flow<Result<DetailsPlotResponse>>
 
-    fun requestSaveMonitoringWorkerAll(token: String, sobiDate: String,bodyRequest: List<AllMonitoringWorkerBodyRequest.Data> ):
-            Flow<Result<AllMonitoringWorkerBodyRequest.Data>>
-
 
 }

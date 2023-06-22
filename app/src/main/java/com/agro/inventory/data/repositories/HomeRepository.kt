@@ -24,16 +24,4 @@ class HomeRepository(
         remoteDataSource.requestDetailsPlot(token,sobiDate,plotid)
 
 
-    override fun requestSaveMonitoringWorkerAll(
-        token: String,
-        role: String,
-        bodyRequest: List<AllMonitoringWorkerBodyRequest.Data>
-    ) =
-        remoteDataSource.requestSaveMonitoringWorkerAll(
-            token,
-            role,
-            bodyRequest
-        )
-
-
 }

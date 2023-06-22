@@ -7,8 +7,10 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.hilt.navigation.fragment.hiltNavGraphViewModels
 import com.agro.inventory.R
+import com.agro.inventory.data.local.entity.InventPlotEntity
 import com.agro.inventory.data.preferences.AccessManager
 import com.agro.inventory.data.remote.Result
+import com.agro.inventory.data.remote.model.ListPlotResponse
 import com.agro.inventory.data.remote.model.invent.Comodity
 import com.agro.inventory.databinding.FragmentInventAssigmentBinding
 import com.agro.inventory.databinding.LayoutChooseComodityBinding
@@ -49,6 +51,9 @@ class InventAssigmentFragment : Fragment(R.layout.fragment_invent_assigment) {
     var idPlot = emptyString
     var komoditas = emptyString
 
+    private var item = ListPlotResponse()
+    private lateinit var inventPlotEntity: List<InventPlotEntity>
+
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -62,34 +67,78 @@ class InventAssigmentFragment : Fragment(R.layout.fragment_invent_assigment) {
         parentBottomAppBar?.isVisible = false
         parentNavigation?.isVisible = false
 
+        var data = emptyList<InventPlotEntity>()
+        viewModels.getInventLocal.observe(viewLifecycleOwner) { result ->
+            data = result.orEmpty()
+            if (data.isEmpty()) {
+                binding.ivEmptyState.isVisible = true
+                binding.tvEmptyState.isVisible = true
+                binding.fab.isVisible = true
+                binding.rvPlot.isVisible = false
+                binding.label.isVisible = false
+            } else {
+                binding.ivEmptyState.isVisible = false
+                binding.tvEmptyState.isVisible = false
+                binding.fab.isVisible = false
+                binding.rvPlot.isVisible = true
+                binding.label.isVisible = true
+            }
+
+        }
+
     }
 
 
     private fun initViewModel() {
-        viewModel.requestListPlot(
-            "Sobi+Apps:ae7cda7f7b0e6f38638e40ad3ebb78a4",
-            "1550446421",
-           "2"
-        )
     }
 
     private fun initViewModelCallback() {
-        initPlotCallback()
+
+        initLocalPlotCallback()
+    }
+
+    private fun initLocalPlotCallback(){
+
+
+        var data = emptyList<InventPlotEntity>()
+        viewModels.getInventLocal.observe(viewLifecycleOwner) { result ->
+            data = result.orEmpty()
+            kodePlotAdapter.items = data
+            binding.rvPlot.adapter = kodePlotAdapter
+
+        }
     }
 
 
     private fun initAdapter() {
         binding.rvPlot.adapter = kodePlotAdapter
-
     }
-
 
     private fun initPlotCallback() {
         viewModel.plot.observe(viewLifecycleOwner, EventObserver { result ->
             when (result) {
                 is Result.Loading -> {}
                 is Result.Success -> {
-                    kodePlotAdapter.items = result.data?.data.orEmpty()
+
+                    viewModels.deleteAllInventPlot()
+                    binding.fab.isVisible = false
+
+                    item = result.data!!
+                    inventPlotEntity = item.data?.map {
+                        InventPlotEntity(
+                            idPlot = it.id,
+                            kodePlot = it.kodePlot,
+                            namearea = "Lahan 1",
+//                            nameMember = it.memberName,
+                            komoditas = it.komoditas,
+                            polaTanam = it.polaTanamName,
+                            status = false
+                        )
+                    }.orEmpty()
+
+                    viewModels.insertLocalInventPlot(inventPlotEntity)
+
+
 
                 }
                 is Result.Error<*> -> {}
@@ -101,19 +150,19 @@ class InventAssigmentFragment : Fragment(R.layout.fragment_invent_assigment) {
     private fun initAdapterClick() {
         InventAdapter.setOnClickCodePlot { item ->
             Timber.e(item.polaTanam)
-            if (item.polaTanamName.toString() == "Monokultur") {
+            if (item.polaTanam.toString() == "Monokultur") {
                 navController.navigateOrNull(
                     InventAssigmentFragmentDirections.actionInventAssigmentFragmentToInventFragment(
                         item.id.toString(),
                         item.kodePlot,
-                        item.polaTanamName,
+                        item.polaTanam,
                         item.komoditas,
                     )
                 )
-            } else if (item.polaTanamName.toString() == "Polikultur") {
+            } else if (item.polaTanam.toString() == "Polikultur") {
                 idPlot = item.id.toString()
                 kodePlot = item.kodePlot.toString()
-                polaTanam = item.polaTanamName.toString()
+                polaTanam = item.polaTanam.toString()
                 komoditas = item.komoditas.toString()
                 dialogChoosePlot()
             }
@@ -174,7 +223,13 @@ class InventAssigmentFragment : Fragment(R.layout.fragment_invent_assigment) {
                 )
             }
             binding.fab -> {
+                viewModel.requestListPlot(
+                    "Sobi+Apps:ae7cda7f7b0e6f38638e40ad3ebb78a4",
+                    "1550446421",
+                    "2"
+                )
 
+                initPlotCallback()
             }
         }
 

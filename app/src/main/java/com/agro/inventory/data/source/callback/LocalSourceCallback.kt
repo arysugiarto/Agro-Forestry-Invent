@@ -2,6 +2,7 @@ package com.agro.inventory.data.source.callback
 
 import com.agro.inventory.data.local.entity.InventPlotEntity
 import com.agro.inventory.data.local.entity.InventEntity
+import com.agro.inventory.data.local.entity.ReInventPlotEntity
 import com.agro.inventory.data.local.entity.ReinventEntity
 import kotlinx.coroutines.flow.Flow
 
@@ -17,8 +18,22 @@ interface LocalSourceCallback {
         statusDone: Boolean?
 
     )
-
     suspend fun deleteInventPlot()
+
+    //reinvent
+
+    suspend fun insertReInventPlotLocal(areaEntity: List<ReInventPlotEntity>)
+
+    fun getLocalReInventPlot(): Flow<List<ReInventPlotEntity>>
+
+    suspend fun updateStatusReInventPlot(
+        status: Boolean?,
+        memberno: String?,
+        statusDone: Boolean?
+
+    )
+    suspend fun deleteReInventPlot()
+
 
 //  input
 

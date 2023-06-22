@@ -38,14 +38,5 @@ class HomeRemoteDataSource(callback: ApiCallback) {
         }
 
 
-    fun requestSaveMonitoringWorkerAll(token: String, sobiDate: String,allMonitoringWorkerBodyRequest: List<AllMonitoringWorkerBodyRequest.Data>) = flowResponse {
-            val data = gson.toJsonTree(allMonitoringWorkerBodyRequest)
-
-            val body = gson.toJsonElement {
-                put("data", data)
-            }
-            apiCallback.requestSaveMonitoringWorkerAll(token, sobiDate, body)
-
-    }
 
 }

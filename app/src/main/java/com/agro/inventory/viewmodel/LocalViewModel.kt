@@ -8,6 +8,7 @@ import androidx.lifecycle.viewModelScope
 import com.agro.inventory.base.BaseViewModel
 import com.agro.inventory.data.local.entity.InventPlotEntity
 import com.agro.inventory.data.local.entity.InventEntity
+import com.agro.inventory.data.local.entity.ReInventPlotEntity
 import com.agro.inventory.data.local.entity.ReinventEntity
 import com.agro.inventory.data.repositories.LocalRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -115,11 +116,40 @@ class LocalViewModel @Inject constructor(
                 statusDone
             )
         }
-
-
     fun deleteAllInventPlot() = viewModelScope.launch {
         repository.deleteInventPlot()
     }
+
+    //reinvent
+
+    fun insertLocalReInventPlot(reInventPlotEntity: List<ReInventPlotEntity>) =
+        viewModelScope.launch {
+            repository.insertReInventPlotLocal(reInventPlotEntity)
+        }
+
+    val getReInventLocal
+        get() = repository
+            .getLocalReInventPlot()
+            .asLiveData(viewModelScope.coroutineContext)
+
+    fun updateStatusReInventPlot(
+        status: Boolean? = null,
+        memberno: String? = null,
+        statusDone: Boolean? = null
+    ) =
+        viewModelScope.launch {
+            repository.updateStatusReInventPlot(
+                status,
+                memberno,
+                statusDone
+            )
+        }
+
+
+    fun deleteAllReInventPlot() = viewModelScope.launch {
+        repository.deleteReInventPlot()
+    }
+
 
     // input
 

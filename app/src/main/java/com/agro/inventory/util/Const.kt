@@ -12,14 +12,8 @@ object Const {
 
         const val LOGIN = "$PREFIX/user/login"
         const val TOKEN = "token/generator"
-        const val AREA = "$PREFIX/plot/getAllData"
         const val LIST_PLOT = "$PREFIX/plot/listPlot"
         const val PLOT_DETAILS = "$PREFIX/plot/getPlot"
-        const val LIST_JOB = "$PREFIX/activity/listPekerjaan"
-        const val ACTIVITIES = "$PREFIX/activity/listActivity"
-        const val WORKER = "$PREFIX/activity/listWorkers"
-        const val SAVE_MONITORING_WORKER_ALL = "$PREFIX/monitoring/upload_datav2"
-
         object Media {
             const val UPLOAD = "$PREFIX/monitoring/upload_photo"
             const val FILE_FIELD = "file[]"
@@ -36,10 +30,8 @@ object Const {
         const val DATABASE_NAME = "AGRO_DATABASE"
 
         object Table {
-            const val ACTIVITIES = "activities_entity"
-            const val AREA = "area_entity"
             const val PLOT_INVENT = "plot_invent_entity"
-            const val ACTIVITIES_AREA = "activities_area_entity"
+            const val PLOT_REINVENT = "plot_reinvent_entity"
             const val INVENT = "invent_entity"
             const val REINVENT = "reinvent_entity"
         }

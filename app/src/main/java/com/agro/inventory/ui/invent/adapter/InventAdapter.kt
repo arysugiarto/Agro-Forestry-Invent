@@ -2,6 +2,7 @@ package com.agro.inventory.ui.invent.adapter
 
 import androidx.core.view.isVisible
 import com.agro.inventory.base.BaseAdapter
+import com.agro.inventory.data.local.entity.InventPlotEntity
 import com.agro.inventory.data.remote.model.ListPlotResponse
 import com.agro.inventory.data.remote.model.invent.Comodity
 import com.agro.inventory.databinding.ItemComodityBinding
@@ -12,13 +13,13 @@ import com.agro.inventory.util.textOrNull
 object InventAdapter {
 
     val codePlotAdapter  =
-        BaseAdapter.adapterOf<ListPlotResponse.Data, ItemPlotBinding>(
+        BaseAdapter.adapterOf<InventPlotEntity, ItemPlotBinding>(
             register = BaseAdapter.Register(
                 onBindHolder = { pos, item, view ->
                     view.run {
 
                         tvTitlePlot.textOrNull = item.kodePlot
-                        tvPolaTanam.textOrNull = item.polaTanamName
+                        tvPolaTanam.textOrNull = item.polaTanam
                         tvPolaTanamValue.textOrNull = ":" + " " +item.komoditas
 
                         btnNext.setOnClickListener {
@@ -64,9 +65,9 @@ object InventAdapter {
         onClickComodityCallback = item
     }
 
-    private var onClickCodePlotCallback: (ListPlotResponse.Data) -> Unit = {}
+    private var onClickCodePlotCallback: (InventPlotEntity) -> Unit = {}
 
-    fun setOnClickCodePlot(item: (ListPlotResponse.Data) -> Unit) {
+    fun setOnClickCodePlot(item: (InventPlotEntity) -> Unit) {
         onClickCodePlotCallback = item
     }
 

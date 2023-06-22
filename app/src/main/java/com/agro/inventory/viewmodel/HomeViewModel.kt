@@ -28,42 +28,6 @@ class HomeViewModel @Inject constructor(
 
     private var _plot: MutableLiveData<Event<Result<ListPlotResponse>>> = MutableLiveData()
     val plot: LiveData<Event<Result<ListPlotResponse>>>get() = _plot
-    private var _plotDetails: MutableLiveData<Event<Result<DetailsPlotResponse>>> = MutableLiveData()
-    val plotDetails: LiveData<Event<Result<DetailsPlotResponse>>>get() = _plotDetails
-
-
-    private var _saveMonitoringWorkerAll: MutableLiveData<Event<Result<AllMonitoringWorkerBodyRequest.Data>>> = MutableLiveData()
-    val saveMonitoringWorkerAll: LiveData<Event<Result<AllMonitoringWorkerBodyRequest.Data>>> get() = _saveMonitoringWorkerAll
-
-
-    private val _uploadResult: MutableLiveData<Result<Files>> = MutableLiveData()
-    val uploadResult: LiveData<Result<Files>> get() = _uploadResult
-
-    private var _areaDatastore: MutableLiveData<String> = MutableLiveData()
-    val areaDatastore: LiveData<String> get() = _areaDatastore
-    private var _nameMemberDatastore: MutableLiveData<String> = MutableLiveData()
-    val nameMemberDatastore: LiveData<String> get() = _nameMemberDatastore
-    private var _noMemberDatastore: MutableLiveData<String> = MutableLiveData()
-    val noMemberDatastore: LiveData<String> get() = _noMemberDatastore
-    private var _plotDatastore: MutableLiveData<String> = MutableLiveData()
-    val plotDatastore: LiveData<String> get() = _plotDatastore
-
-
-    fun getAreaDataStore() = accessManager.accessArea.onEach {
-        _areaDatastore.value = it.toString()
-    }.launchIn(viewModelScope)
-
-    fun getNameMemberDataStore() = accessManager.accessNameMember.onEach {
-        _nameMemberDatastore.value = it.toString()
-    }.launchIn(viewModelScope)
-
-    fun getNoMemberDataStore() = accessManager.accessNoMember.onEach {
-        _noMemberDatastore.value = it.toString()
-    }.launchIn(viewModelScope)
-
-    fun getPlotDataStore() = accessManager.accessPlot.onEach {
-        _plotDatastore.value = it.toString()
-    }.launchIn(viewModelScope)
 
 
     fun requestListPlot(token: String,sobiDate:String, areaId:String) =
@@ -72,32 +36,7 @@ class HomeViewModel @Inject constructor(
                 _plot.value = Event(result)
             }.launchIn(viewModelScope)
 
-    fun requestDetailsPlot(token: String,sobiDate:String,plotId:String) =
-        repository.requestDetailsPlot(token,sobiDate, plotId)
-            .onEach { result ->
-                _plotDetails.value = Event(result)
-            }.launchIn(viewModelScope)
 
 
-    fun requestSaveMonitoringWorkerAll(token: String, sobiDate: String, bodyRequest: List<AllMonitoringWorkerBodyRequest.Data>) =
-        repository.requestSaveMonitoringWorkerAll (token, sobiDate, bodyRequest).onEach { result ->
-            _saveMonitoringWorkerAll.value = Event(result)
-        }.launchIn(viewModelScope)
-
-
-    fun requestImageUploadResult(token: String, sobiDate: String, gambar: File?) =
-        repository.uploadImage(token, sobiDate, gambar)
-            .onEach { result -> _uploadResult.value = result
-    }.launchIn(viewModelScope)
-
-
-    fun setSaveAllMonitoringNothing() {
-        _saveMonitoringWorkerAll.value = Event(Result.nothing())
-    }
-
-companion object{
-    const val CODE_PLOT = "code_plot_state_key"
-    const val NAME_WORKER = "name_worker_state_key"
-    const val WORK_ACTIVITIES = "work_activities_state_key"
 }
-}
+

@@ -4,8 +4,8 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.agro.inventory.util.Const
 
-@Entity(tableName = Const.Database.Table.PLOT_INVENT)
-data class InventPlotEntity(
+@Entity(tableName = Const.Database.Table.PLOT_REINVENT)
+data class ReInventPlotEntity(
     @PrimaryKey(autoGenerate = true)
     val id: Int? = null,
     val idPlot: Int? = null,

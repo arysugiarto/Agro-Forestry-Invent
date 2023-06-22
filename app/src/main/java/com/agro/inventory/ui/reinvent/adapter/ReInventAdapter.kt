@@ -1,6 +1,8 @@
 package com.agro.inventory.ui.invent.adapter
 
 import com.agro.inventory.base.BaseAdapter
+import com.agro.inventory.data.local.entity.InventPlotEntity
+import com.agro.inventory.data.local.entity.ReInventPlotEntity
 import com.agro.inventory.data.remote.model.ListPlotResponse
 import com.agro.inventory.data.remote.model.invent.Comodity
 import com.agro.inventory.databinding.ItemComodityBinding
@@ -11,13 +13,13 @@ import com.agro.inventory.util.textOrNull
 object ReInventAdapter {
 
     val codePlotAdapter  =
-        BaseAdapter.adapterOf<ListPlotResponse.Data, ItemPlotBinding>(
+        BaseAdapter.adapterOf<ReInventPlotEntity, ItemPlotBinding>(
             register = BaseAdapter.Register(
                 onBindHolder = { pos, item, view ->
                     view.run {
 
                         tvTitlePlot.textOrNull = item.kodePlot
-                        tvPolaTanamValue.textOrNull = ":" + item.polaTanamName
+                        tvPolaTanamValue.textOrNull = ":" + item.polaTanam
                         tvComodityValue.textOrNull = ":" + item.komoditas
 
                         btnNext.setOnClickListener {
@@ -57,9 +59,9 @@ object ReInventAdapter {
 
 
 
-    private var onClickCodePlotCallback: (ListPlotResponse.Data) -> Unit = {}
+    private var onClickCodePlotCallback: (ReInventPlotEntity) -> Unit = {}
 
-    fun setOnClickCodePlot(item: (ListPlotResponse.Data) -> Unit) {
+    fun setOnClickCodePlot(item: (ReInventPlotEntity) -> Unit) {
         onClickCodePlotCallback = item
     }
 
