@@ -46,7 +46,7 @@ class LocalDataSource(
     suspend fun insertReInventPlot(reinventPlotEntity: List<ReInventPlotEntity>) =
         daoReInventPlot.insertPlotReInvent(reinventPlotEntity)
 
-    fun getPlotReInvent() = daoReInventPlot.getPlotReInvent()
+    fun getPlotReInvent(search: String) = daoReInventPlot.getPlotReInvent(search)
 
     suspend fun updatePlotReInvent(
         status: Boolean?,

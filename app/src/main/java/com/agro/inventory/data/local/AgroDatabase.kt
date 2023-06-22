@@ -13,7 +13,7 @@ import com.agro.inventory.data.local.entity.ReinventEntity
 
 @Database(
     entities = [InventPlotEntity::class, ReInventPlotEntity::class, InventEntity::class, ReinventEntity::class],
-    version = 33,
+    version = 34,
     exportSchema = false
 )
 abstract class AgroDatabase : RoomDatabase() {

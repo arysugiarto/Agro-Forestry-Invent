@@ -30,7 +30,7 @@ class LocalRepository(
 
     override suspend fun insertReInventPlotLocal(reInventPlotEntity: List<ReInventPlotEntity>) = localDataSource.insertReInventPlot(reInventPlotEntity)
 
-    override  fun getLocalReInventPlot() = localDataSource.getPlotReInvent()
+    override  fun getLocalReInventPlot(search: String) = localDataSource.getPlotReInvent(search)
 
     override suspend fun updateStatusReInventPlot(status: Boolean?, memberno: String?, statusDone: Boolean?) =
         localDataSource.updatePlotReInvent(

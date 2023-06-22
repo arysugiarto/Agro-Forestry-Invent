@@ -15,8 +15,9 @@ interface ReInvenPlotDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertPlotReInvent(reInventPlotEntity: List<ReInventPlotEntity>)
 
-    @Query("SELECT * FROM plot_reinvent_entity ")
-    fun getPlotReInvent(): Flow<List<ReInventPlotEntity>>
+    @Query("SELECT * FROM plot_reinvent_entity WHERE " +
+            "kodePlot LIKE :queryString OR allData LIKE :queryString " + "ORDER BY id ASC")
+    fun getPlotReInvent(queryString: String): Flow<List<ReInventPlotEntity>>
 
     @Query("UPDATE plot_reinvent_entity SET status =:status, statusDone =:statusDone WHERE memberno =:memberno")
     suspend fun updateStatusPlotReInvent(

@@ -32,6 +32,8 @@ class LocalViewModel @Inject constructor(
 
     private var _getInventPlot: MutableLiveData<List<InventPlotEntity>> = MutableLiveData()
     val getInventPlot: LiveData<List<InventPlotEntity>> get() = _getInventPlot
+    private var _getReInventPlot: MutableLiveData<List<ReInventPlotEntity>> = MutableLiveData()
+    val getReInventPlot: LiveData<List<ReInventPlotEntity>> get() = _getReInventPlot
 
 
     fun updateReInvent(
@@ -137,10 +139,16 @@ class LocalViewModel @Inject constructor(
             repository.insertReInventPlotLocal(reInventPlotEntity)
         }
 
-    val getReInventLocal
-        get() = repository
-            .getLocalReInventPlot()
-            .asLiveData(viewModelScope.coroutineContext)
+//    val getReInventLocal
+//        get() = repository
+//            .getLocalReInventPlot()
+//            .asLiveData(viewModelScope.coroutineContext)
+
+    fun getReInventLocal(search: String) =
+        repository.getLocalReInventPlot(search)
+            .onEach { result ->
+                _getReInventPlot.value = result
+            }.launchIn(viewModelScope)
 
     fun updateStatusReInventPlot(
         status: Boolean? = null,
