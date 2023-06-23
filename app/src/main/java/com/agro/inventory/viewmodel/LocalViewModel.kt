@@ -92,8 +92,8 @@ class LocalViewModel @Inject constructor(
             )
         }
 
-    fun getLocalInvent(idComodity: String, kodePlot: String) =
-        repository.getInvent(idComodity, kodePlot)
+    fun getLocalInvent(comodity: String,idComodity: String, kodePlot: String) =
+        repository.getInvent(comodity, idComodity, kodePlot)
             .onEach { result ->
                 _getInvent.value = result
             }.launchIn(viewModelScope)

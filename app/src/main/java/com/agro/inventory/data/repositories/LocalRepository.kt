@@ -45,7 +45,7 @@ class LocalRepository(
     //input
     override suspend fun insertInventLocal(inventEntity: InventEntity) = localDataSource.insertInvent(inventEntity)
 
-    override fun getInvent(idComodity: String, kodePlot: String) = localDataSource.getInvent(idComodity, kodePlot)
+    override fun getInvent(comodity: String, idComodity: String, kodePlot: String) = localDataSource.getInvent(comodity,idComodity, kodePlot)
     override suspend fun updateInvent(
         jmlTanam: String?,
         keliling: String?,

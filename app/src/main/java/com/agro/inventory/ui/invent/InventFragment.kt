@@ -110,7 +110,7 @@ class InventFragment : Fragment(R.layout.fragment_invent) , OnMapReadyCallback {
 //    }
 
     private fun initViewModel() {
-        viewModels.getLocalInvent(args.idKomoditas.toString(), args.kodePlot.toString())
+        viewModels.getLocalInvent(args.komoditas.toString(), args.idKomoditas.toString(), args.kodePlot.toString())
     }
 
     //getInventEdit

@@ -97,7 +97,6 @@ class ReInventAssigmentFragment : Fragment(R.layout.fragment_reinvent_assigment)
 
         }
 
-
     }
 
     private fun initViewModelCallback() {
