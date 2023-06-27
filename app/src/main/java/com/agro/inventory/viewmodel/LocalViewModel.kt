@@ -118,14 +118,15 @@ class LocalViewModel @Inject constructor(
 
     fun updateStatusInventPlot(
         status: Boolean? = null,
-        memberno: String? = null,
-        statusDone: Boolean? = null
+        statusDone: Boolean? = null,
+        kodePlot: String? = null
+
     ) =
         viewModelScope.launch {
             repository.updateStatusInventPlot(
                 status,
-                memberno,
-                statusDone
+                statusDone,
+                kodePlot,
             )
         }
     fun deleteAllInventPlot() = viewModelScope.launch {
@@ -151,15 +152,16 @@ class LocalViewModel @Inject constructor(
             }.launchIn(viewModelScope)
 
     fun updateStatusReInventPlot(
-        status: Boolean? = null,
-        memberno: String? = null,
-        statusDone: Boolean? = null
+        status: Boolean?,
+        statusDone: Boolean? = null,
+        kodePlot: String? = null
+
     ) =
         viewModelScope.launch {
             repository.updateStatusReInventPlot(
                 status,
-                memberno,
-                statusDone
+                statusDone,
+                kodePlot
             )
         }
 

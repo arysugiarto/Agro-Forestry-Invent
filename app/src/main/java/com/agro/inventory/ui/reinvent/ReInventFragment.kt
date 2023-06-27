@@ -104,8 +104,6 @@ class ReInventFragment : Fragment(R.layout.fragment_reinvent), OnMapReadyCallbac
             binding.etKomoditas.textOrNull = args.komoditas
         }
 
-        spinner()
-
          binding.etJmlTanam.textOrNull = "100"
          jumlahTanam = binding.etJmlTanam.text.toString()?.toInt().orEmpty
     }
@@ -148,31 +146,6 @@ class ReInventFragment : Fragment(R.layout.fragment_reinvent), OnMapReadyCallbac
 
 
             Timber.e("test%s", data.toString())
-
-        }
-    }
-
-    private fun spinner() {
-        val adapter = ArrayAdapter.createFromResource(
-            requireContext(),
-            R.array.observe,
-            android.R.layout.simple_spinner_item
-        )
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-        binding.sBranch.adapter = adapter
-
-        binding.sBranch.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-            override fun onItemSelected(
-                parent: AdapterView<*>?,
-                view: View?,
-                position: Int,
-                id: Long
-            ) {
-                reinvent = binding.sBranch.selectedItem.toString()
-            }
-
-            override fun onNothingSelected(parent: AdapterView<*>?) {
-            }
 
         }
     }
@@ -430,7 +403,34 @@ class ReInventFragment : Fragment(R.layout.fragment_reinvent), OnMapReadyCallbac
             }
         }
 
-        binding.boxTinggi.editText?.addTextChangedListener {
+        binding.boxJmlMati.editText?.addTextChangedListener {
+            if (binding.etJmlMati.text?.isEmpty().orEmpty) {
+                binding.etJmlMati.textOrNull = "0"
+            }
+
+            if (binding.etJmlMati.text?.toString()?.toInt().orEmpty > jumlahTanam) {
+                binding.boxJmlMati.warning(
+                    context?.getString(R.string.alert_reinvent_jumlah_hidup)
+                )
+
+            } else {
+                binding.boxJmlMati.error = null
+            }
+
+            if (latitude.toString().isNotEmpty() && longitude.toString()
+                    .isNotEmpty() && binding.etJmlSakit.text?.isNotEmpty().orEmpty && binding.etJmlHidup.text?.isNotEmpty().orEmpty
+                && binding.etKeliling.text?.isNotEmpty().orEmpty && binding.etTinggi.text?.isNotEmpty().orEmpty
+            ) {
+                binding.btnAdd.isVisible = true
+                binding.btnAddFalse.isVisible = false
+            } else {
+                binding.btnAdd.isVisible = false
+                binding.btnAddFalse.isVisible = true
+            }
+        }
+
+
+    binding.boxTinggi.editText?.addTextChangedListener {
             if (latitude.toString().isNotEmpty() && longitude.toString()
                     .isNotEmpty() && binding.etJmlSakit.text?.isNotEmpty().orEmpty && binding.etJmlHidup.text?.isNotEmpty().orEmpty
                 && binding.etKeliling.text?.isNotEmpty().orEmpty &&  binding.etTinggi.text?.isNotEmpty().orEmpty

@@ -30,14 +30,16 @@ class LocalDataSource(
     fun getPlotInvent(search: String) = daoInventPlot.getPlotInvent(search)
 
     suspend fun updatePlotInvent(
-        status: Boolean?,
-        memberno: String?,
-        statusDone: Boolean?
+        status:Boolean?,
+        statusDone: Boolean?,
+        kodePlot: String?
+
     ) =
         daoInventPlot.updateStatusPlotInvent(
             status,
-            memberno,
             statusDone,
+            kodePlot
+
         )
 
     suspend fun deleteInventPlot() = daoInventPlot.deletePlotInvent()
@@ -50,13 +52,14 @@ class LocalDataSource(
 
     suspend fun updatePlotReInvent(
         status: Boolean?,
-        memberno: String?,
-        statusDone: Boolean?
+        statusDone: Boolean?,
+        kodePlot: String?
     ) =
         daoReInventPlot.updateStatusPlotReInvent(
             status,
-            memberno,
             statusDone,
+            kodePlot,
+
         )
 
     suspend fun deleteReInventPlot() = daoReInventPlot.deletePlotReInvent()

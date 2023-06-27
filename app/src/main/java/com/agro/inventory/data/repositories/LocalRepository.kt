@@ -17,11 +17,12 @@ class LocalRepository(
 
     override  fun getLocalInventPlot(search: String) = localDataSource.getPlotInvent(search)
 
-    override suspend fun updateStatusInventPlot(status: Boolean?, memberno: String?, statusDone: Boolean?) =
+    override suspend fun updateStatusInventPlot(status:Boolean?, statusDone: Boolean?, kodePlot: String? ) =
         localDataSource.updatePlotInvent(
             status,
-            memberno,
-            statusDone
+            statusDone,
+            kodePlot
+
         )
 
     override suspend fun deleteInventPlot() = localDataSource.deleteInventPlot()
@@ -32,11 +33,11 @@ class LocalRepository(
 
     override  fun getLocalReInventPlot(search: String) = localDataSource.getPlotReInvent(search)
 
-    override suspend fun updateStatusReInventPlot(status: Boolean?, memberno: String?, statusDone: Boolean?) =
+    override suspend fun updateStatusReInventPlot(status: Boolean?,statusDone: Boolean?, kodePlot: String?) =
         localDataSource.updatePlotReInvent(
             status,
-            memberno,
-            statusDone
+            statusDone,
+            kodePlot
         )
 
     override suspend fun deleteReInventPlot() = localDataSource.deleteReInventPlot()

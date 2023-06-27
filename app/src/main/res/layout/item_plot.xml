@@ -150,7 +150,7 @@
                 android:layout_marginEnd="@dimen/screen_margin"
                 android:text="Selesai"
                 android:textAppearance="@style/TextAppearance.OpenSans.SemiBold.Body1"
-                android:textColor="@color/jungle_green"
+                android:textColor="@color/green"
                 android:visibility="gone"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"

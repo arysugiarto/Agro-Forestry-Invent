@@ -19,11 +19,12 @@ interface ReInvenPlotDao {
             "kodePlot LIKE :queryString OR allData LIKE :queryString " + "ORDER BY id ASC")
     fun getPlotReInvent(queryString: String): Flow<List<ReInventPlotEntity>>
 
-    @Query("UPDATE plot_reinvent_entity SET status =:status, statusDone =:statusDone WHERE memberno =:memberno")
+    @Query("UPDATE plot_reinvent_entity SET  status =:status, statusDone =:statusDone WHERE kodePlot =:kodePlot")
     suspend fun updateStatusPlotReInvent(
-        status: Boolean?,
-        memberno: String?,
-        statusDone: Boolean?
+        status:Boolean?,
+        statusDone: Boolean?,
+        kodePlot: String?,
+
     )
 
     @Query("DELETE FROM plot_reinvent_entity")

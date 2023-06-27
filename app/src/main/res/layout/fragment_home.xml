@@ -10,7 +10,7 @@
         android:id="@+id/clToolbars"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/sandy_brown"
+        android:background="@color/green"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -24,7 +24,7 @@
             android:layout_marginBottom="@dimen/screen_margin"
             android:text="@string/nav_home"
             android:textAppearance="@style/TextAppearance.OpenSans.Bold.Headline6"
-            android:textColor="@color/green"
+            android:textColor="@color/sandy_brown"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />

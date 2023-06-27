@@ -1,12 +1,14 @@
 package com.agro.inventory.ui.invent.adapter
 
 import androidx.core.view.isVisible
+import com.agro.inventory.R
 import com.agro.inventory.base.BaseAdapter
 import com.agro.inventory.data.local.entity.InventPlotEntity
 import com.agro.inventory.data.remote.model.ListPlotResponse
 import com.agro.inventory.data.remote.model.invent.Comodity
 import com.agro.inventory.databinding.ItemComodityBinding
 import com.agro.inventory.databinding.ItemPlotBinding
+import com.agro.inventory.util.color
 import com.agro.inventory.util.textOrNull
 
 
@@ -24,6 +26,21 @@ object InventAdapter {
 
                         btnNext.setOnClickListener {
                             onClickCodePlotCallback.invoke(item)
+                        }
+
+                        if (item.statusDone == true){
+                            btnNext.text = "Lanjut"
+//                            btnNext.setBackgroundColor(root.context.color(R.color.sandy_brown))
+                            btnDone.isVisible = true
+                        }
+
+                        if (item.status == true && item.statusDone == true){
+                            btnNext.isVisible = false
+                            btnDone.isVisible = false
+                            tvDone.isVisible = true
+                        }
+                        btnDone.setOnClickListener{
+                            onClickDoneCallback.invoke(item)
                         }
 
                     }
@@ -69,6 +86,12 @@ object InventAdapter {
 
     fun setOnClickCodePlot(item: (InventPlotEntity) -> Unit) {
         onClickCodePlotCallback = item
+    }
+
+    private var onClickDoneCallback: (InventPlotEntity) -> Unit = {}
+
+    fun setOnClickDone(item: (InventPlotEntity) -> Unit) {
+        onClickDoneCallback = item
     }
 
 

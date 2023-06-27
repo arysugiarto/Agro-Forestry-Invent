@@ -14,8 +14,8 @@ interface LocalSourceCallback {
 
     suspend fun updateStatusInventPlot(
         status: Boolean?,
-        memberno: String?,
-        statusDone: Boolean?
+        statusDone: Boolean?,
+        kodePlot: String?
 
     )
     suspend fun deleteInventPlot()
@@ -28,9 +28,8 @@ interface LocalSourceCallback {
 
     suspend fun updateStatusReInventPlot(
         status: Boolean?,
-        memberno: String?,
-        statusDone: Boolean?
-
+        statusDone: Boolean?,
+        kodePlot: String?
     )
     suspend fun deleteReInventPlot()
 

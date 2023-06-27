@@ -392,6 +392,7 @@ class InventFragment : Fragment(R.layout.fragment_invent) , OnMapReadyCallback {
                     )
 
                     viewModels.insertLocalInvent(inventEntity)
+                    viewModels.updateStatusInventPlot(true,false, args.kodePlot)
                 }
 
 
