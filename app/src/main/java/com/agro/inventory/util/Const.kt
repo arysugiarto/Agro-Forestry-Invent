@@ -14,6 +14,8 @@ object Const {
         const val TOKEN = "token/generator"
         const val LIST_PLOT = "$PREFIX/plot/listPlot"
         const val PLOT_DETAILS = "$PREFIX/plot/getPlot"
+        const val UPLOAD_INVENT = "$PREFIX/plant/upload_data"
+
         object Media {
             const val UPLOAD = "$PREFIX/monitoring/upload_photo"
             const val FILE_FIELD = "file[]"

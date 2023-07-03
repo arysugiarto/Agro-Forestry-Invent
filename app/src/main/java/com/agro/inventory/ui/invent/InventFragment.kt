@@ -347,6 +347,7 @@ class InventFragment : Fragment(R.layout.fragment_invent) , OnMapReadyCallback {
             btnAdd.setOnClickListener(onClickCallback)
             tvTitle.setOnClickListener(onClickCallback)
             btnAddFalse.setOnClickListener(onClickCallback)
+
         }
     }
 
@@ -356,6 +357,7 @@ class InventFragment : Fragment(R.layout.fragment_invent) , OnMapReadyCallback {
             binding.btnTakePhoto -> {
                 photoPicker()
             }
+
 
             binding.btnCancel -> {
                 navController.navigateUp()

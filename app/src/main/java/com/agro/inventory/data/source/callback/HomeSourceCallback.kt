@@ -26,5 +26,8 @@ interface HomeSourceCallback {
         plotId: String
     ): Flow<Result<DetailsPlotResponse>>
 
+    fun requestSaveInventAll(token: String, sobiDate: String,bodyRequest: List<SaveInventBodyRequest.Data> ):
+            Flow<Result<SaveInventBodyRequest.Data>>
+
 
 }

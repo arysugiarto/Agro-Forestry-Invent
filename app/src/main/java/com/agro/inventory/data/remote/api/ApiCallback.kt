@@ -41,5 +41,13 @@ interface ApiCallback {
         @Query("plot_id") plotId: String
     ): Response<DetailsPlotResponse>
 
+    @POST(Const.NETWORK.UPLOAD_INVENT)
+    suspend fun requestSaveInventAll(
+        @Header("Authorization") token: String,
+        @Header("Sobi-Date") sobiDate: String,
+        @Body body: JsonElement
+    ): Response<SaveInventBodyRequest.Data>
+
+
 
 }

@@ -57,6 +57,8 @@ interface LocalSourceCallback {
 
     fun getInvent(comodity:String, idComodity: String, kodePlot: String): Flow<List<InventEntity>>
 
+    fun getInventAll(): Flow<List<InventEntity>>
+
     suspend fun updateInvent(
         jmlTanam: String?,
         keliling: String?,

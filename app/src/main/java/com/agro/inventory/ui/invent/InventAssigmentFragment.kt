@@ -9,11 +9,14 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.hilt.navigation.fragment.hiltNavGraphViewModels
 import androidx.lifecycle.lifecycleScope
+import cn.pedant.SweetAlert.SweetAlertDialog
 import com.agro.inventory.R
+import com.agro.inventory.data.local.entity.InventEntity
 import com.agro.inventory.data.local.entity.InventPlotEntity
 import com.agro.inventory.data.preferences.AccessManager
 import com.agro.inventory.data.remote.Result
 import com.agro.inventory.data.remote.model.ListPlotResponse
+import com.agro.inventory.data.remote.model.SaveInventBodyRequest
 import com.agro.inventory.data.remote.model.invent.Comodity
 import com.agro.inventory.databinding.FragmentInventAssigmentBinding
 import com.agro.inventory.databinding.LayoutChooseComodityBinding
@@ -45,6 +48,7 @@ class InventAssigmentFragment : Fragment(R.layout.fragment_invent_assigment) {
 
     private var listComodity = emptyList<Comodity>()
     private val comodityAdapter = InventAdapter.cmodityAdapter
+    private var saveInvent = listOf<SaveInventBodyRequest.Data>()
 
 
     @Inject
@@ -60,6 +64,7 @@ class InventAssigmentFragment : Fragment(R.layout.fragment_invent_assigment) {
     var keyword = emptyString
     private var item = ListPlotResponse()
     private lateinit var inventPlotEntity: List<InventPlotEntity>
+    private lateinit var inventEntity: List<InventEntity>
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -75,6 +80,7 @@ class InventAssigmentFragment : Fragment(R.layout.fragment_invent_assigment) {
         parentNavigation?.isVisible = false
 
         viewModels.getInventLocal( "ALL")
+        viewModels.getLocalInventAll()
 
         var data = emptyList<InventPlotEntity>()
         viewModels.getInventPlot.observe(viewLifecycleOwner) { result ->
@@ -95,8 +101,39 @@ class InventAssigmentFragment : Fragment(R.layout.fragment_invent_assigment) {
 
         }
 
-    }
+        var dataInvent = emptyList<InventEntity>()
+        viewModels.getInventAll.observe(viewLifecycleOwner) { result ->
+            dataInvent = result.orEmpty()
+            binding.ivDot.isVisible = data.isNotEmpty()
+            binding.ivUpload.isVisible = data.isNotEmpty()
 
+            saveInvent =
+                dataInvent.map {
+                    SaveInventBodyRequest.Data(
+                        SaveInventBodyRequest.Data.Plants(
+                            plotId = it.idPlot.orEmpty,
+                            plantNumber = 1,
+                            totalPlant = 200,
+                            komoditasId = 1,
+                            keliling = it.keliling?.toInt()!!,
+                            length = it.tinggi?.toInt()!!,
+                            userId = 2306,
+                            lat = it.lat.toString(),
+                            lng = it.lng.toString(),
+                            uid ="f48666f9-f85a-461f-befb-7b03bdab2e44" ,
+                            appSource = "12",
+                            createdBy = 206,
+                            deleted = 0
+                        ),
+                        images = it.photo.toString()
+
+                    )
+                }
+            Timber.e(saveInvent.toString())
+
+        }
+
+    }
 
 
     private fun initViewModelCallback() {
@@ -217,6 +254,45 @@ class InventAssigmentFragment : Fragment(R.layout.fragment_invent_assigment) {
         }
     }
 
+    private fun initSaveInvent() {
+        viewModel.saveInventAll.observe(viewLifecycleOwner, EventObserver { result ->
+            when (result) {
+                is Result.Loading -> {
+//                    binding.progressBar.isVisible = true
+//                    binding.tvProgress.isVisible = true
+                }
+
+                is Result.Success -> {
+//                    binding.progressBar.isVisible = false
+//                    binding.tvProgress.isVisible = false
+
+                    Timber.e("Berhasil")
+                    SweetAlertDialog(requireContext(), SweetAlertDialog.SUCCESS_TYPE)
+                        .setTitleText(context?.getString(R.string.success))
+                        .setContentText(context?.getString(R.string.register_employee))
+                        .setConfirmClickListener {
+                            it.dismissWithAnimation()
+//                            viewModels.deleteAllActivities()
+//                            viewModels.deleteAllArea()
+//
+//                            initAreaLocalCallback()
+
+                        }
+                        .show()
+
+                    viewModel.setSaveAllInventNothing()
+                }
+
+                is Result.Error -> {
+
+                }
+
+                else -> Unit
+            }
+        })
+
+    }
+
     private fun initTextDelayOnType() {
         binding.apply {
             boxSearch.editText?.addDelayOnTypeWithScope(200, lifecycleScope) {
@@ -254,10 +330,13 @@ class InventAssigmentFragment : Fragment(R.layout.fragment_invent_assigment) {
         }
         false
     }
+
+
     private fun initOnClick() {
         binding.apply {
             tvTitle.setOnClickListener(onClickCallback)
             fab.setOnClickListener(onClickCallback)
+            ivUpload.setOnClickListener(onClickCallback)
         }
     }
 
@@ -277,6 +356,19 @@ class InventAssigmentFragment : Fragment(R.layout.fragment_invent_assigment) {
                 viewModels.getInventLocal("")
                 initLocalPlotCallback()
                 initPlotCallback()
+            }
+
+            binding.ivUpload -> {
+                initSaveInvent()
+                viewModel.requestSaveInventAll(
+                    "Sobi+Apps:ae7cda7f7b0e6f38638e40ad3ebb78a4",
+                    "1550446421",
+                    saveInvent
+                )
+
+                viewModel.setSaveAllInventNothing()
+//                Timber.e(dataActivities.toString())
+
             }
         }
 

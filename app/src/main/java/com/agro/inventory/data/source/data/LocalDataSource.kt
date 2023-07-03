@@ -73,6 +73,9 @@ class LocalDataSource(
     fun getInvent(comodity:String, idComodity: String, kodePlot: String) =
         daoInvent.getInvent(comodity ,idComodity, kodePlot)
 
+    fun getInventAll() =
+        daoInvent.getInventAll()
+
     suspend fun updateInvent(
         jmlTanam: String?,
         keliling: String?,

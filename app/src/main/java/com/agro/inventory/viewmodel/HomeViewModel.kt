@@ -29,6 +29,10 @@ class HomeViewModel @Inject constructor(
     private var _plot: MutableLiveData<Event<Result<ListPlotResponse>>> = MutableLiveData()
     val plot: LiveData<Event<Result<ListPlotResponse>>>get() = _plot
 
+    private var _saveInventAll: MutableLiveData<Event<Result<SaveInventBodyRequest.Data>>> = MutableLiveData()
+    val saveInventAll: LiveData<Event<Result<SaveInventBodyRequest.Data>>> get() = _saveInventAll
+
+
 
     fun requestListPlot(token: String,sobiDate:String, areaId:String) =
         repository.requestListPlot(token,sobiDate, areaId)
@@ -36,6 +40,14 @@ class HomeViewModel @Inject constructor(
                 _plot.value = Event(result)
             }.launchIn(viewModelScope)
 
+    fun requestSaveInventAll(token: String, sobiDate: String, bodyRequest: List<SaveInventBodyRequest.Data>) =
+        repository.requestSaveInventAll (token, sobiDate, bodyRequest).onEach { result ->
+            _saveInventAll.value = Event(result)
+        }.launchIn(viewModelScope)
+
+    fun setSaveAllInventNothing() {
+        _saveInventAll.value = Event(Result.nothing())
+    }
 
 
 }

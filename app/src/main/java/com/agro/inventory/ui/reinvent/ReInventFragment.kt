@@ -74,8 +74,8 @@ class ReInventFragment : Fragment(R.layout.fragment_reinvent), OnMapReadyCallbac
     var edit = emptyBoolean
     var id = emptyString
 
-    var jumlahHidup = emptyString
-    var jumlahSakit = emptyString
+    var jumlahHidup = emptyInt
+    var jumlahSakit = emptyInt
     var jumlahHIdupSakit = emptyInt
     var jumlahTanam = emptyInt
 
@@ -104,8 +104,8 @@ class ReInventFragment : Fragment(R.layout.fragment_reinvent), OnMapReadyCallbac
             binding.etKomoditas.textOrNull = args.komoditas
         }
 
-         binding.etJmlTanam.textOrNull = "100"
-         jumlahTanam = binding.etJmlTanam.text.toString()?.toInt().orEmpty
+        binding.etJmlTanam.textOrNull = "100"
+        jumlahTanam = binding.etJmlTanam.text.toString()?.toInt().orEmpty
     }
 
     private fun initViewModel() {
@@ -345,14 +345,21 @@ class ReInventFragment : Fragment(R.layout.fragment_reinvent), OnMapReadyCallbac
 
     private fun onInputTextChanged() {
         binding.boxJmlHidup.editText?.addTextChangedListener {
-            if (binding.etJmlHidup.text?.isEmpty().orEmpty){
+
+
+            if (binding.etJmlHidup.text?.isEmpty().orEmpty) {
                 binding.etJmlHidup.textOrNull = "0"
+                jumlahHidup = 0
             }
-            if (binding.etJmlSakit.text?.isEmpty().orEmpty){
+            if (binding.etJmlSakit.text?.isEmpty().orEmpty) {
                 binding.etJmlSakit.textOrNull = "0"
+                jumlahSakit = 0
             }
 
-            if ((binding.etJmlHidup.text?.toString()?.toInt().orEmpty + binding.etJmlSakit.text?.toString()?.toInt().orEmpty) >  jumlahTanam) {
+            if ((binding.etJmlHidup.text?.toString()
+                    ?.toInt().orEmpty + binding.etJmlSakit.text?.toString()
+                    ?.toInt().orEmpty) > jumlahTanam
+            ) {
                 Timber.e(binding.etJmlHidup.text.toString())
                 binding.boxJmlHidup.warning(
                     context?.getString(R.string.alert_reinvent_jumlah_hidup)
@@ -360,61 +367,6 @@ class ReInventFragment : Fragment(R.layout.fragment_reinvent), OnMapReadyCallbac
 
             } else {
                 binding.boxJmlHidup.error = null
-            }
-
-            if (latitude.toString().isNotEmpty() && longitude.toString()
-                    .isNotEmpty() && binding.etJmlSakit.text?.isNotEmpty().orEmpty && binding.etJmlHidup.text?.isNotEmpty().orEmpty
-                && binding.etKeliling.text?.isNotEmpty().orEmpty &&  binding.etTinggi.text?.isNotEmpty().orEmpty
-            ){
-                binding.btnAdd.isVisible = true
-                binding.btnAddFalse.isVisible = false
-            }else{
-                binding.btnAdd.isVisible = false
-                binding.btnAddFalse.isVisible = true
-            }
-        }
-
-        binding.boxJmlSakit.editText?.addTextChangedListener {
-            if (binding.etJmlHidup.text?.isEmpty().orEmpty){
-                binding.etJmlHidup.textOrNull = "0"
-            }
-            if (binding.etJmlSakit.text?.isEmpty().orEmpty){
-                binding.etJmlSakit.textOrNull = "0"
-            }
-            if ((binding.etJmlSakit.text?.toString()?.toInt().orEmpty + binding.etJmlHidup.text?.toString()?.toInt().orEmpty) > jumlahTanam) {
-                binding.boxJmlSakit.warning(
-                    context?.getString(R.string.alert_reinvent_jumlah_sakit)
-                )
-                binding.btnAdd.isVisible = false
-            } else {
-                binding.boxJmlSakit.error = null
-                binding.btnAdd.isVisible = true
-            }
-
-            if (latitude.toString().isNotEmpty() && longitude.toString()
-                    .isNotEmpty() && binding.etJmlSakit.text?.isNotEmpty().orEmpty && binding.etJmlHidup.text?.isNotEmpty().orEmpty
-                && binding.etKeliling.text?.isNotEmpty().orEmpty &&  binding.etTinggi.text?.isNotEmpty().orEmpty
-            ){
-                binding.btnAdd.isVisible = true
-                binding.btnAddFalse.isVisible = false
-            }else{
-                binding.btnAdd.isVisible = false
-                binding.btnAddFalse.isVisible = true
-            }
-        }
-
-        binding.boxJmlMati.editText?.addTextChangedListener {
-            if (binding.etJmlMati.text?.isEmpty().orEmpty) {
-                binding.etJmlMati.textOrNull = "0"
-            }
-
-            if (binding.etJmlMati.text?.toString()?.toInt().orEmpty > jumlahTanam) {
-                binding.boxJmlMati.warning(
-                    context?.getString(R.string.alert_reinvent_jumlah_hidup)
-                )
-
-            } else {
-                binding.boxJmlMati.error = null
             }
 
             if (latitude.toString().isNotEmpty() && longitude.toString()
@@ -429,15 +381,73 @@ class ReInventFragment : Fragment(R.layout.fragment_reinvent), OnMapReadyCallbac
             }
         }
 
+//        binding.boxJmlSakit.editText?.addTextChangedListener {
+//            if (binding.etJmlHidup.text?.isEmpty().orEmpty){
+//                binding.etJmlHidup.textOrNull = "0"
+//            }
+//            if (binding.etJmlSakit.text?.isEmpty().orEmpty){
+//                binding.etJmlSakit.textOrNull = "0"
+//            }
+//            if ((binding.etJmlSakit.text?.toString()?.toInt().orEmpty + binding.etJmlHidup.text?.toString()?.toInt().orEmpty) > jumlahTanam) {
+//                binding.boxJmlSakit.warning(
+//                    context?.getString(R.string.alert_reinvent_jumlah_sakit)
+//                )
+//                binding.btnAdd.isVisible = false
+//            } else {
+//                binding.boxJmlSakit.error = null
+//                binding.btnAdd.isVisible = true
+//            }
+//
+//            if (latitude.toString().isNotEmpty() && longitude.toString()
+//                    .isNotEmpty() && binding.etJmlSakit.text?.isNotEmpty().orEmpty && binding.etJmlHidup.text?.isNotEmpty().orEmpty
+//                && binding.etKeliling.text?.isNotEmpty().orEmpty &&  binding.etTinggi.text?.isNotEmpty().orEmpty
+//            ){
+//                binding.btnAdd.isVisible = true
+//                binding.btnAddFalse.isVisible = false
+//            }else{
+//                binding.btnAdd.isVisible = false
+//                binding.btnAddFalse.isVisible = true
+//            }
+//        }
 
-    binding.boxTinggi.editText?.addTextChangedListener {
+        binding.boxJmlMati.editText?.addTextChangedListener {
+            if (binding.etJmlMati.text?.isEmpty().orEmpty) {
+                binding.etJmlMati.textOrNull = "0"
+            }
+
+
+            if (binding.etJmlMati.text?.toString()?.toInt().orEmpty > jumlahTanam) {
+                binding.boxJmlMati.warning(
+                    context?.getString(R.string.alert_reinvent_jumlah_hidup)
+                )
+
+            } else {
+                binding.boxJmlMati.error = null
+
+            }
+
+
             if (latitude.toString().isNotEmpty() && longitude.toString()
                     .isNotEmpty() && binding.etJmlSakit.text?.isNotEmpty().orEmpty && binding.etJmlHidup.text?.isNotEmpty().orEmpty
-                && binding.etKeliling.text?.isNotEmpty().orEmpty &&  binding.etTinggi.text?.isNotEmpty().orEmpty
-            ){
+                && binding.etKeliling.text?.isNotEmpty().orEmpty && binding.etTinggi.text?.isNotEmpty().orEmpty
+            ) {
                 binding.btnAdd.isVisible = true
                 binding.btnAddFalse.isVisible = false
-            }else{
+            } else {
+                binding.btnAdd.isVisible = false
+                binding.btnAddFalse.isVisible = true
+            }
+        }
+
+
+        binding.boxTinggi.editText?.addTextChangedListener {
+            if (latitude.toString().isNotEmpty() && longitude.toString()
+                    .isNotEmpty() && binding.etJmlSakit.text?.isNotEmpty().orEmpty && binding.etJmlHidup.text?.isNotEmpty().orEmpty
+                && binding.etKeliling.text?.isNotEmpty().orEmpty && binding.etTinggi.text?.isNotEmpty().orEmpty
+            ) {
+                binding.btnAdd.isVisible = true
+                binding.btnAddFalse.isVisible = false
+            } else {
                 binding.btnAdd.isVisible = false
                 binding.btnAddFalse.isVisible = true
             }
@@ -446,11 +456,11 @@ class ReInventFragment : Fragment(R.layout.fragment_reinvent), OnMapReadyCallbac
         binding.boxKeliling.editText?.addTextChangedListener {
             if (latitude.toString().isNotEmpty() && longitude.toString()
                     .isNotEmpty() && binding.etJmlSakit.text?.isNotEmpty().orEmpty && binding.etJmlHidup.text?.isNotEmpty().orEmpty
-                && binding.etKeliling.text?.isNotEmpty().orEmpty &&  binding.etTinggi.text?.isNotEmpty().orEmpty
-            ){
+                && binding.etKeliling.text?.isNotEmpty().orEmpty && binding.etTinggi.text?.isNotEmpty().orEmpty
+            ) {
                 binding.btnAdd.isVisible = true
                 binding.btnAddFalse.isVisible = false
-            }else{
+            } else {
                 binding.btnAdd.isVisible = false
                 binding.btnAddFalse.isVisible = true
             }

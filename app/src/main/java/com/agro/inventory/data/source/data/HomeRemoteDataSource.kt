@@ -2,6 +2,7 @@ package com.agro.inventory.data.source.data
 
 import com.agro.inventory.data.remote.api.ApiCallback
 import com.agro.inventory.data.remote.model.AllMonitoringWorkerBodyRequest
+import com.agro.inventory.data.remote.model.SaveInventBodyRequest
 import com.agro.inventory.util.flowResponse
 import com.agro.inventory.util.gson
 import com.agro.inventory.util.partFile
@@ -38,5 +39,14 @@ class HomeRemoteDataSource(callback: ApiCallback) {
         }
 
 
+    fun requestSaveInventAll(token: String, sobiDate: String,saveInventBodyRrequest: List<SaveInventBodyRequest.Data>) = flowResponse {
+        val data = gson.toJsonTree(saveInventBodyRrequest)
+
+        val body = gson.toJsonElement {
+            put("data", data)
+        }
+        apiCallback.requestSaveInventAll(token, sobiDate, body)
+
+    }
 
 }
