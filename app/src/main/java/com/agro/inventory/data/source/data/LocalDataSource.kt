@@ -103,6 +103,8 @@ class LocalDataSource(
 
     fun getReInvent(idComodity: String, kodePlot: String) =
         daoReInvent.getReInvent(idComodity, kodePlot)
+    fun getReInventAll() =
+        daoReInvent.getReInventAll()
 
     suspend fun updateReInvent(
         jmlTanam: String?,

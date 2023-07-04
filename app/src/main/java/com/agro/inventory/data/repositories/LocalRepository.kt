@@ -50,6 +50,8 @@ class LocalRepository(
 
     override fun getInventAll() = localDataSource.getInventAll()
 
+    override fun getReInventAll() = localDataSource.getReInventAll()
+
     override suspend fun updateInvent(
         jmlTanam: String?,
         keliling: String?,

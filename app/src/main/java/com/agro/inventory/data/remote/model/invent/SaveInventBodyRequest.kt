@@ -1,4 +1,4 @@
-package com.agro.inventory.data.remote.model
+package com.agro.inventory.data.remote.model.invent
 
 
 import com.google.gson.annotations.SerializedName

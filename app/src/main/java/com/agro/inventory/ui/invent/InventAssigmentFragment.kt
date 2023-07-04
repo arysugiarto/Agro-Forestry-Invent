@@ -16,7 +16,7 @@ import com.agro.inventory.data.local.entity.InventPlotEntity
 import com.agro.inventory.data.preferences.AccessManager
 import com.agro.inventory.data.remote.Result
 import com.agro.inventory.data.remote.model.ListPlotResponse
-import com.agro.inventory.data.remote.model.SaveInventBodyRequest
+import com.agro.inventory.data.remote.model.invent.SaveInventBodyRequest
 import com.agro.inventory.data.remote.model.invent.Comodity
 import com.agro.inventory.databinding.FragmentInventAssigmentBinding
 import com.agro.inventory.databinding.LayoutChooseComodityBinding

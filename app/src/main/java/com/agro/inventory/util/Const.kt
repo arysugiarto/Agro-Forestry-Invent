@@ -15,6 +15,7 @@ object Const {
         const val LIST_PLOT = "$PREFIX/plot/listPlot"
         const val PLOT_DETAILS = "$PREFIX/plot/getPlot"
         const val UPLOAD_INVENT = "$PREFIX/plant/upload_data"
+        const val UPLOAD_REINVENT = "$PREFIX/plant/upload_reinventdata"
 
         object Media {
             const val UPLOAD = "$PREFIX/monitoring/upload_photo"

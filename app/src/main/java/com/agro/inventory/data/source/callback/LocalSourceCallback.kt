@@ -40,6 +40,8 @@ interface LocalSourceCallback {
 
     fun getReInvent(idComodity: String, kodePlot: String): Flow<List<ReinventEntity>>
 
+    fun getReInventAll(): Flow<List<ReinventEntity>>
+
     suspend fun updateReInvent(
         jmlTanam: String?,
         jmlHidup: String?,

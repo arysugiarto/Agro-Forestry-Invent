@@ -2,6 +2,8 @@ package com.agro.inventory.data.remote.api
 
 import com.google.gson.JsonElement
 import com.agro.inventory.data.remote.model.*
+import com.agro.inventory.data.remote.model.invent.SaveInventBodyRequest
+import com.agro.inventory.data.remote.model.reinvent.SaveReinventBodyRequest
 import com.agro.inventory.util.Const
 import okhttp3.MultipartBody
 import retrofit2.Response
@@ -47,6 +49,13 @@ interface ApiCallback {
         @Header("Sobi-Date") sobiDate: String,
         @Body body: JsonElement
     ): Response<SaveInventBodyRequest.Data>
+
+    @POST(Const.NETWORK.UPLOAD_REINVENT)
+    suspend fun requestSaveReInventAll(
+        @Header("Authorization") token: String,
+        @Header("Sobi-Date") sobiDate: String,
+        @Body body: JsonElement
+    ): Response<SaveReinventBodyRequest.Data>
 
 
 

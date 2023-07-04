@@ -9,13 +9,18 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.hilt.navigation.fragment.hiltNavGraphViewModels
 import androidx.lifecycle.lifecycleScope
+import cn.pedant.SweetAlert.SweetAlertDialog
 import com.agro.inventory.R
+import com.agro.inventory.data.local.entity.InventEntity
 import com.agro.inventory.data.local.entity.InventPlotEntity
 import com.agro.inventory.data.local.entity.ReInventPlotEntity
+import com.agro.inventory.data.local.entity.ReinventEntity
 import com.agro.inventory.data.preferences.AccessManager
 import com.agro.inventory.data.remote.Result
 import com.agro.inventory.data.remote.model.ListPlotResponse
 import com.agro.inventory.data.remote.model.invent.Comodity
+import com.agro.inventory.data.remote.model.invent.SaveInventBodyRequest
+import com.agro.inventory.data.remote.model.reinvent.SaveReinventBodyRequest
 import com.agro.inventory.databinding.FragmentReinventAssigmentBinding
 import com.agro.inventory.databinding.LayoutChooseComodityBinding
 import com.agro.inventory.ui.invent.adapter.ReInventAdapter
@@ -53,6 +58,9 @@ class ReInventAssigmentFragment : Fragment(R.layout.fragment_reinvent_assigment)
     private var listComodity = emptyList<Comodity>()
     private val comodityAdapter = ReInventAdapter.cmodityAdapter
 
+    private var saveReInvent = listOf<SaveReinventBodyRequest.Data>()
+
+
     var polaTanam = emptyString
     var kodePlot = emptyString
     var idPlot = emptyString
@@ -78,6 +86,9 @@ class ReInventAssigmentFragment : Fragment(R.layout.fragment_reinvent_assigment)
         parentNavigation?.isVisible = false
 
         viewModels.getReInventLocal("ALL")
+        viewModels.getReInventAll()
+
+
         var data = emptyList<ReInventPlotEntity>()
         viewModels.getReInventPlot.observe(viewLifecycleOwner) { result ->
             data = result.orEmpty()
@@ -94,6 +105,42 @@ class ReInventAssigmentFragment : Fragment(R.layout.fragment_reinvent_assigment)
                 binding.rvLand.isVisible = true
                 binding.label.isVisible = true
             }
+
+        }
+
+        var dataReInvent = emptyList<ReinventEntity>()
+        viewModels.getReInventAll.observe(viewLifecycleOwner) { result ->
+            dataReInvent = result.orEmpty()
+            binding.ivDot.isVisible = data.isNotEmpty()
+            binding.ivUpload.isVisible = data.isNotEmpty()
+
+            saveReInvent =
+                dataReInvent.map {
+                    SaveReinventBodyRequest.Data(
+                        SaveReinventBodyRequest.Data.Plants(
+                            id = it.id?.toInt()!!,
+                            plotId = it.idPlot.orEmpty,
+                            plantNumber = 1,
+                            totalPlant = 200,
+                            alivesTotal = it.jmlHidup?.toInt()!!,
+                            diseasedTrees = it.jmlSakit?.toInt()!!,
+                            penyulamanTotal = it.penyulaman?.toInt()!!,
+                            komoditasId = 1,
+                            keliling = it.keliling?.toInt()!!,
+                            length = it.tinggi?.toInt()!!,
+                            userId = 2306,
+                            lat = it.lat.toString(),
+                            lng = it.lng.toString(),
+                            uid ="f48666f9-f85a-461f-befb-7b03bdab2e44" ,
+                            appSource = "12",
+                            createdBy = 206,
+                            deleted = 0
+                        ),
+                        images = it.photo.toString()
+
+                    )
+                }
+            Timber.e(saveReInvent.toString())
 
         }
 
@@ -213,6 +260,45 @@ class ReInventAssigmentFragment : Fragment(R.layout.fragment_reinvent_assigment)
         }
     }
 
+    private fun initSaveInvent() {
+        viewModel.saveReInventAll.observe(viewLifecycleOwner, EventObserver { result ->
+            when (result) {
+                is Result.Loading -> {
+//                    binding.progressBar.isVisible = true
+//                    binding.tvProgress.isVisible = true
+                }
+
+                is Result.Success -> {
+//                    binding.progressBar.isVisible = false
+//                    binding.tvProgress.isVisible = false
+
+                    Timber.e("Berhasil")
+                    SweetAlertDialog(requireContext(), SweetAlertDialog.SUCCESS_TYPE)
+                        .setTitleText(context?.getString(R.string.success))
+                        .setContentText(context?.getString(R.string.register_employee))
+                        .setConfirmClickListener {
+                            it.dismissWithAnimation()
+//                            viewModels.deleteAllActivities()
+//                            viewModels.deleteAllArea()
+//
+//                            initAreaLocalCallback()
+
+                        }
+                        .show()
+
+                    viewModel.setSaveAllInventNothing()
+                }
+
+                is Result.Error -> {
+
+                }
+
+                else -> Unit
+            }
+        })
+
+    }
+
 
     private fun initTextDelayOnType() {
         binding.apply {
@@ -256,6 +342,7 @@ class ReInventAssigmentFragment : Fragment(R.layout.fragment_reinvent_assigment)
         binding.apply {
             tvTitle.setOnClickListener(onClickCallback)
             fab.setOnClickListener(onClickCallback)
+            ivUpload.setOnClickListener(onClickCallback)
         }
     }
 
@@ -274,6 +361,18 @@ class ReInventAssigmentFragment : Fragment(R.layout.fragment_reinvent_assigment)
                 )
 
                 initPlotCallback()
+
+            }
+
+            binding.ivUpload -> {
+                initSaveInvent()
+                viewModel.requestSaveReInventAll(
+                    "Sobi+Apps:ae7cda7f7b0e6f38638e40ad3ebb78a4",
+                    "1550446421",
+                    saveReInvent
+                )
+
+                viewModel.setSaveAllReInventNothing()
 
             }
         }

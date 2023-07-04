@@ -1,7 +1,7 @@
 package com.agro.inventory.data.repositories
 
-import com.agro.inventory.data.remote.model.AllMonitoringWorkerBodyRequest
-import com.agro.inventory.data.remote.model.SaveInventBodyRequest
+import com.agro.inventory.data.remote.model.invent.SaveInventBodyRequest
+import com.agro.inventory.data.remote.model.reinvent.SaveReinventBodyRequest
 import com.agro.inventory.data.source.callback.HomeSourceCallback
 import com.agro.inventory.data.source.data.HomeRemoteDataSource
 import java.io.File
@@ -30,6 +30,17 @@ class HomeRepository(
         bodyRequest: List<SaveInventBodyRequest.Data>
     ) =
         remoteDataSource.requestSaveInventAll(
+            token,
+            role,
+            bodyRequest
+        )
+
+    override fun requestSaveReInventAll(
+        token: String,
+        role: String,
+        bodyRequest: List<SaveReinventBodyRequest.Data>
+    ) =
+        remoteDataSource.requestSaveReInventAll(
             token,
             role,
             bodyRequest

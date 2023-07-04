@@ -14,7 +14,8 @@ import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import com.agro.inventory.data.remote.Result
 import com.agro.inventory.data.remote.model.*
-import java.io.File
+import com.agro.inventory.data.remote.model.invent.SaveInventBodyRequest
+import com.agro.inventory.data.remote.model.reinvent.SaveReinventBodyRequest
 
 
 @HiltViewModel
@@ -32,6 +33,10 @@ class HomeViewModel @Inject constructor(
     private var _saveInventAll: MutableLiveData<Event<Result<SaveInventBodyRequest.Data>>> = MutableLiveData()
     val saveInventAll: LiveData<Event<Result<SaveInventBodyRequest.Data>>> get() = _saveInventAll
 
+    private var _saveReInventAll: MutableLiveData<Event<Result<SaveReinventBodyRequest.Data>>> = MutableLiveData()
+    val saveReInventAll: LiveData<Event<Result<SaveReinventBodyRequest.Data>>> get() = _saveReInventAll
+
+
 
 
     fun requestListPlot(token: String,sobiDate:String, areaId:String) =
@@ -45,8 +50,18 @@ class HomeViewModel @Inject constructor(
             _saveInventAll.value = Event(result)
         }.launchIn(viewModelScope)
 
+    fun requestSaveReInventAll(token: String, sobiDate: String, bodyRequest: List<SaveReinventBodyRequest.Data>) =
+        repository.requestSaveReInventAll (token, sobiDate, bodyRequest).onEach { result ->
+            _saveReInventAll.value = Event(result)
+        }.launchIn(viewModelScope)
+
+
     fun setSaveAllInventNothing() {
         _saveInventAll.value = Event(Result.nothing())
+    }
+
+    fun setSaveAllReInventNothing() {
+        _saveReInventAll.value = Event(Result.nothing())
     }
 
 

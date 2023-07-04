@@ -3,6 +3,8 @@ package com.agro.inventory.data.source.callback
 import kotlinx.coroutines.flow.Flow
 import com.agro.inventory.data.remote.Result
 import com.agro.inventory.data.remote.model.*
+import com.agro.inventory.data.remote.model.invent.SaveInventBodyRequest
+import com.agro.inventory.data.remote.model.reinvent.SaveReinventBodyRequest
 import java.io.File
 
 
@@ -28,6 +30,10 @@ interface HomeSourceCallback {
 
     fun requestSaveInventAll(token: String, sobiDate: String,bodyRequest: List<SaveInventBodyRequest.Data> ):
             Flow<Result<SaveInventBodyRequest.Data>>
+
+    fun requestSaveReInventAll(token: String, sobiDate: String,bodyRequest: List<SaveReinventBodyRequest.Data> ):
+            Flow<Result<SaveReinventBodyRequest.Data>>
+
 
 
 }
