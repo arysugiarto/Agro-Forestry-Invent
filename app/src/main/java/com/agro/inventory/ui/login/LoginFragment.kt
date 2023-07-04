@@ -104,6 +104,9 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
                         accessManager.setSession(
                            session =  true
                         )
+                        accessManager.setUserAccess(
+                            result.data?.data?.firstOrNull()?.userAccessId.toString()
+                        )
                     }
 
                 }

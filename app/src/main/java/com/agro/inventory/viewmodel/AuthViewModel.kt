@@ -42,6 +42,11 @@ class AuthViewModel @Inject constructor(
     private var _session: MutableLiveData<Boolean> = MutableLiveData()
     val session: LiveData<Boolean> get() = _session
 
+    private var _useraccess: MutableLiveData<String> = MutableLiveData()
+    val useraccess: LiveData<String> get() = _useraccess
+
+
+
 
     fun getUsernameDataStore() = accessManager.accessUsername.onEach {
         _username.value = it
@@ -60,6 +65,10 @@ class AuthViewModel @Inject constructor(
     }.launchIn(viewModelScope)
     fun getSession() = accessManager.accesSession.onEach {
         _session.value = it
+    }.launchIn(viewModelScope)
+
+    fun getUserAccessId() = accessManager.accessId.onEach {
+        _useraccess.value = it
     }.launchIn(viewModelScope)
 
 

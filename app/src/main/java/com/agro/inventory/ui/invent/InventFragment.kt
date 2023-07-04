@@ -358,13 +358,11 @@ class InventFragment : Fragment(R.layout.fragment_invent) , OnMapReadyCallback {
                 photoPicker()
             }
 
-
             binding.btnCancel -> {
                 navController.navigateUp()
             }
 
             binding.btnAdd -> {
-
 
                 if (edit == true) {
                     viewModels.updateInvent(

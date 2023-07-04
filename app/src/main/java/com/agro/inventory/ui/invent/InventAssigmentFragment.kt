@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.hilt.navigation.fragment.hiltNavGraphViewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.navArgs
 import cn.pedant.SweetAlert.SweetAlertDialog
 import com.agro.inventory.R
 import com.agro.inventory.data.local.entity.InventEntity
@@ -18,6 +19,7 @@ import com.agro.inventory.data.remote.Result
 import com.agro.inventory.data.remote.model.ListPlotResponse
 import com.agro.inventory.data.remote.model.invent.SaveInventBodyRequest
 import com.agro.inventory.data.remote.model.invent.Comodity
+import com.agro.inventory.data.remote.model.invent.TaskPlotResponse
 import com.agro.inventory.databinding.FragmentInventAssigmentBinding
 import com.agro.inventory.databinding.LayoutChooseComodityBinding
 import com.agro.inventory.ui.invent.adapter.InventAdapter
@@ -33,9 +35,11 @@ import com.agro.inventory.util.navController
 import com.agro.inventory.util.navigateOrNull
 import com.agro.inventory.util.orEmpty
 import com.agro.inventory.util.viewBinding
+import com.agro.inventory.viewmodel.AuthViewModel
 import com.agro.inventory.viewmodel.HomeViewModel
 import com.agro.inventory.viewmodel.LocalViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
 import timber.log.Timber
 import javax.inject.Inject
 
@@ -45,6 +49,8 @@ class InventAssigmentFragment : Fragment(R.layout.fragment_invent_assigment) {
     private val binding by viewBinding<FragmentInventAssigmentBinding>()
     private val viewModel by hiltNavGraphViewModels<HomeViewModel>(R.id.home)
     private val viewModels by viewModels<LocalViewModel>()
+    private val viewModelsAuth by viewModels<AuthViewModel>()
+    private val args by navArgs<InventAssigmentFragmentArgs>()
 
     private var listComodity = emptyList<Comodity>()
     private val comodityAdapter = InventAdapter.cmodityAdapter
@@ -60,9 +66,10 @@ class InventAssigmentFragment : Fragment(R.layout.fragment_invent_assigment) {
     var kodePlot = emptyString
     var idPlot = emptyString
     var komoditas = emptyString
+    var userAccessId = emptyString
 
     var keyword = emptyString
-    private var item = ListPlotResponse()
+    private var item = TaskPlotResponse()
     private lateinit var inventPlotEntity: List<InventPlotEntity>
     private lateinit var inventEntity: List<InventEntity>
 
@@ -79,8 +86,20 @@ class InventAssigmentFragment : Fragment(R.layout.fragment_invent_assigment) {
         parentBottomAppBar?.isVisible = false
         parentNavigation?.isVisible = false
 
+        viewModelsAuth.getUserAccessId()
         viewModels.getInventLocal( "ALL")
         viewModels.getLocalInventAll()
+
+
+        viewModelsAuth.useraccess.observe(viewLifecycleOwner) {
+            userAccessId = it
+
+            Timber.e(userAccessId)
+
+        }
+
+        Timber.e(args.userAccessId)
+
 
         var data = emptyList<InventPlotEntity>()
         viewModels.getInventPlot.observe(viewLifecycleOwner) { result ->
@@ -159,7 +178,7 @@ class InventAssigmentFragment : Fragment(R.layout.fragment_invent_assigment) {
     }
 
     private fun initPlotCallback() {
-        viewModel.plot.observe(viewLifecycleOwner, EventObserver { result ->
+        viewModel.taskPlot.observe(viewLifecycleOwner, EventObserver { result ->
             when (result) {
                 is Result.Loading -> {}
                 is Result.Success -> {
@@ -173,9 +192,9 @@ class InventAssigmentFragment : Fragment(R.layout.fragment_invent_assigment) {
                             idPlot = it.id,
                             kodePlot = it.kodePlot,
                             namearea = "Lahan 1",
-//                            nameMember = it.memberName,
+                            nameMember = it.memberName,
                             komoditas = it.komoditas,
-                            polaTanam = it.polaTanamName,
+                            polaTanam = "Polikultur",
                             status = false,
                             allData = "ALL"
                         )
@@ -348,14 +367,26 @@ class InventAssigmentFragment : Fragment(R.layout.fragment_invent_assigment) {
                 )
             }
             binding.fab -> {
-                viewModel.requestListPlot(
+
+                viewModelsAuth.getUserAccessId()
+
+                viewModelsAuth.useraccess.observe(viewLifecycleOwner) {
+                    userAccessId = it
+
+                    Timber.e(userAccessId)
+
+                }
+
+                viewModel.requestTaskPlot(
                     "Sobi+Apps:ae7cda7f7b0e6f38638e40ad3ebb78a4",
                     "1550446421",
-                    "2"
+//                    userAccessId
+                "2311"
                 )
                 viewModels.getInventLocal("")
                 initLocalPlotCallback()
                 initPlotCallback()
+
             }
 
             binding.ivUpload -> {

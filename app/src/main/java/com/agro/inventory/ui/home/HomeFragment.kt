@@ -23,6 +23,7 @@ import com.agro.inventory.viewmodel.HomeViewModel
 import com.agro.inventory.viewmodel.LocalViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
+import timber.log.Timber
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -50,9 +51,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         parentBottomAppBar?.isVisible = false
         parentNavigation?.isVisible = false
 
-
     }
-
 
     private fun initOnClick() {
         binding.apply {
@@ -68,8 +67,9 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         when (view) {
             binding.btnInvent->{
                 navController.navigateOrNull(
-                    HomeFragmentDirections.actionHomeFragmentToInventAssigmentFragment()
+                    HomeFragmentDirections.actionHomeFragmentToInventAssigmentFragment(userAccessId)
                 )
+                Timber.e(userAccessId)
             }
 
             binding.btnReInvent->{

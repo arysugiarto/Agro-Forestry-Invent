@@ -85,6 +85,15 @@ class AccessManager(private val context: Context) {
         }
 
 
+    val accessId: Flow<String> = context.dataStore.data
+        .catch { throwable ->
+            emit(emptyPreferences())
+            Timber.e(throwable)
+        }.map { preferences ->
+            preferences[PreferencesKey.userAccesIdKey] ?: emptyString
+        }
+
+
     suspend fun setSession(session: Boolean) {
         context.dataStore.edit { preferences ->
             preferences[PreferencesKey.sessionKey] = session
@@ -161,6 +170,15 @@ class AccessManager(private val context: Context) {
             preferences[PreferencesKey.plotCountKey] ?: emptyString
         }
 
+    suspend fun setUserAccess(
+        userAcces: String,
+    ) {
+        context.dataStore.edit { preferences ->
+            preferences[PreferencesKey.userAccesIdKey] = userAcces
+        }
+
+    }
+
     val accesSession: Flow<Boolean> = context.dataStore.data
         .catch { throwable ->
             emit(emptyPreferences())
@@ -190,6 +208,7 @@ class AccessManager(private val context: Context) {
         const val NO_MEMBER = "no_member_pref"
         const val PLOT = "plot_pref"
         const val SESSION = "session_pref"
+        const val USERACCESS = "userid_pref"
 
         val accessKey = stringPreferencesKey(TOKEN_ACCESS_REF)
         val sessionIdKey = stringPreferencesKey(SESSION_ID_REF)
@@ -202,6 +221,7 @@ class AccessManager(private val context: Context) {
         val noMemberKey = stringPreferencesKey(NO_MEMBER)
         val plotCountKey = stringPreferencesKey(PLOT)
         val sessionKey = booleanPreferencesKey(SESSION)
+        val userAccesIdKey = stringPreferencesKey(USERACCESS)
     }
 
 }

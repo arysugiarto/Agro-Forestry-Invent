@@ -60,6 +60,12 @@
             android:id="@+id/action_invent_assigment_fragment_to_invent_fragment"
             app:destination="@id/invent_fragment" />
 
+        <argument
+            android:name="userAccessId"
+            android:defaultValue="@null"
+            app:argType="string"
+            app:nullable="true" />
+
     </fragment>
 
 

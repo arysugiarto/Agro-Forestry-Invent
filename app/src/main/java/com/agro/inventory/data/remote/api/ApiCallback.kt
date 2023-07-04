@@ -3,6 +3,7 @@ package com.agro.inventory.data.remote.api
 import com.google.gson.JsonElement
 import com.agro.inventory.data.remote.model.*
 import com.agro.inventory.data.remote.model.invent.SaveInventBodyRequest
+import com.agro.inventory.data.remote.model.invent.TaskPlotResponse
 import com.agro.inventory.data.remote.model.reinvent.SaveReinventBodyRequest
 import com.agro.inventory.util.Const
 import okhttp3.MultipartBody
@@ -57,6 +58,12 @@ interface ApiCallback {
         @Body body: JsonElement
     ): Response<SaveReinventBodyRequest.Data>
 
+    @GET(Const.NETWORK.TASK_PLOT)
+    suspend fun requestTaskPlot(
+        @Header("Authorization") token: String,
+        @Header("Sobi-Date") sobiDate: String,
+        @Query("userId") areaId: String,
+    ): Response<TaskPlotResponse>
 
 
 }

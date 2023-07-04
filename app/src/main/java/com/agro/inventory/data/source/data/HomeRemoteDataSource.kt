@@ -27,7 +27,6 @@ class HomeRemoteDataSource(callback: ApiCallback) {
         )
     }
 
-
     fun requestListPlot(token: String, sobiDate: String, areaid: String) =
         flowResponse {
             apiCallback.requestListPlot(token, sobiDate, areaid)
@@ -58,5 +57,10 @@ class HomeRemoteDataSource(callback: ApiCallback) {
         apiCallback.requestSaveReInventAll(token, sobiDate, body)
 
     }
+
+    fun requestTaskPlot(token: String, sobiDate: String, userId: String) =
+        flowResponse {
+            apiCallback.requestTaskPlot(token, sobiDate, userId)
+        }
 
 }

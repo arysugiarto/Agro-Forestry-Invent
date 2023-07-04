@@ -16,6 +16,7 @@ object Const {
         const val PLOT_DETAILS = "$PREFIX/plot/getPlot"
         const val UPLOAD_INVENT = "$PREFIX/plant/upload_data"
         const val UPLOAD_REINVENT = "$PREFIX/plant/upload_reinventdata"
+        const val TASK_PLOT = "$PREFIX/plot/getPlotByUser"
 
         object Media {
             const val UPLOAD = "$PREFIX/monitoring/upload_photo"
