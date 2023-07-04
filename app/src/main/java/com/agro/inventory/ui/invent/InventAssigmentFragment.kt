@@ -132,7 +132,7 @@ class InventAssigmentFragment : Fragment(R.layout.fragment_invent_assigment) {
                         SaveInventBodyRequest.Data.Plants(
                             plotId = it.idPlot.orEmpty,
                             plantNumber = 1,
-                            totalPlant = 200,
+                            totalPlant = it.jmlTanam?.toInt()!!,
                             komoditasId = 1,
                             keliling = it.keliling?.toInt()!!,
                             length = it.tinggi?.toInt()!!,

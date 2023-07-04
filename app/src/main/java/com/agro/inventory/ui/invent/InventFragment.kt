@@ -46,6 +46,7 @@ import com.google.android.gms.maps.model.MarkerOptions
 import dagger.hilt.android.AndroidEntryPoint
 import pub.devrel.easypermissions.EasyPermissions
 import timber.log.Timber
+import java.io.File
 import java.util.*
 
 @AndroidEntryPoint
@@ -66,6 +67,7 @@ class InventFragment : Fragment(R.layout.fragment_invent) , OnMapReadyCallback {
 //    var long = emptyString
 
     var uriImage = emptyString
+    var baseImage = emptyString
     var plotCodeId = emptyString
     var idComodity = emptyString
     var edit = emptyBoolean
@@ -210,6 +212,19 @@ class InventFragment : Fragment(R.layout.fragment_invent) , OnMapReadyCallback {
         }
     }
 
+    private fun encodeToBase64(uri: Uri?): String {
+        val bytes = File(uri?.path.toString()).readBytes()
+
+        val base64 = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            Base64.getEncoder().encodeToString(bytes)
+        } else {
+            android.util.Base64.encodeToString(bytes, android.util.Base64.URL_SAFE)
+        }
+
+        return "data:image/jpeg;base64,$base64"
+    }
+
+
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         data.let { result ->
             Timber.e(result.toString())
@@ -223,6 +238,7 @@ class InventFragment : Fragment(R.layout.fragment_invent) , OnMapReadyCallback {
                             ImageCornerOptions.ROUNDED
                         )
                         uriImage = uri.toString()
+                        baseImage = encodeToBase64(uri)
 //                        getLocation()
                         getLastKnownLocation()
 
@@ -370,7 +386,7 @@ class InventFragment : Fragment(R.layout.fragment_invent) , OnMapReadyCallback {
                         keliling = binding.etKeliling.text.toString(),
                         tinggi = binding.etTinggi.text.toString(),
                         idComodity = args.idKomoditas?.toInt(),
-                        photo = uriImage,
+                        photo = baseImage,
                         lat = binding.tvLattitude.text.toString(),
                         lng = binding.tvLongitude.text.toString(),
                         id = id
@@ -388,7 +404,7 @@ class InventFragment : Fragment(R.layout.fragment_invent) , OnMapReadyCallback {
                         edit = true,
                         lat = latitude.toString(),
                         lng = longitude.toString(),
-                        photo = uriImage
+                        photo = baseImage
                     )
 
                     viewModels.insertLocalInvent(inventEntity)
