@@ -277,12 +277,12 @@ class InventAssigmentFragment : Fragment(R.layout.fragment_invent_assigment) {
         viewModel.saveInventAll.observe(viewLifecycleOwner, EventObserver { result ->
             when (result) {
                 is Result.Loading -> {
-//                    binding.progressBar.isVisible = true
+                    binding.progressBar.isVisible = true
 //                    binding.tvProgress.isVisible = true
                 }
 
                 is Result.Success -> {
-//                    binding.progressBar.isVisible = false
+                    binding.progressBar.isVisible = false
 //                    binding.tvProgress.isVisible = false
 
                     Timber.e("Berhasil")

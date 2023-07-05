@@ -121,7 +121,7 @@ class ReInventAssigmentFragment : Fragment(R.layout.fragment_reinvent_assigment)
                             id = it.id?.toInt()!!,
                             plotId = it.idPlot.orEmpty,
                             plantNumber = 1,
-                            totalPlant = 200,
+                            totalPlant = it.jmlTanam?.toInt()!!,
                             alivesTotal = it.jmlHidup?.toInt()!!,
                             diseasedTrees = it.jmlSakit?.toInt()!!,
                             penyulamanTotal = it.penyulaman?.toInt()!!,

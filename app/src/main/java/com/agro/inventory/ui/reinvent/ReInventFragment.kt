@@ -47,6 +47,7 @@ import com.google.android.gms.maps.model.MarkerOptions
 import dagger.hilt.android.AndroidEntryPoint
 import pub.devrel.easypermissions.EasyPermissions
 import timber.log.Timber
+import java.io.File
 import java.util.*
 
 @AndroidEntryPoint
@@ -78,6 +79,7 @@ class ReInventFragment : Fragment(R.layout.fragment_reinvent), OnMapReadyCallbac
     var jumlahSakit = emptyInt
     var jumlahHIdupSakit = emptyInt
     var jumlahTanam = emptyInt
+    var baseImage = emptyString
 
     private var reInventEntity: ReinventEntity = ReinventEntity()
 
@@ -324,6 +326,18 @@ class ReInventFragment : Fragment(R.layout.fragment_reinvent), OnMapReadyCallbac
         }
     }
 
+    private fun encodeToBase64(uri: Uri?): String {
+        val bytes = File(uri?.path.toString()).readBytes()
+
+        val base64 = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            Base64.getEncoder().encodeToString(bytes)
+        } else {
+            android.util.Base64.encodeToString(bytes, android.util.Base64.URL_SAFE)
+        }
+
+        return "data:image/jpeg;base64,$base64"
+    }
+
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         data.let { result ->
             Timber.e(result.toString())
@@ -337,6 +351,7 @@ class ReInventFragment : Fragment(R.layout.fragment_reinvent), OnMapReadyCallbac
                             ImageCornerOptions.ROUNDED
                         )
                         uriImage = uri.toString()
+                        baseImage = encodeToBase64(uri)
                         getLastKnownLocation()
                     }
             }
