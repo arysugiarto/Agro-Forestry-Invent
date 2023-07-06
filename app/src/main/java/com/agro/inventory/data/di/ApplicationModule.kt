@@ -2,6 +2,7 @@ package com.agro.inventory.data.di
 
 import android.app.Application
 import android.content.Context
+import com.agro.inventory.data.local.dao.ComodityDao
 import com.google.android.play.core.review.ReviewManagerFactory
 import com.agro.inventory.data.local.dao.InvenPlotDao
 import com.agro.inventory.data.local.dao.InventDao
@@ -58,8 +59,9 @@ object ApplicationModule {
         reInventPlotDao: ReInvenPlotDao,
         inventDao: InventDao,
         reInventDao: ReInventDao,
+        comodityDao: ComodityDao
         ) = LocalRepository(
-        LocalDataSource(inventPlotDao, reInventPlotDao, inventDao, reInventDao)
+        LocalDataSource(inventPlotDao, reInventPlotDao, inventDao, reInventDao, comodityDao)
     )
 
 }

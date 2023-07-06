@@ -1,5 +1,6 @@
 package com.agro.inventory.data.repositories
 
+import com.agro.inventory.data.local.entity.ComodityEntity
 import com.agro.inventory.data.source.callback.LocalSourceCallback
 import com.agro.inventory.data.local.entity.InventPlotEntity
 import com.agro.inventory.data.local.entity.InventEntity
@@ -25,7 +26,7 @@ class LocalRepository(
 
         )
 
-    override suspend fun deleteInventPlot() = localDataSource.deleteInventPlot()
+     suspend fun deleteInventPlot() = localDataSource.deleteInventPlot()
 
     // reinvent
 
@@ -50,8 +51,6 @@ class LocalRepository(
 
     override fun getInventAll() = localDataSource.getInventAll()
 
-    override fun getReInventAll() = localDataSource.getReInventAll()
-
     override suspend fun updateInvent(
         jmlTanam: String?,
         keliling: String?,
@@ -74,6 +73,8 @@ class LocalRepository(
         )
 
     override suspend fun insertReInventLocal(reInventEntity: ReinventEntity) = localDataSource.insertReInvent(reInventEntity)
+
+    override fun getReInventAll() = localDataSource.getReInventAll()
 
     override fun getReInvent(idComodity: String, kodePlot: String) = localDataSource.getReInvent(idComodity,kodePlot)
     override suspend fun updateReInvent(
@@ -100,5 +101,10 @@ class LocalRepository(
             idComodity,
             id
         )
+
+    override suspend fun insertComodity(comodity: List<ComodityEntity>) = localDataSource.insertComodity(comodity)
+
+    override fun getComodity(kodePlot: String) = localDataSource.getComodity(kodePlot)
+    override suspend fun deleteComodity() = localDataSource.deleteComodity()
 
 }

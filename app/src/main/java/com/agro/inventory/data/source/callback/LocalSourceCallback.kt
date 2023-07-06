@@ -1,5 +1,6 @@
 package com.agro.inventory.data.source.callback
 
+import com.agro.inventory.data.local.entity.ComodityEntity
 import com.agro.inventory.data.local.entity.InventPlotEntity
 import com.agro.inventory.data.local.entity.InventEntity
 import com.agro.inventory.data.local.entity.ReInventPlotEntity
@@ -18,7 +19,7 @@ interface LocalSourceCallback {
         kodePlot: String?
 
     )
-    suspend fun deleteInventPlot()
+
 
     //reinvent
 
@@ -71,6 +72,13 @@ interface LocalSourceCallback {
         lng: String?,
         id: String?
     )
+
+    suspend fun insertComodity(comodity: List<ComodityEntity>)
+    fun getComodity(kodePlot: String): Flow<List<ComodityEntity>>
+
+    suspend fun deleteComodity()
+
+
 
 
 }

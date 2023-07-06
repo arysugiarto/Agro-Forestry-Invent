@@ -50,6 +50,10 @@ class HomeRepository(
     override fun requestTaskPlot(token:String, sobiDate:String, userId:String) =
         remoteDataSource.requestTaskPlot(token,sobiDate, userId)
 
+    override fun requestComodity(token:String, sobiDate:String, userId:String) =
+        remoteDataSource.requestComodity(token,sobiDate, userId)
+
+
 
 
 }

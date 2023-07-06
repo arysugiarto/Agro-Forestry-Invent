@@ -18,6 +18,8 @@ object Const {
         const val UPLOAD_REINVENT = "$PREFIX/plant/upload_reinventdata"
         const val TASK_PLOT = "$PREFIX/plot/getPlotByUser"
 
+        const val KOMODITAS ="$PREFIX/plot/getKomoditasMonitLahanUserId"
+
         object Media {
             const val UPLOAD = "$PREFIX/monitoring/upload_photo"
             const val FILE_FIELD = "file[]"
@@ -38,6 +40,7 @@ object Const {
             const val PLOT_REINVENT = "plot_reinvent_entity"
             const val INVENT = "invent_entity"
             const val REINVENT = "reinvent_entity"
+            const val COMODITY = "comodity_entity"
         }
     }
 

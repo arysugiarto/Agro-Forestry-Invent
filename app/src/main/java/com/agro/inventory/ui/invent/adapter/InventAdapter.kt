@@ -3,6 +3,7 @@ package com.agro.inventory.ui.invent.adapter
 import androidx.core.view.isVisible
 import com.agro.inventory.R
 import com.agro.inventory.base.BaseAdapter
+import com.agro.inventory.data.local.entity.ComodityEntity
 import com.agro.inventory.data.local.entity.InventPlotEntity
 import com.agro.inventory.data.remote.model.ListPlotResponse
 import com.agro.inventory.data.remote.model.invent.Comodity
@@ -54,7 +55,7 @@ object InventAdapter {
 
 
     val cmodityAdapter  =
-        BaseAdapter.adapterOf<Comodity, ItemComodityBinding>(
+        BaseAdapter.adapterOf<ComodityEntity, ItemComodityBinding>(
             register = BaseAdapter.Register(
                 onBindHolder = { pos, item, view ->
                     view.run {
@@ -76,9 +77,9 @@ object InventAdapter {
         )
 
 
-    private var onClickComodityCallback: (Comodity) -> Unit = {}
+    private var onClickComodityCallback: (ComodityEntity) -> Unit = {}
 
-    fun setOnClickComodityPlot(item: (Comodity) -> Unit) {
+    fun setOnClickComodityPlot(item: (ComodityEntity) -> Unit) {
         onClickComodityCallback = item
     }
 

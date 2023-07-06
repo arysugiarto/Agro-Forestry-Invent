@@ -14,6 +14,7 @@ import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import com.agro.inventory.data.remote.Result
 import com.agro.inventory.data.remote.model.*
+import com.agro.inventory.data.remote.model.invent.ComodityResponse
 import com.agro.inventory.data.remote.model.invent.SaveInventBodyRequest
 import com.agro.inventory.data.remote.model.invent.TaskPlotResponse
 import com.agro.inventory.data.remote.model.reinvent.SaveReinventBodyRequest
@@ -34,6 +35,9 @@ class HomeViewModel @Inject constructor(
     private var _taskPlot: MutableLiveData<Event<Result<TaskPlotResponse>>> = MutableLiveData()
     val taskPlot: LiveData<Event<Result<TaskPlotResponse>>>get() = _taskPlot
 
+    private var _comodity: MutableLiveData<Event<Result<ComodityResponse>>> = MutableLiveData()
+    val comodity: LiveData<Event<Result<ComodityResponse>>>get() = _comodity
+
 
     private var _saveInventAll: MutableLiveData<Event<Result<SaveInventBodyRequest.Data>>> = MutableLiveData()
     val saveInventAll: LiveData<Event<Result<SaveInventBodyRequest.Data>>> get() = _saveInventAll
@@ -46,6 +50,12 @@ class HomeViewModel @Inject constructor(
         repository.requestTaskPlot(token,sobiDate, userId)
             .onEach { result ->
                 _taskPlot.value = Event(result)
+            }.launchIn(viewModelScope)
+
+    fun requestComodity(token: String,sobiDate:String, userId:String) =
+        repository.requestComodity(token,sobiDate, userId)
+            .onEach { result ->
+                _comodity.value = Event(result)
             }.launchIn(viewModelScope)
 
     fun requestListPlot(token: String,sobiDate:String, areaId:String) =

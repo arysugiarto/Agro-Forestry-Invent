@@ -6,6 +6,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
 import com.agro.inventory.base.BaseViewModel
+import com.agro.inventory.data.local.entity.ComodityEntity
 import com.agro.inventory.data.local.entity.InventPlotEntity
 import com.agro.inventory.data.local.entity.InventEntity
 import com.agro.inventory.data.local.entity.ReInventPlotEntity
@@ -42,6 +43,9 @@ class LocalViewModel @Inject constructor(
     val getInventPlot: LiveData<List<InventPlotEntity>> get() = _getInventPlot
     private var _getReInventPlot: MutableLiveData<List<ReInventPlotEntity>> = MutableLiveData()
     val getReInventPlot: LiveData<List<ReInventPlotEntity>> get() = _getReInventPlot
+
+    private var _getComodity: MutableLiveData<List<ComodityEntity>> = MutableLiveData()
+    val getComodity: LiveData<List<ComodityEntity>> get() = _getComodity
 
 
     fun updateReInvent(
@@ -204,5 +208,20 @@ class LocalViewModel @Inject constructor(
         viewModelScope.launch {
             repository.insertReInventLocal(reinventEntity)
         }
+
+    fun insertLocalComodity(comodityEntity: List<ComodityEntity>) =
+        viewModelScope.launch {
+            repository.insertComodity(comodityEntity)
+        }
+
+    fun getLocalComodity(kodePlot: String) =
+        repository.getComodity(kodePlot)
+            .onEach { result ->
+                _getComodity.value = result
+            }.launchIn(viewModelScope)
+
+    fun deleteAllComodity() = viewModelScope.launch {
+        repository.deleteComodity()
+    }
 
 }

@@ -2,6 +2,7 @@ package com.agro.inventory.data.remote.api
 
 import com.google.gson.JsonElement
 import com.agro.inventory.data.remote.model.*
+import com.agro.inventory.data.remote.model.invent.ComodityResponse
 import com.agro.inventory.data.remote.model.invent.SaveInventBodyRequest
 import com.agro.inventory.data.remote.model.invent.TaskPlotResponse
 import com.agro.inventory.data.remote.model.reinvent.SaveReinventBodyRequest
@@ -64,6 +65,13 @@ interface ApiCallback {
         @Header("Sobi-Date") sobiDate: String,
         @Query("userId") areaId: String,
     ): Response<TaskPlotResponse>
+
+    @GET(Const.NETWORK.KOMODITAS)
+    suspend fun requestKomoditas(
+        @Header("Authorization") token: String,
+        @Header("Sobi-Date") sobiDate: String,
+        @Query("userId") userId: String,
+    ): Response<ComodityResponse>
 
 
 }

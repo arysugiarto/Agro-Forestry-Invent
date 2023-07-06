@@ -63,4 +63,9 @@ class HomeRemoteDataSource(callback: ApiCallback) {
             apiCallback.requestTaskPlot(token, sobiDate, userId)
         }
 
+    fun requestComodity(token: String, sobiDate: String, userId: String) =
+        flowResponse {
+            apiCallback.requestKomoditas(token, sobiDate, userId)
+        }
+
 }

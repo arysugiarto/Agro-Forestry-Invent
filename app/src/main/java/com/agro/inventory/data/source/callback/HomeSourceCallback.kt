@@ -3,6 +3,7 @@ package com.agro.inventory.data.source.callback
 import kotlinx.coroutines.flow.Flow
 import com.agro.inventory.data.remote.Result
 import com.agro.inventory.data.remote.model.*
+import com.agro.inventory.data.remote.model.invent.ComodityResponse
 import com.agro.inventory.data.remote.model.invent.SaveInventBodyRequest
 import com.agro.inventory.data.remote.model.invent.TaskPlotResponse
 import com.agro.inventory.data.remote.model.reinvent.SaveReinventBodyRequest
@@ -40,6 +41,12 @@ interface HomeSourceCallback {
         sobiDate: String,
         userId:String
     ): Flow<Result<TaskPlotResponse>>
+
+    fun requestComodity(
+        token: String,
+        sobiDate: String,
+        userId:String
+    ): Flow<Result<ComodityResponse>>
 
 
 }

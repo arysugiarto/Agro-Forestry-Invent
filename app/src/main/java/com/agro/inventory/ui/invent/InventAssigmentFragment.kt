@@ -12,6 +12,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.navArgs
 import cn.pedant.SweetAlert.SweetAlertDialog
 import com.agro.inventory.R
+import com.agro.inventory.data.local.entity.ComodityEntity
 import com.agro.inventory.data.local.entity.InventEntity
 import com.agro.inventory.data.local.entity.InventPlotEntity
 import com.agro.inventory.data.preferences.AccessManager
@@ -19,6 +20,7 @@ import com.agro.inventory.data.remote.Result
 import com.agro.inventory.data.remote.model.ListPlotResponse
 import com.agro.inventory.data.remote.model.invent.SaveInventBodyRequest
 import com.agro.inventory.data.remote.model.invent.Comodity
+import com.agro.inventory.data.remote.model.invent.ComodityResponse
 import com.agro.inventory.data.remote.model.invent.TaskPlotResponse
 import com.agro.inventory.databinding.FragmentInventAssigmentBinding
 import com.agro.inventory.databinding.LayoutChooseComodityBinding
@@ -52,7 +54,7 @@ class InventAssigmentFragment : Fragment(R.layout.fragment_invent_assigment) {
     private val viewModelsAuth by viewModels<AuthViewModel>()
     private val args by navArgs<InventAssigmentFragmentArgs>()
 
-    private var listComodity = emptyList<Comodity>()
+    private var listComodity = emptyList<ComodityEntity>()
     private val comodityAdapter = InventAdapter.cmodityAdapter
     private var saveInvent = listOf<SaveInventBodyRequest.Data>()
 
@@ -70,7 +72,9 @@ class InventAssigmentFragment : Fragment(R.layout.fragment_invent_assigment) {
 
     var keyword = emptyString
     private var item = TaskPlotResponse()
+    private var itemComodity = ComodityResponse()
     private lateinit var inventPlotEntity: List<InventPlotEntity>
+    private lateinit var comodityEntity: List<ComodityEntity>
     private lateinit var inventEntity: List<InventEntity>
 
 
@@ -208,6 +212,35 @@ class InventAssigmentFragment : Fragment(R.layout.fragment_invent_assigment) {
         })
     }
 
+    private fun initComodityCallback() {
+        viewModel.comodity.observe(viewLifecycleOwner, EventObserver { result ->
+            when (result) {
+                is Result.Loading -> {}
+                is Result.Success -> {
+
+                    viewModels.deleteAllComodity()
+                    binding.fab.isVisible = false
+
+                    itemComodity = result.data !!
+                    comodityEntity = itemComodity.data?.map {
+                        ComodityEntity(
+                            idPlot = it.id,
+                            kodePlot = it.kodePlot,
+                            comodity = it.komoditas,
+                            idComodity = it.id.toString(),
+                        )
+                    }.orEmpty()
+//
+                    viewModels.insertLocalComodity(comodityEntity)
+                    Timber.e(itemComodity.toString())
+                }
+                is Result.Error<*> -> {}
+                else -> {}
+            }
+        })
+    }
+
+
     private fun initAdapterClick() {
         InventAdapter.setOnClickCodePlot { item ->
             Timber.e(item.polaTanam)
@@ -241,16 +274,16 @@ class InventAssigmentFragment : Fragment(R.layout.fragment_invent_assigment) {
         context?.alertDialog(dialogBinding.root)?.apply {
             show()
 
-            listComodity = listOf(
-                Comodity(
-                    1,
-                    "Kopi",
-                ),
-                Comodity(
-                    2,
-                    "Vannila",
-                )
-            )
+            viewModels.getLocalComodity("01-KPE-P")
+            var data = emptyList<ComodityEntity>()
+            viewModels.getComodity.observe(viewLifecycleOwner) { result ->
+                data = result.orEmpty()
+                comodityAdapter.items = data
+                dialogBinding.rvComodity.adapter = comodityAdapter
+
+                Timber.e(data.toString())
+
+            }
 
             dialogBinding.apply {
 
@@ -383,9 +416,20 @@ class InventAssigmentFragment : Fragment(R.layout.fragment_invent_assigment) {
 //                    userAccessId
                 "2311"
                 )
+
+
+                viewModel.requestComodity(
+                    "Sobi+Apps:ae7cda7f7b0e6f38638e40ad3ebb78a4",
+                    "1550446421",
+//                    userAccessId
+                    "2306"
+                )
+
+
                 viewModels.getInventLocal("")
                 initLocalPlotCallback()
                 initPlotCallback()
+                initComodityCallback()
 
             }
 

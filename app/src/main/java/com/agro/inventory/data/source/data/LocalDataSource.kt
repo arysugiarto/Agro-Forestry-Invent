@@ -1,9 +1,11 @@
 package com.agro.inventory.data.source.data
 
+import com.agro.inventory.data.local.dao.ComodityDao
 import com.agro.inventory.data.local.dao.InvenPlotDao
 import com.agro.inventory.data.local.dao.InventDao
 import com.agro.inventory.data.local.dao.ReInvenPlotDao
 import com.agro.inventory.data.local.dao.ReInventDao
+import com.agro.inventory.data.local.entity.ComodityEntity
 import com.agro.inventory.data.local.entity.InventPlotEntity
 import com.agro.inventory.data.local.entity.InventEntity
 import com.agro.inventory.data.local.entity.ReInventPlotEntity
@@ -15,13 +17,15 @@ class LocalDataSource(
     inventPlotDao: InvenPlotDao,
     reInventPlotDao: ReInvenPlotDao,
     inventDao: InventDao,
-    reInventDao: ReInventDao
+    reInventDao: ReInventDao,
+    comodityDao: ComodityDao
 
 ) {
     private val daoInventPlot = inventPlotDao
     private val daoReInventPlot = reInventPlotDao
     private val daoInvent = inventDao
     private val daoReInvent = reInventDao
+    private val daoComodity= comodityDao
 
 
     suspend fun insertInventPlot(areaEntity: List<InventPlotEntity>) =
@@ -130,4 +134,12 @@ class LocalDataSource(
             idComodity,
             id
         )
+
+    suspend fun insertComodity(comodityEntity: List<ComodityEntity>) =
+        daoComodity.insertComodity(comodityEntity)
+
+    fun getComodity(kodePlot: String) =
+        daoComodity.getComodity(kodePlot)
+
+    suspend fun deleteComodity() = daoComodity.deleteComodity()
 }
