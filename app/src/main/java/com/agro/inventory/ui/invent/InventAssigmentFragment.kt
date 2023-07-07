@@ -232,7 +232,6 @@ class InventAssigmentFragment : Fragment(R.layout.fragment_invent_assigment) {
                             idComodity = it.id.toString(),
                         )
                     }.orEmpty()
-//
                     viewModels.insertLocalComodity(comodityEntity)
                     Timber.e(itemComodity.toString())
                 }
@@ -328,12 +327,10 @@ class InventAssigmentFragment : Fragment(R.layout.fragment_invent_assigment) {
             when (result) {
                 is Result.Loading -> {
                     binding.progressBar.isVisible = true
-//                    binding.tvProgress.isVisible = true
                 }
 
                 is Result.Success -> {
                     binding.progressBar.isVisible = false
-//                    binding.tvProgress.isVisible = false
 
                     Timber.e("Berhasil")
                     SweetAlertDialog(requireContext(), SweetAlertDialog.SUCCESS_TYPE)
@@ -341,10 +338,6 @@ class InventAssigmentFragment : Fragment(R.layout.fragment_invent_assigment) {
                         .setContentText(context?.getString(R.string.register_employee))
                         .setConfirmClickListener {
                             it.dismissWithAnimation()
-//                            viewModels.deleteAllActivities()
-//                            viewModels.deleteAllArea()
-//
-//                            initAreaLocalCallback()
 
                         }
                         .show()
@@ -460,7 +453,6 @@ class InventAssigmentFragment : Fragment(R.layout.fragment_invent_assigment) {
                 )
 
                 viewModel.setSaveAllInventNothing()
-//                Timber.e(dataActivities.toString())
 
             }
         }

@@ -1,6 +1,5 @@
 package com.agro.inventory.ui.invent
 
-//import com.arysugiarto.attendence.ui.main.MainFragment.Companion.parentBottomAppBar
 import android.Manifest
 import android.annotation.SuppressLint
 import android.app.Activity
@@ -63,8 +62,6 @@ class InventFragment : Fragment(R.layout.fragment_invent) , OnMapReadyCallback {
 
     private var latitude = emptyDouble
     private var longitude = emptyDouble
-//    var lat = emptyString
-//    var long = emptyString
 
     var uriImage = emptyString
     var baseImage = emptyString
@@ -101,16 +98,6 @@ class InventFragment : Fragment(R.layout.fragment_invent) , OnMapReadyCallback {
 
     }
 
-//    override fun onStart() {
-//        super.onStart()
-//        binding.mapView.onStart()
-//    }
-//
-//    override fun onResume() {
-//        super.onResume()
-//        binding.mapView.onResume()
-//    }
-
     private fun initViewModel() {
         viewModels.getLocalInvent(args.komoditas.toString(), args.idKomoditas.toString(), args.kodePlot.toString())
     }
@@ -139,8 +126,7 @@ class InventFragment : Fragment(R.layout.fragment_invent) , OnMapReadyCallback {
                 )
 
                 uriImage = data.firstOrNull()?.photo.toString()
-//                latitude = data.firstOrNull()?.lat?.toDouble()!!
-//                longitude = data.firstOrNull()?.lng?.toDouble()!!
+
             }
 
 
@@ -207,7 +193,6 @@ class InventFragment : Fragment(R.layout.fragment_invent) , OnMapReadyCallback {
 
         if (requestCode == permissionId) {
             if ((grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED)) {
-//                getLocation()
             }
         }
     }
@@ -239,7 +224,6 @@ class InventFragment : Fragment(R.layout.fragment_invent) , OnMapReadyCallback {
                         )
                         uriImage = uri.toString()
                         baseImage = encodeToBase64(uri)
-//                        getLocation()
                         getLastKnownLocation()
 
                     }
@@ -428,8 +412,6 @@ class InventFragment : Fragment(R.layout.fragment_invent) , OnMapReadyCallback {
         }
 
     }
-
-
 
     companion object {
         private const val REQUEST_CAMERA_WRITE = 12
