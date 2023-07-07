@@ -69,6 +69,7 @@ class InventAssigmentFragment : Fragment(R.layout.fragment_invent_assigment) {
     var idPlot = emptyString
     var komoditas = emptyString
     var userAccessId = emptyString
+    var idComodity = emptyString
 
     var keyword = emptyString
     private var item = TaskPlotResponse()
@@ -91,7 +92,7 @@ class InventAssigmentFragment : Fragment(R.layout.fragment_invent_assigment) {
         parentNavigation?.isVisible = false
 
         viewModelsAuth.getUserAccessId()
-        viewModels.getInventLocal( "ALL")
+        viewModels.getInventLocal("ALL")
         viewModels.getLocalInventAll()
 
 
@@ -143,7 +144,7 @@ class InventAssigmentFragment : Fragment(R.layout.fragment_invent_assigment) {
                             userId = 2306,
                             lat = it.lat.toString(),
                             lng = it.lng.toString(),
-                            uid ="f48666f9-f85a-461f-befb-7b03bdab2e44" ,
+                            uid = "f48666f9-f85a-461f-befb-7b03bdab2e44",
                             appSource = "12",
                             createdBy = 206,
                             deleted = 0
@@ -163,7 +164,7 @@ class InventAssigmentFragment : Fragment(R.layout.fragment_invent_assigment) {
         initLocalPlotCallback()
     }
 
-    private fun initLocalPlotCallback(){
+    private fun initLocalPlotCallback() {
         viewModels.getInventLocal("ALL")
         var data = emptyList<InventPlotEntity>()
         viewModels.getInventPlot.observe(viewLifecycleOwner) { result ->
@@ -195,10 +196,10 @@ class InventAssigmentFragment : Fragment(R.layout.fragment_invent_assigment) {
                         InventPlotEntity(
                             idPlot = it.id,
                             kodePlot = it.kodePlot,
-                            namearea = "Lahan 1",
+                            namearea = it.areaName,
                             nameMember = it.memberName,
                             komoditas = it.komoditas,
-                            polaTanam = "Polikultur",
+                            polaTanam = it.polaTanam,
                             status = false,
                             allData = "ALL"
                         )
@@ -206,6 +207,7 @@ class InventAssigmentFragment : Fragment(R.layout.fragment_invent_assigment) {
 
                     viewModels.insertLocalInventPlot(inventPlotEntity)
                 }
+
                 is Result.Error<*> -> {}
                 else -> {}
             }
@@ -221,7 +223,7 @@ class InventAssigmentFragment : Fragment(R.layout.fragment_invent_assigment) {
                     viewModels.deleteAllComodity()
                     binding.fab.isVisible = false
 
-                    itemComodity = result.data !!
+                    itemComodity = result.data!!
                     comodityEntity = itemComodity.data?.map {
                         ComodityEntity(
                             idPlot = it.id,
@@ -234,6 +236,7 @@ class InventAssigmentFragment : Fragment(R.layout.fragment_invent_assigment) {
                     viewModels.insertLocalComodity(comodityEntity)
                     Timber.e(itemComodity.toString())
                 }
+
                 is Result.Error<*> -> {}
                 else -> {}
             }
@@ -245,14 +248,28 @@ class InventAssigmentFragment : Fragment(R.layout.fragment_invent_assigment) {
         InventAdapter.setOnClickCodePlot { item ->
             Timber.e(item.polaTanam)
             if (item.polaTanam.toString() == "Monokultur") {
-                navController.navigateOrNull(
-                    InventAssigmentFragmentDirections.actionInventAssigmentFragmentToInventFragment(
-                        item.id.toString(),
-                        item.kodePlot,
-                        item.polaTanam,
-                        item.komoditas,
+
+                viewModels.getLocalComodity("00-GML-N")
+                var data = emptyList<ComodityEntity>()
+                viewModels.getComodity.observe(viewLifecycleOwner) { result ->
+                    data = result.orEmpty()
+                    idPlot = data.firstOrNull()?.id.toString()
+                    kodePlot = data.firstOrNull()?.kodePlot.toString()
+                    polaTanam = item.polaTanam.toString()
+                    idComodity = data.firstOrNull()?.idComodity.toString()
+                    komoditas = data.firstOrNull()?.comodity.toString()
+
+                    navController.navigateOrNull(
+                        InventAssigmentFragmentDirections.actionInventAssigmentFragmentToInventFragment(
+                            idPlot = item.id.toString(),
+                            kodePlot = item.kodePlot,
+                            polaTanam = item.polaTanam,
+                            komoditas = item.komoditas,
+                            idKomoditas = idComodity
+                        )
                     )
-                )
+                }
+
             } else if (item.polaTanam.toString() == "Polikultur") {
                 idPlot = item.id.toString()
                 kodePlot = item.kodePlot.toString()
@@ -264,7 +281,7 @@ class InventAssigmentFragment : Fragment(R.layout.fragment_invent_assigment) {
         }
 
         InventAdapter.setOnClickDone { item ->
-            viewModels.updateStatusInventPlot(true,true, item.kodePlot)
+            viewModels.updateStatusInventPlot(true, true, item.kodePlot)
         }
 
     }
@@ -294,11 +311,11 @@ class InventAssigmentFragment : Fragment(R.layout.fragment_invent_assigment) {
             setOnClickComodityPlot { item ->
                 navController.navigateOrNull(
                     InventAssigmentFragmentDirections.actionInventAssigmentFragmentToInventFragment(
-                        idPlot,
-                        kodePlot,
-                        polaTanam,
-                        item.comodity,
-                        item.id.toString()
+                        idPlot = idPlot,
+                        kodePlot = kodePlot,
+                        polaTanam = polaTanam,
+                        komoditas = item.comodity,
+                        idKomoditas = item.idComodity.toString()
                     )
                 )
                 dismiss()
@@ -399,6 +416,7 @@ class InventAssigmentFragment : Fragment(R.layout.fragment_invent_assigment) {
                     InventAssigmentFragmentDirections.actionInventAssigmentFragmentToHomeFragment()
                 )
             }
+
             binding.fab -> {
 
                 viewModelsAuth.getUserAccessId()
@@ -414,7 +432,7 @@ class InventAssigmentFragment : Fragment(R.layout.fragment_invent_assigment) {
                     "Sobi+Apps:ae7cda7f7b0e6f38638e40ad3ebb78a4",
                     "1550446421",
 //                    userAccessId
-                "2311"
+                    "2311"
                 )
 
 
