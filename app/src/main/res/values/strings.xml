@@ -56,6 +56,8 @@
     <string name="list_land">Daftar Penugasan</string>
     <string name="success">Berhasil</string>
     <string name="register_employee">Berhasil menambahkan data monitoring pekerja</string>
+
+    <string name="register_invent">Berhasil menambahkan data</string>
     <string name="list_plot">Daftar Kode Plot</string>
     <string name="list_activities">Daftar Kegiatan</string>
     <string name="edit">Ubah</string>

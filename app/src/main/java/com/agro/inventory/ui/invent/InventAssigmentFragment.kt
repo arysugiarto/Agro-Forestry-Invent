@@ -335,7 +335,7 @@ class InventAssigmentFragment : Fragment(R.layout.fragment_invent_assigment) {
                     Timber.e("Berhasil")
                     SweetAlertDialog(requireContext(), SweetAlertDialog.SUCCESS_TYPE)
                         .setTitleText(context?.getString(R.string.success))
-                        .setContentText(context?.getString(R.string.register_employee))
+                        .setContentText(context?.getString(R.string.register_invent))
                         .setConfirmClickListener {
                             it.dismissWithAnimation()
 
