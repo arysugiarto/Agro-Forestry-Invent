@@ -29,10 +29,10 @@ object InventAdapter {
                             onClickCodePlotCallback.invoke(item)
                         }
 
-                        if (item.statusDone == true){
+                        if (item.status == true){
                             btnNext.text = "Lanjut"
-//                            btnNext.setBackgroundColor(root.context.color(R.color.sandy_brown))
-                            btnDone.isVisible = true
+                            btnNext.setBackgroundColor(root.context.color(R.color.sandy_brown))
+//                            btnDone.isVisible = true
                         }
 
                         if (item.status == true && item.statusDone == true){
@@ -59,6 +59,9 @@ object InventAdapter {
             register = BaseAdapter.Register(
                 onBindHolder = { pos, item, view ->
                     view.run {
+                        if (item.status == true){
+                            check.isVisible = true
+                        }
 
                         tvComodity.textOrNull = item.comodity
                         tvPolaTanam.textOrNull = "Monokultur"

@@ -5,17 +5,19 @@ import androidx.room.RoomDatabase
 import com.agro.inventory.data.local.dao.ComodityDao
 import com.agro.inventory.data.local.dao.InvenPlotDao
 import com.agro.inventory.data.local.dao.InventDao
+import com.agro.inventory.data.local.dao.InventDataDao
 import com.agro.inventory.data.local.dao.ReInvenPlotDao
 import com.agro.inventory.data.local.dao.ReInventDao
 import com.agro.inventory.data.local.entity.ComodityEntity
+import com.agro.inventory.data.local.entity.InventDataEntity
 import com.agro.inventory.data.local.entity.InventPlotEntity
 import com.agro.inventory.data.local.entity.InventEntity
 import com.agro.inventory.data.local.entity.ReInventPlotEntity
 import com.agro.inventory.data.local.entity.ReinventEntity
 
 @Database(
-    entities = [InventPlotEntity::class, ReInventPlotEntity::class, InventEntity::class, ReinventEntity::class,ComodityEntity::class] ,
-    version = 35,
+    entities = [InventPlotEntity::class, ReInventPlotEntity::class, InventEntity::class, ReinventEntity::class,ComodityEntity::class, InventDataEntity::class] ,
+    version = 37,
     exportSchema = false
 )
 abstract class AgroDatabase : RoomDatabase() {
@@ -27,5 +29,7 @@ abstract class AgroDatabase : RoomDatabase() {
     abstract fun reInventDao(): ReInventDao
 
     abstract fun comodityDao(): ComodityDao
+
+    abstract fun inventDataDao(): InventDataDao
 
 }

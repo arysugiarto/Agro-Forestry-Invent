@@ -46,6 +46,9 @@ object DatabaseModule {
     @Provides
     fun provideComodityDao(database: AgroDatabase) = database.comodityDao()
 
+    @Singleton
+    @Provides
+    fun provideInventDataDao(database: AgroDatabase) = database.inventDataDao()
 
 
 }

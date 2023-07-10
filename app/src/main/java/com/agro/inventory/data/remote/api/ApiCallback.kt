@@ -5,6 +5,7 @@ import com.agro.inventory.data.remote.model.*
 import com.agro.inventory.data.remote.model.invent.ComodityResponse
 import com.agro.inventory.data.remote.model.invent.SaveInventBodyRequest
 import com.agro.inventory.data.remote.model.invent.TaskPlotResponse
+import com.agro.inventory.data.remote.model.reinvent.InventDataResponse
 import com.agro.inventory.data.remote.model.reinvent.SaveReinventBodyRequest
 import com.agro.inventory.util.Const
 import okhttp3.MultipartBody
@@ -73,5 +74,12 @@ interface ApiCallback {
         @Query("userId") userId: String,
     ): Response<ComodityResponse>
 
+
+    @GET(Const.NETWORK.INVENT_DATA)
+    suspend fun requestInventData(
+        @Header("Authorization") token: String,
+        @Header("Sobi-Date") sobiDate: String,
+        @Query("userId") userId: String,
+    ): Response<InventDataResponse>
 
 }

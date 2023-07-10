@@ -54,6 +54,9 @@ class HomeRepository(
         remoteDataSource.requestComodity(token,sobiDate, userId)
 
 
+    override fun requestInventData(token:String, sobiDate:String, userId:String) =
+        remoteDataSource.requestInventData(token,sobiDate, userId)
+
 
 
 }

@@ -6,6 +6,7 @@ import com.agro.inventory.data.remote.model.*
 import com.agro.inventory.data.remote.model.invent.ComodityResponse
 import com.agro.inventory.data.remote.model.invent.SaveInventBodyRequest
 import com.agro.inventory.data.remote.model.invent.TaskPlotResponse
+import com.agro.inventory.data.remote.model.reinvent.InventDataResponse
 import com.agro.inventory.data.remote.model.reinvent.SaveReinventBodyRequest
 import java.io.File
 
@@ -49,4 +50,9 @@ interface HomeSourceCallback {
     ): Flow<Result<ComodityResponse>>
 
 
+    fun requestInventData(
+        token: String,
+        sobiDate: String,
+        userId:String
+    ): Flow<Result<InventDataResponse>>
 }

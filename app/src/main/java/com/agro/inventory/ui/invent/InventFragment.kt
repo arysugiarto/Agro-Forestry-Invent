@@ -375,6 +375,7 @@ class InventFragment : Fragment(R.layout.fragment_invent) , OnMapReadyCallback {
                         lng = binding.tvLongitude.text.toString(),
                         id = id
                     )
+                    viewModels.updateStatusInventPlot(true,false, args.kodePlot)
                 } else {
                     inventEntity = InventEntity(
                         idPlot = args.idPlot?.toInt(),
@@ -393,6 +394,7 @@ class InventFragment : Fragment(R.layout.fragment_invent) , OnMapReadyCallback {
 
                     viewModels.insertLocalInvent(inventEntity)
                     viewModels.updateStatusInventPlot(true,false, args.kodePlot)
+                    viewModels.updateStatusComodity(true,args.kodePlot, args.komoditas)
                 }
 
 

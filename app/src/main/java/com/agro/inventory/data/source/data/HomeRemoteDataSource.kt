@@ -68,4 +68,9 @@ class HomeRemoteDataSource(callback: ApiCallback) {
             apiCallback.requestKomoditas(token, sobiDate, userId)
         }
 
+    fun requestInventData(token: String, sobiDate: String, userId: String) =
+        flowResponse {
+            apiCallback.requestInventData(token, sobiDate, userId)
+        }
+
 }

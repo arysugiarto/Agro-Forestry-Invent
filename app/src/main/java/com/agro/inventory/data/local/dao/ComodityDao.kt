@@ -19,6 +19,12 @@ interface ComodityDao {
     @Query("SELECT * FROM comodity_entity WHERE kodePlot =:kodePlot")
      fun getComodity(kodePlot: String): Flow<List<ComodityEntity>>
 
+    @Query("UPDATE comodity_entity SET status =:status WHERE kodePlot =:kodePlot AND comodity =:comodity")
+    suspend fun updateStatusComodity(
+        status:Boolean?,
+        kodePlot: String?,
+        comodity:String?
+    )
 
     @Query("DELETE FROM comodity_entity")
     suspend fun deleteComodity()

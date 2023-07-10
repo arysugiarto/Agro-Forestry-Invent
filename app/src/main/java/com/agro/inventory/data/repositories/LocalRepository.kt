@@ -1,6 +1,7 @@
 package com.agro.inventory.data.repositories
 
 import com.agro.inventory.data.local.entity.ComodityEntity
+import com.agro.inventory.data.local.entity.InventDataEntity
 import com.agro.inventory.data.source.callback.LocalSourceCallback
 import com.agro.inventory.data.local.entity.InventPlotEntity
 import com.agro.inventory.data.local.entity.InventEntity
@@ -23,7 +24,6 @@ class LocalRepository(
             status,
             statusDone,
             kodePlot
-
         )
 
      suspend fun deleteInventPlot() = localDataSource.deleteInventPlot()
@@ -106,5 +106,22 @@ class LocalRepository(
 
     override fun getComodity(kodePlot: String) = localDataSource.getComodity(kodePlot)
     override suspend fun deleteComodity() = localDataSource.deleteComodity()
+
+    override suspend fun insertInventData(inventDataEntity: List<InventDataEntity>) = localDataSource.insertDataInvent(inventDataEntity)
+
+    override fun getInventData(kodePlot: String) = localDataSource.getInventData(kodePlot)
+
+    override suspend fun deleteInventData() = localDataSource.deleteInventData()
+
+    override suspend fun updateStatusComodity(
+        status: Boolean?,
+        kodePlot: String?,
+        comodity: String?
+    ) =
+        localDataSource.updateStatusComodity(
+            status,
+            kodePlot,
+            comodity
+        )
 
 }

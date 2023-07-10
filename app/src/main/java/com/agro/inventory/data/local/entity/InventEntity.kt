@@ -3,6 +3,7 @@ package com.agro.inventory.data.local.entity
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.agro.inventory.util.Const
+import com.google.gson.annotations.SerializedName
 
 @Entity(tableName = Const.Database.Table.INVENT)
 data class InventEntity(

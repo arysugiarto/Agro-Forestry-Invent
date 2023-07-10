@@ -17,6 +17,7 @@ import com.agro.inventory.data.remote.model.*
 import com.agro.inventory.data.remote.model.invent.ComodityResponse
 import com.agro.inventory.data.remote.model.invent.SaveInventBodyRequest
 import com.agro.inventory.data.remote.model.invent.TaskPlotResponse
+import com.agro.inventory.data.remote.model.reinvent.InventDataResponse
 import com.agro.inventory.data.remote.model.reinvent.SaveReinventBodyRequest
 
 
@@ -37,6 +38,10 @@ class HomeViewModel @Inject constructor(
 
     private var _comodity: MutableLiveData<Event<Result<ComodityResponse>>> = MutableLiveData()
     val comodity: LiveData<Event<Result<ComodityResponse>>>get() = _comodity
+
+    private var _inventData: MutableLiveData<Event<Result<InventDataResponse>>> = MutableLiveData()
+    val inventData: LiveData<Event<Result<InventDataResponse>>>get() = _inventData
+
 
 
     private var _saveInventAll: MutableLiveData<Event<Result<SaveInventBodyRequest.Data>>> = MutableLiveData()
@@ -73,6 +78,13 @@ class HomeViewModel @Inject constructor(
         repository.requestSaveReInventAll (token, sobiDate, bodyRequest).onEach { result ->
             _saveReInventAll.value = Event(result)
         }.launchIn(viewModelScope)
+
+    fun requestInventData(token: String,sobiDate:String, userId:String) =
+        repository.requestInventData(token,sobiDate, userId)
+            .onEach { result ->
+                _inventData.value = Event(result)
+            }.launchIn(viewModelScope)
+
 
 
     fun setSaveAllInventNothing() {

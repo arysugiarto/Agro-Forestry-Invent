@@ -290,7 +290,7 @@ class InventAssigmentFragment : Fragment(R.layout.fragment_invent_assigment) {
         context?.alertDialog(dialogBinding.root)?.apply {
             show()
 
-            viewModels.getLocalComodity("01-KPE-P")
+            viewModels.getLocalComodity("01-GMF-P")
             var data = emptyList<ComodityEntity>()
             viewModels.getComodity.observe(viewLifecycleOwner) { result ->
                 data = result.orEmpty()
@@ -424,16 +424,16 @@ class InventAssigmentFragment : Fragment(R.layout.fragment_invent_assigment) {
                 viewModel.requestTaskPlot(
                     "Sobi+Apps:ae7cda7f7b0e6f38638e40ad3ebb78a4",
                     "1550446421",
-//                    userAccessId
-                    "2311"
+                    userAccessId
+//                    "2311"
                 )
 
 
                 viewModel.requestComodity(
                     "Sobi+Apps:ae7cda7f7b0e6f38638e40ad3ebb78a4",
                     "1550446421",
-//                    userAccessId
-                    "2306"
+                    userAccessId
+//                    "2312"
                 )
 
 

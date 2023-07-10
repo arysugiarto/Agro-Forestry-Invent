@@ -12,6 +12,7 @@ data class ComodityEntity(
     val kodePlot: String? = null,
     val comodity: String? = null,
     val idComodity: String? = null,
+    val status: Boolean? = null
 )
 
 

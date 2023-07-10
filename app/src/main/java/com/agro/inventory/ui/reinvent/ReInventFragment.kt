@@ -24,6 +24,8 @@ import androidx.fragment.app.viewModels
 import androidx.hilt.navigation.fragment.hiltNavGraphViewModels
 import androidx.navigation.fragment.navArgs
 import com.agro.inventory.R
+import com.agro.inventory.data.local.entity.InventDataEntity
+import com.agro.inventory.data.local.entity.ReInventPlotEntity
 import com.agro.inventory.data.local.entity.ReinventEntity
 import com.agro.inventory.databinding.FragmentReinventBinding
 import com.agro.inventory.ui.main.MainFragment.Companion.parentBottomAppBar
@@ -78,7 +80,7 @@ class ReInventFragment : Fragment(R.layout.fragment_reinvent), OnMapReadyCallbac
     var jumlahHidup = emptyInt
     var jumlahSakit = emptyInt
     var jumlahHIdupSakit = emptyInt
-    var jumlahTanam = emptyInt
+    var jumlahTanam = emptyInt.orEmpty
     var baseImage = emptyString
 
     private var reInventEntity: ReinventEntity = ReinventEntity()
@@ -106,8 +108,37 @@ class ReInventFragment : Fragment(R.layout.fragment_reinvent), OnMapReadyCallbac
             binding.etKomoditas.textOrNull = args.komoditas
         }
 
-        binding.etJmlTanam.textOrNull = "100"
-        jumlahTanam = binding.etJmlTanam.text.toString()?.toInt().orEmpty
+//        binding.etJmlTanam.textOrNull = "100"
+
+
+        viewModels.getLocalInventData("02-GMF-P")
+        var dataInvent = emptyList<InventDataEntity>()
+        viewModels.getInventData.observe(viewLifecycleOwner) { result ->
+            dataInvent = result.orEmpty()
+
+            binding.etKodePlot.textOrNull = dataInvent.firstOrNull()?.kodePlot
+            binding.etKomoditas.textOrNull = dataInvent.firstOrNull()?.komoditas
+//            binding.etKeliling.textOrNull = dataInvent.firstOrNull()?.keliling
+            binding.etPendataan.textOrNull = dataInvent.firstOrNull()?.countReinvent
+            binding.etTinggi.textOrNull = dataInvent.firstOrNull()?.length.toString()
+            binding.etJmlTanam.textOrNull = dataInvent.firstOrNull()?.totalPlant.toString()
+            binding.etJmlHidup.textOrNull = dataInvent.firstOrNull()?.alivesTotal.toString()
+            binding.etJmlSakit.textOrNull = dataInvent.firstOrNull()?.diseasedTrees.toString()
+//                        binding.etPolaTanam.textOrNull = dataInvent.firstOrNull()?.polaTanam
+            idComodity = dataInvent.firstOrNull()?.komoditasId.toString()
+            binding.tvLattitude.textOrNull = dataInvent.firstOrNull()?.lat
+            binding.tvLongitude.textOrNull = dataInvent.firstOrNull()?.lng
+            binding.ivPhoto.loadImage(
+                dataInvent.firstOrNull()?.photo,
+                ImageCornerOptions.ROUNDED
+            )
+
+            uriImage = dataInvent.firstOrNull()?.photo.toString()
+            lat = dataInvent.firstOrNull()?.lat.toString()
+            long = dataInvent.firstOrNull()?.lng.toString()
+
+            jumlahTanam = binding.etJmlTanam.text.toString()?.toInt().orEmpty
+        }
     }
 
     private fun initViewModel() {

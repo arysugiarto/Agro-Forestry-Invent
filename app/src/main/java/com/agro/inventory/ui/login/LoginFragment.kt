@@ -64,7 +64,7 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
         var dataLogin = LoginRequest.Data(
             binding.etUsername.text.toString(),
             binding.etPassword.text.toString().md5(),
-            27
+            18
         )
 
         val data = LoginRequest(
