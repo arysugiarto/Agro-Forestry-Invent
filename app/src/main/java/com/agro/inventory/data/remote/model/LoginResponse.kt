@@ -22,6 +22,8 @@ data class LoginResponse(
         val firstname: String,
         @SerializedName("lastname")
         val lastname: String,
+        @SerializedName("role_type_id")
+        val roleType: String,
         @SerializedName("koperasi_id")
         val koperasiId: Int,
         @SerializedName("primary_device_id")

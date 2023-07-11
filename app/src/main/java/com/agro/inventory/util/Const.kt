@@ -44,6 +44,7 @@ object Const {
             const val REINVENT = "reinvent_entity"
             const val COMODITY = "comodity_entity"
             const val INVENT_DATA = "invent_data_entity"
+            const val AUTH = "auth_entity"
         }
     }
 

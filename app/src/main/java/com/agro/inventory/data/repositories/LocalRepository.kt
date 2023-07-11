@@ -1,5 +1,6 @@
 package com.agro.inventory.data.repositories
 
+import com.agro.inventory.data.local.entity.AuthEntity
 import com.agro.inventory.data.local.entity.ComodityEntity
 import com.agro.inventory.data.local.entity.InventDataEntity
 import com.agro.inventory.data.source.callback.LocalSourceCallback
@@ -123,5 +124,12 @@ class LocalRepository(
             kodePlot,
             comodity
         )
+
+    override suspend fun insertAuth(authEntity: AuthEntity) =
+        localDataSource.insertAuth(authEntity)
+
+    override fun getAuth() = localDataSource.getAuth()
+
+    override suspend fun deleteAuth() = localDataSource.deleteAuth()
 
 }

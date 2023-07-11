@@ -6,10 +6,12 @@ import android.os.Bundle
 import android.view.View
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.hilt.navigation.fragment.hiltNavGraphViewModels
 import androidx.lifecycle.lifecycleScope
 import com.agro.inventory.ui.login.LoginFragmentDirections
 import com.agro.inventory.R
+import com.agro.inventory.data.local.entity.AuthEntity
 import com.agro.inventory.data.preferences.AccessManager
 import com.agro.inventory.data.remote.Result
 import com.agro.inventory.data.remote.model.LoginRequest
@@ -19,6 +21,7 @@ import com.agro.inventory.util.animatedtext.attachTextChangeAnimator
 import com.agro.inventory.util.animatedtext.bindProgressButton
 import com.agro.inventory.util.livevent.EventObserver
 import com.agro.inventory.viewmodel.AuthViewModel
+import com.agro.inventory.viewmodel.LocalViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import timber.log.Timber
@@ -29,12 +32,14 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
 
     private val binding by viewBinding<FragmentLoginBinding>()
     private val viewModel by hiltNavGraphViewModels<AuthViewModel>(R.id.auth)
+    private val viewModels by viewModels<LocalViewModel>()
 
     @Inject
     lateinit var accessManager: AccessManager
 
     var token = emptyString
     var sobiDate = emptyString
+    private var authEntity: AuthEntity = AuthEntity()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -104,10 +109,20 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
                         accessManager.setSession(
                            session =  true
                         )
-                        accessManager.setUserAccess(
-                            result.data?.data?.firstOrNull()?.userAccessId.toString()
-                        )
+//                        accessManager.setUserAccess(
+//                            result.data?.data?.firstOrNull()?.userAccessId.toString()
+//                        )
                     }
+
+                    authEntity = AuthEntity(
+                        userAccessId = result.data?.data?.firstOrNull()?.userAccessId,
+                        username =  result.data?.data?.firstOrNull()?.username,
+                        firstname =  result.data?.data?.firstOrNull()?.firstname,
+                        lastname =  result.data?.data?.firstOrNull()?.lastname,
+                        roleTypeId =  result.data?.data?.firstOrNull()?.roleType,
+                    )
+
+                    viewModels.insertLocalAuth(authEntity)
 
                 }
                 is Error -> {

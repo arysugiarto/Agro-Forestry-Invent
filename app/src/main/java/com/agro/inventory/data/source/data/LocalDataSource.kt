@@ -1,11 +1,13 @@
 package com.agro.inventory.data.source.data
 
+import com.agro.inventory.data.local.dao.AuthDao
 import com.agro.inventory.data.local.dao.ComodityDao
 import com.agro.inventory.data.local.dao.InvenPlotDao
 import com.agro.inventory.data.local.dao.InventDao
 import com.agro.inventory.data.local.dao.InventDataDao
 import com.agro.inventory.data.local.dao.ReInvenPlotDao
 import com.agro.inventory.data.local.dao.ReInventDao
+import com.agro.inventory.data.local.entity.AuthEntity
 import com.agro.inventory.data.local.entity.ComodityEntity
 import com.agro.inventory.data.local.entity.InventDataEntity
 import com.agro.inventory.data.local.entity.InventPlotEntity
@@ -21,7 +23,8 @@ class LocalDataSource(
     inventDao: InventDao,
     reInventDao: ReInventDao,
     comodityDao: ComodityDao,
-    inventDataDao: InventDataDao
+    inventDataDao: InventDataDao,
+    authDao: AuthDao
 
 ) {
     private val daoInventPlot = inventPlotDao
@@ -30,6 +33,7 @@ class LocalDataSource(
     private val daoReInvent = reInventDao
     private val daoComodity= comodityDao
     private val daoInventData= inventDataDao
+    private val daoAuth = authDao
 
 
     suspend fun insertInventPlot(areaEntity: List<InventPlotEntity>) =
@@ -167,4 +171,11 @@ class LocalDataSource(
             kodePlot,
             comodity
             )
+
+    suspend fun insertAuth(authEntity: AuthEntity) =
+        daoAuth.insertAuth(authEntity)
+
+    fun getAuth() = daoAuth.getAuth()
+
+    suspend fun deleteAuth() = daoAuth.deleteAuth()
 }

@@ -125,7 +125,7 @@ class InventFragment : Fragment(R.layout.fragment_invent) , OnMapReadyCallback {
                     ImageCornerOptions.ROUNDED
                 )
 
-                uriImage = data.firstOrNull()?.photo.toString()
+                baseImage = data.firstOrNull()?.photo.toString()
 
             }
 

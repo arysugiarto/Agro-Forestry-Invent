@@ -12,6 +12,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.navArgs
 import cn.pedant.SweetAlert.SweetAlertDialog
 import com.agro.inventory.R
+import com.agro.inventory.data.local.entity.AuthEntity
 import com.agro.inventory.data.local.entity.ComodityEntity
 import com.agro.inventory.data.local.entity.InventEntity
 import com.agro.inventory.data.local.entity.InventPlotEntity
@@ -96,14 +97,14 @@ class InventAssigmentFragment : Fragment(R.layout.fragment_invent_assigment) {
         viewModels.getLocalInventAll()
 
 
-        viewModelsAuth.useraccess.observe(viewLifecycleOwner) {
-            userAccessId = it
-
-            Timber.e(userAccessId)
-
-        }
-
-        Timber.e(args.userAccessId)
+//        viewModelsAuth.useraccess.observe(viewLifecycleOwner) {
+//            userAccessId = it
+//
+//            Timber.e(userAccessId)
+//
+//        }
+//
+//        Timber.e(args.userAccessId)
 
 
         var data = emptyList<InventPlotEntity>()
@@ -138,10 +139,10 @@ class InventAssigmentFragment : Fragment(R.layout.fragment_invent_assigment) {
                             plotId = it.idPlot.orEmpty,
                             plantNumber = 1,
                             totalPlant = it.jmlTanam?.toInt()!!,
-                            komoditasId = 1,
+                            komoditasId = it.idComodity?.toInt().orEmpty,
                             keliling = it.keliling?.toInt()!!,
                             length = it.tinggi?.toInt()!!,
-                            userId = 2306,
+                            userId = userAccessId.toInt(),
                             lat = it.lat.toString(),
                             lng = it.lng.toString(),
                             uid = "f48666f9-f85a-461f-befb-7b03bdab2e44",
@@ -185,8 +186,11 @@ class InventAssigmentFragment : Fragment(R.layout.fragment_invent_assigment) {
     private fun initPlotCallback() {
         viewModel.taskPlot.observe(viewLifecycleOwner, EventObserver { result ->
             when (result) {
-                is Result.Loading -> {}
+                is Result.Loading -> {
+                    binding.progressBar.isVisible = true
+                }
                 is Result.Success -> {
+                    binding.progressBar.isVisible = false
 
                     viewModels.deleteAllInventPlot()
                     binding.fab.isVisible = false
@@ -246,7 +250,7 @@ class InventAssigmentFragment : Fragment(R.layout.fragment_invent_assigment) {
     private fun initAdapterClick() {
         InventAdapter.setOnClickCodePlot { item ->
             Timber.e(item.polaTanam)
-            if (item.polaTanam.toString() == "Monokultur") {
+            if (item.polaTanam.toString() == "Monokultur" || item.polaTanam.toString() == "Nursery") {
 
                 viewModels.getLocalComodity("00-GML-N")
                 var data = emptyList<ComodityEntity>()
@@ -290,7 +294,8 @@ class InventAssigmentFragment : Fragment(R.layout.fragment_invent_assigment) {
         context?.alertDialog(dialogBinding.root)?.apply {
             show()
 
-            viewModels.getLocalComodity("01-GMF-P")
+            Timber.e(kodePlot)
+            viewModels.getLocalComodity(kodePlot)
             var data = emptyList<ComodityEntity>()
             viewModels.getComodity.observe(viewLifecycleOwner) { result ->
                 data = result.orEmpty()
@@ -338,6 +343,8 @@ class InventAssigmentFragment : Fragment(R.layout.fragment_invent_assigment) {
                         .setContentText(context?.getString(R.string.register_invent))
                         .setConfirmClickListener {
                             it.dismissWithAnimation()
+                            binding.ivDot.isVisible = false
+                            binding.ivUpload.isVisible = false
 
                         }
                         .show()
@@ -412,29 +419,26 @@ class InventAssigmentFragment : Fragment(R.layout.fragment_invent_assigment) {
 
             binding.fab -> {
 
-                viewModelsAuth.getUserAccessId()
+                var data = emptyList<AuthEntity>()
+                viewModels.getAuth.observe(viewLifecycleOwner) { result ->
+                    data = result.orEmpty()
+                    userAccessId = data.firstOrNull()?.userAccessId.toString()
 
-                viewModelsAuth.useraccess.observe(viewLifecycleOwner) {
-                    userAccessId = it
+                    viewModel.requestTaskPlot(
+                        "Sobi+Apps:ae7cda7f7b0e6f38638e40ad3ebb78a4",
+                        "1550446421",
+                        userAccessId
+                    )
 
-                    Timber.e(userAccessId)
+
+                    viewModel.requestComodity(
+                        "Sobi+Apps:ae7cda7f7b0e6f38638e40ad3ebb78a4",
+                        "1550446421",
+                        userAccessId
+                    )
 
                 }
 
-                viewModel.requestTaskPlot(
-                    "Sobi+Apps:ae7cda7f7b0e6f38638e40ad3ebb78a4",
-                    "1550446421",
-                    userAccessId
-//                    "2311"
-                )
-
-
-                viewModel.requestComodity(
-                    "Sobi+Apps:ae7cda7f7b0e6f38638e40ad3ebb78a4",
-                    "1550446421",
-                    userAccessId
-//                    "2312"
-                )
 
 
                 viewModels.getInventLocal("")

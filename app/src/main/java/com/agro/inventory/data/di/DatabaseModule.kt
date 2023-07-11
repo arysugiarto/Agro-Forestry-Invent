@@ -50,5 +50,8 @@ object DatabaseModule {
     @Provides
     fun provideInventDataDao(database: AgroDatabase) = database.inventDataDao()
 
+    @Singleton
+    @Provides
+    fun provideAuthDao(database: AgroDatabase) = database.authDao()
 
 }

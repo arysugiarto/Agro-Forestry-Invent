@@ -51,6 +51,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         parentBottomAppBar?.isVisible = false
         parentNavigation?.isVisible = false
 
+
     }
 
     private fun initOnClick() {
@@ -73,9 +74,10 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
             }
 
             binding.btnReInvent->{
-                navController.navigateOrNull(
-                    HomeFragmentDirections.actionHomeFragmentToReInventAssigmentFragment()
-                )
+//                navController.navigateOrNull(
+//                    HomeFragmentDirections.actionHomeFragmentToReInventAssigmentFragment()
+//                )
+                context?.toast("Fitur masih dalam pengembangan")
             }
 
             binding.ivLogout -> {
@@ -88,6 +90,13 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
                 popupMenu.setOnMenuItemClickListener { item ->
                     when (item.itemId) {
                         R.id.logout ->{
+
+                            viewModels.deleteAuth()
+                            viewModels.deleteAllComodity()
+                            viewModels.deleteAllInventPlot()
+                            viewModels.deleteAllInventData()
+                            viewModels.deleteAllReInventPlot()
+
                             lifecycleScope.launch {
                                 accessManager.setSession(
                                     session =  false

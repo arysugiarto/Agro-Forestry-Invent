@@ -6,6 +6,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
 import com.agro.inventory.base.BaseViewModel
+import com.agro.inventory.data.local.entity.AuthEntity
 import com.agro.inventory.data.local.entity.ComodityEntity
 import com.agro.inventory.data.local.entity.InventDataEntity
 import com.agro.inventory.data.local.entity.InventPlotEntity
@@ -257,6 +258,18 @@ class LocalViewModel @Inject constructor(
             )
         }
 
+    fun insertLocalAuth(authEntity: AuthEntity) =
+        viewModelScope.launch {
+            repository.insertAuth(authEntity)
+        }
 
+    val getAuth
+        get() = repository
+            .getAuth()
+            .asLiveData(viewModelScope.coroutineContext)
+
+    fun deleteAuth() = viewModelScope.launch {
+        repository.deleteAuth()
+    }
 
 }

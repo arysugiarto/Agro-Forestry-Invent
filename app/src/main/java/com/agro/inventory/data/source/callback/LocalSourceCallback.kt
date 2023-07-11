@@ -1,5 +1,6 @@
 package com.agro.inventory.data.source.callback
 
+import com.agro.inventory.data.local.entity.AuthEntity
 import com.agro.inventory.data.local.entity.ComodityEntity
 import com.agro.inventory.data.local.entity.InventDataEntity
 import com.agro.inventory.data.local.entity.InventPlotEntity
@@ -90,5 +91,9 @@ interface LocalSourceCallback {
         comodity: String?
     )
 
+    suspend fun insertAuth(authEntity: AuthEntity)
+    fun getAuth(): Flow<List<AuthEntity>>
+
+    suspend fun deleteAuth()
 
 }
