@@ -1,6 +1,7 @@
 package com.agro.inventory.ui.invent.adapter
 
 import com.agro.inventory.base.BaseAdapter
+import com.agro.inventory.data.local.entity.ComodityEntity
 import com.agro.inventory.data.local.entity.InventPlotEntity
 import com.agro.inventory.data.local.entity.ReInventPlotEntity
 import com.agro.inventory.data.remote.model.ListPlotResponse
@@ -36,7 +37,7 @@ object ReInventAdapter {
         )
 
     val cmodityAdapter  =
-        BaseAdapter.adapterOf<Comodity, ItemComodityBinding>(
+        BaseAdapter.adapterOf<ComodityEntity, ItemComodityBinding>(
             register = BaseAdapter.Register(
                 onBindHolder = { pos, item, view ->
                     view.run {
@@ -66,9 +67,9 @@ object ReInventAdapter {
     }
 
 
-    private var onClickComodityCallback: (Comodity) -> Unit = {}
+    private var onClickComodityCallback: (ComodityEntity) -> Unit = {}
 
-    fun setOnClickComodityPlot(item: (Comodity) -> Unit) {
+    fun setOnClickComodityPlot(item: (ComodityEntity) -> Unit) {
         onClickComodityCallback = item
     }
 

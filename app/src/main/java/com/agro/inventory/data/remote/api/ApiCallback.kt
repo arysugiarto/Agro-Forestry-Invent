@@ -4,6 +4,7 @@ import com.google.gson.JsonElement
 import com.agro.inventory.data.remote.model.*
 import com.agro.inventory.data.remote.model.invent.ComodityResponse
 import com.agro.inventory.data.remote.model.invent.SaveInventBodyRequest
+import com.agro.inventory.data.remote.model.invent.TaskPlotReinventResponse
 import com.agro.inventory.data.remote.model.invent.TaskPlotResponse
 import com.agro.inventory.data.remote.model.reinvent.InventDataResponse
 import com.agro.inventory.data.remote.model.reinvent.SaveReinventBodyRequest
@@ -81,5 +82,12 @@ interface ApiCallback {
         @Header("Sobi-Date") sobiDate: String,
         @Query("userId") userId: String,
     ): Response<InventDataResponse>
+
+    @GET(Const.NETWORK.TASK_PLOT_REINVENT)
+    suspend fun requestTaskPlotReinvent(
+        @Header("Authorization") token: String,
+        @Header("Sobi-Date") sobiDate: String,
+        @Query("userId") areaId: String,
+    ): Response<TaskPlotReinventResponse>
 
 }

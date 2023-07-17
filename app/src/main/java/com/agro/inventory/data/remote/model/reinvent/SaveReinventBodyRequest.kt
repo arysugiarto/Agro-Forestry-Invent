@@ -31,7 +31,7 @@ data class SaveReinventBodyRequest(
             @SerializedName("komoditas_id")
             val komoditasId: Int,
             @SerializedName("keliling")
-            val keliling: Int,
+            val keliling: String,
             @SerializedName("length")
             val length: Int,
             @SerializedName("user_id")

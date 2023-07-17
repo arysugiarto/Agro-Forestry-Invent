@@ -49,13 +49,15 @@ interface LocalSourceCallback {
         jmlTanam: String?,
         jmlHidup: String?,
         jmlSakit: String?,
+        jmlMati: String?,
+        penyulaman: String?,
         keliling: String?,
         tinggi: String?,
         photo: String?,
         lat: String?,
         lng: String?,
         idComodity: Int?,
-        id: String?
+        kodePlot: String?
     )
 
     suspend fun insertInventLocal(inventEntity: InventEntity)
@@ -80,8 +82,8 @@ interface LocalSourceCallback {
 
     suspend fun deleteComodity()
 
-    suspend fun insertInventData(inventData: List<InventDataEntity>)
-    fun getInventData(kodePlot: String): Flow<List<InventDataEntity>>
+    suspend fun insertInventData(inventData: List<ReinventEntity>)
+    fun getInventData(kodePlot: String): Flow<List<ReinventEntity>>
 
     suspend fun deleteInventData()
 

@@ -82,25 +82,29 @@ class LocalRepository(
         jmlTanam: String?,
         jmlHidup: String?,
         jmlSakit: String?,
+        jmlMati: String?,
+        penyulaman: String?,
         keliling: String?,
         tinggi: String?,
         photo: String?,
         lat: String?,
         lng: String?,
         idComodity: Int?,
-        id: String?
+        kodePlot: String?
     ) =
         localDataSource.updateReInvent(
             jmlTanam,
             jmlHidup,
             jmlSakit,
+            jmlMati,
+            penyulaman,
             keliling,
             tinggi,
             photo,
             lat,
             lng,
             idComodity,
-            id
+            kodePlot
         )
 
     override suspend fun insertComodity(comodity: List<ComodityEntity>) = localDataSource.insertComodity(comodity)
@@ -108,7 +112,7 @@ class LocalRepository(
     override fun getComodity(kodePlot: String) = localDataSource.getComodity(kodePlot)
     override suspend fun deleteComodity() = localDataSource.deleteComodity()
 
-    override suspend fun insertInventData(inventDataEntity: List<InventDataEntity>) = localDataSource.insertDataInvent(inventDataEntity)
+    override suspend fun insertInventData(inventDataEntity: List<ReinventEntity>) = localDataSource.insertDataInvent(inventDataEntity)
 
     override fun getInventData(kodePlot: String) = localDataSource.getInventData(kodePlot)
 

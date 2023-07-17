@@ -17,6 +17,7 @@ data class ReinventEntity(
     val jmlTanam: String? = null,
     val jmlHidup: String? = null,
     val jmlSakit: String? = null,
+    val jmlMati: String? = null,
     val keliling: String? = null,
     val tinggi: String? = null,
     val edit: Boolean? = false,
@@ -24,7 +25,8 @@ data class ReinventEntity(
     val photo: String? = null,
     val lat: String? = null,
     val lng: String? = null,
-    val idComodity: String? = null
+    val idComodity: String? = null,
+    val plantNumber: String? = null,
 )
 
 

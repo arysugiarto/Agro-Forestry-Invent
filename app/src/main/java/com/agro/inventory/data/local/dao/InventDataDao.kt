@@ -15,7 +15,7 @@ import kotlinx.coroutines.flow.Flow
 interface InventDataDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertInventData(comodityEntity: List<InventDataEntity>)
+    suspend fun insertInventData(inventDataEntity: List<InventDataEntity>)
 
     @Query("SELECT * FROM invent_data_entity WHERE kodePlot =:kodePlot")
      fun getInventData(kodePlot: String): Flow<List<InventDataEntity>>

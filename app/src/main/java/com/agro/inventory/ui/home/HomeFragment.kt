@@ -74,10 +74,10 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
             }
 
             binding.btnReInvent->{
-//                navController.navigateOrNull(
-//                    HomeFragmentDirections.actionHomeFragmentToReInventAssigmentFragment()
-//                )
-                context?.toast("Fitur masih dalam pengembangan")
+                navController.navigateOrNull(
+                    HomeFragmentDirections.actionHomeFragmentToReInventAssigmentFragment()
+                )
+//                context?.toast("Fitur masih dalam pengembangan")
             }
 
             binding.ivLogout -> {

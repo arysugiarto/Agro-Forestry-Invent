@@ -17,6 +17,7 @@ object Const {
         const val UPLOAD_INVENT = "$PREFIX/plant/upload_data"
         const val UPLOAD_REINVENT = "$PREFIX/plant/upload_reinventdata"
         const val TASK_PLOT = "$PREFIX/plot/getPlotByUser"
+        const val TASK_PLOT_REINVENT = "$PREFIX/plot/getPlotReinventByUser"
 
         const val KOMODITAS ="$PREFIX/plot/getKomoditasUserId"
 

@@ -57,6 +57,10 @@ class HomeRepository(
     override fun requestInventData(token:String, sobiDate:String, userId:String) =
         remoteDataSource.requestInventData(token,sobiDate, userId)
 
+    override fun requestTaskPlotReinvent(token:String, sobiDate:String, userId:String) =
+        remoteDataSource.requestTaskPlotReinvent(token,sobiDate, userId)
+
+
 
 
 }

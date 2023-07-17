@@ -17,6 +17,7 @@ import android.view.View
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat.getSystemService
 import androidx.core.view.isVisible
+import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.hilt.navigation.fragment.hiltNavGraphViewModels
@@ -49,7 +50,7 @@ import java.io.File
 import java.util.*
 
 @AndroidEntryPoint
-class InventFragment : Fragment(R.layout.fragment_invent) , OnMapReadyCallback {
+class InventFragment : Fragment(R.layout.fragment_invent), OnMapReadyCallback {
 
     private val binding by viewBinding<FragmentInventBinding>()
     private val viewModel by hiltNavGraphViewModels<HomeViewModel>(R.id.home)
@@ -81,6 +82,7 @@ class InventFragment : Fragment(R.layout.fragment_invent) , OnMapReadyCallback {
         initOnClick()
         initViewModel()
         getInvent()
+        onInputTextChanged()
 
 
         parentBottomAppBar?.isVisible = false
@@ -96,10 +98,23 @@ class InventFragment : Fragment(R.layout.fragment_invent) , OnMapReadyCallback {
             binding.etKomoditas.textOrNull = args.komoditas
         }
 
+        if (args.idKomoditas !== emptyString) {
+            idComodity = args.idKomoditas.toString()
+        } else {
+            idComodity = "0"
+        }
+
     }
 
     private fun initViewModel() {
-        viewModels.getLocalInvent(args.komoditas.toString(), args.idKomoditas.toString(), args.kodePlot.toString())
+        viewModels.getLocalInvent(
+            args.komoditas.toString(),
+            args.idKomoditas.toString(),
+            args.kodePlot.toString()
+        )
+        Timber.e(args.komoditas.toString())
+        Timber.e(args.idKomoditas.toString())
+        Timber.e(args.kodePlot.toString())
     }
 
     //getInventEdit
@@ -339,6 +354,24 @@ class InventFragment : Fragment(R.layout.fragment_invent) , OnMapReadyCallback {
         )
     }
 
+    private fun onInputTextChanged() {
+        binding.boxJmlTanaman.editText?.addTextChangedListener {
+            binding.boxJmlTanaman.error = null
+        }
+        binding.boxKeliling.editText?.addTextChangedListener {
+            binding.boxKeliling.error = null
+        }
+        binding.boxTinggi.editText?.addTextChangedListener {
+            binding.boxTinggi.error = null
+        }
+    }
+
+    private fun clearUserInput() {
+        binding.boxJmlTanaman.setText()
+        binding.boxKeliling.setText()
+        binding.boxTinggi.setText()
+    }
+
     private fun initOnClick() {
         binding.apply {
             etKodePlot.setOnClickListener(onClickCallback)
@@ -363,44 +396,58 @@ class InventFragment : Fragment(R.layout.fragment_invent) , OnMapReadyCallback {
             }
 
             binding.btnAdd -> {
-
-                if (edit == true) {
-                    viewModels.updateInvent(
-                        jmlTanam = binding.etJmlTanaman.text.toString(),
-                        keliling = binding.etKeliling.text.toString(),
-                        tinggi = binding.etTinggi.text.toString(),
-                        idComodity = args.idKomoditas?.toInt(),
-                        photo = baseImage,
-                        lat = binding.tvLattitude.text.toString(),
-                        lng = binding.tvLongitude.text.toString(),
-                        id = id
+                if (binding.boxJmlTanaman.textIsEmpty()) {
+                    binding.boxJmlTanaman.warn(
+                        context?.getString(R.string.invent_jml_tanam_hint)
                     )
-                    viewModels.updateStatusInventPlot(true,false, args.kodePlot)
+                } else if (binding.boxKeliling.textIsEmpty()) {
+                    binding.boxKeliling.warn(
+                        context?.getString(R.string.invent_keliling_hint)
+                    )
+                } else if (binding.boxTinggi.textIsEmpty()) {
+                    binding.boxTinggi.warn(
+                        context?.getString(R.string.invent_tinggi_hint)
+                    )
                 } else {
-                    inventEntity = InventEntity(
-                        idPlot = args.idPlot?.toInt(),
-                        kodePlot = binding.etKodePlot.text.toString(),
-                        comodity = binding.etKomoditas.text.toString(),
-                        idComodity = args.idKomoditas,
-                        polaTanam = binding.etPolaTanam.text.toString(),
-                        jmlTanam = binding.etJmlTanaman.text.toString(),
-                        keliling = binding.etKeliling.text.toString(),
-                        tinggi = binding.etTinggi.text.toString(),
-                        edit = true,
-                        lat = latitude.toString(),
-                        lng = longitude.toString(),
-                        photo = baseImage
-                    )
+                    activity.hideKeyboard(view)
+                    if (edit == true) {
+                        viewModels.updateInvent(
+                            jmlTanam = binding.etJmlTanaman.text.toString(),
+                            keliling = binding.etKeliling.text.toString(),
+                            tinggi = binding.etTinggi.text.toString(),
+                            idComodity = args.idKomoditas?.toInt(),
+                            photo = baseImage,
+                            lat = binding.tvLattitude.text.toString(),
+                            lng = binding.tvLongitude.text.toString(),
+                            id = id
+                        )
+                        viewModels.updateStatusInventPlot(true, false, args.kodePlot)
+                    } else {
+                        inventEntity = InventEntity(
+                            idPlot = args.idPlot?.toInt(),
+                            kodePlot = binding.etKodePlot.text.toString(),
+                            comodity = binding.etKomoditas.text.toString(),
+                            idComodity = args.idKomoditas,
+                            polaTanam = binding.etPolaTanam.text.toString(),
+                            jmlTanam = binding.etJmlTanaman.text.toString(),
+                            keliling = binding.etKeliling.text.toString(),
+                            tinggi = binding.etTinggi.text.toString(),
+                            edit = true,
+                            lat = latitude.toString(),
+                            lng = longitude.toString(),
+                            photo = baseImage
+                        )
 
-                    viewModels.insertLocalInvent(inventEntity)
-                    viewModels.updateStatusInventPlot(true,false, args.kodePlot)
-                    viewModels.updateStatusComodity(true,args.kodePlot, args.komoditas)
+                        viewModels.insertLocalInvent(inventEntity)
+                        viewModels.updateStatusInventPlot(true, false, args.kodePlot)
+                        viewModels.updateStatusComodity(true, args.kodePlot, args.komoditas)
+
+                        navController.navigateOrNull(
+                            InventFragmentDirections.actionInventFragmentToInventAssigmentFragment()
+                        )
+
+                    }
                 }
-
-
-                navController.navigateOrNull(
-                    InventFragmentDirections.actionInventFragmentToInventAssigmentFragment()
-                )
 
             }
 

@@ -110,35 +110,6 @@ class ReInventFragment : Fragment(R.layout.fragment_reinvent), OnMapReadyCallbac
 
 //        binding.etJmlTanam.textOrNull = "100"
 
-
-        viewModels.getLocalInventData("02-GMF-P")
-        var dataInvent = emptyList<InventDataEntity>()
-        viewModels.getInventData.observe(viewLifecycleOwner) { result ->
-            dataInvent = result.orEmpty()
-
-            binding.etKodePlot.textOrNull = dataInvent.firstOrNull()?.kodePlot
-            binding.etKomoditas.textOrNull = dataInvent.firstOrNull()?.komoditas
-//            binding.etKeliling.textOrNull = dataInvent.firstOrNull()?.keliling
-            binding.etPendataan.textOrNull = dataInvent.firstOrNull()?.countReinvent
-            binding.etTinggi.textOrNull = dataInvent.firstOrNull()?.length.toString()
-            binding.etJmlTanam.textOrNull = dataInvent.firstOrNull()?.totalPlant.toString()
-            binding.etJmlHidup.textOrNull = dataInvent.firstOrNull()?.alivesTotal.toString()
-            binding.etJmlSakit.textOrNull = dataInvent.firstOrNull()?.diseasedTrees.toString()
-//                        binding.etPolaTanam.textOrNull = dataInvent.firstOrNull()?.polaTanam
-            idComodity = dataInvent.firstOrNull()?.komoditasId.toString()
-            binding.tvLattitude.textOrNull = dataInvent.firstOrNull()?.lat
-            binding.tvLongitude.textOrNull = dataInvent.firstOrNull()?.lng
-            binding.ivPhoto.loadImage(
-                dataInvent.firstOrNull()?.photo,
-                ImageCornerOptions.ROUNDED
-            )
-
-            uriImage = dataInvent.firstOrNull()?.photo.toString()
-            lat = dataInvent.firstOrNull()?.lat.toString()
-            long = dataInvent.firstOrNull()?.lng.toString()
-
-            jumlahTanam = binding.etJmlTanam.text.toString()?.toInt().orEmpty
-        }
     }
 
     private fun initViewModel() {
@@ -162,6 +133,7 @@ class ReInventFragment : Fragment(R.layout.fragment_reinvent), OnMapReadyCallbac
                 binding.etJmlHidup.textOrNull = data.firstOrNull()?.jmlHidup
                 binding.etJmlSakit.textOrNull = data.firstOrNull()?.jmlSakit
                 binding.etPolaTanam.textOrNull = data.firstOrNull()?.polaTanam
+                binding.etPenyulaman.textOrNull = data.firstOrNull()?.penyulaman
                 idComodity = data.firstOrNull()?.idComodity.toString()
                 binding.tvLattitude.textOrNull = data.firstOrNull()?.lat
                 binding.tvLongitude.textOrNull = data.firstOrNull()?.lng
@@ -174,9 +146,38 @@ class ReInventFragment : Fragment(R.layout.fragment_reinvent), OnMapReadyCallbac
                 lat = data.firstOrNull()?.lat.toString()
                 long = data.firstOrNull()?.lng.toString()
 
+            }else{
+                viewModels.getLocalInventData("01-GMF-P")
+                var dataInvent = emptyList<ReinventEntity>()
+                viewModels.getInventData.observe(viewLifecycleOwner) { result ->
+                    dataInvent = result.orEmpty()
 
+
+                    binding.etKodePlot.textOrNull = dataInvent.firstOrNull()?.kodePlot
+                    binding.etKomoditas.textOrNull = dataInvent.firstOrNull()?.comodity
+//                    binding.etPendataan.textOrNull = dataInvent.firstOrNull()?.countReinvent
+                    binding.etTinggi.textOrNull = dataInvent.firstOrNull()?.tinggi.toString()
+                    binding.etJmlTanam.textOrNull = dataInvent.firstOrNull()?.jmlTanam.toString()
+                    binding.etJmlHidup.textOrNull = dataInvent.firstOrNull()?.jmlHidup.toString()
+                    binding.etJmlSakit.textOrNull = dataInvent.firstOrNull()?.jmlSakit.toString()
+                    binding.etPenyulaman.textOrNull = dataInvent.firstOrNull()?.penyulaman.toString()
+                    binding.etKeliling.textOrNull = dataInvent.firstOrNull()?.keliling.toString()
+                    binding.etJmlMati.textOrNull = dataInvent.firstOrNull()?.jmlMati.toString()
+                    idComodity = dataInvent.firstOrNull()?.idComodity.toString()
+                    binding.tvLattitude.textOrNull = dataInvent.firstOrNull()?.lat
+                    binding.tvLongitude.textOrNull = dataInvent.firstOrNull()?.lng
+                    binding.ivPhoto.loadImage(
+                        dataInvent.firstOrNull()?.photo,
+                        ImageCornerOptions.ROUNDED
+                    )
+
+                    uriImage = dataInvent.firstOrNull()?.photo.toString()
+                    lat = dataInvent.firstOrNull()?.lat.toString()
+                    long = dataInvent.firstOrNull()?.lng.toString()
+
+                    jumlahTanam = binding.etJmlTanam.text.toString()?.toInt().orEmpty
+                }
             }
-
 
             Timber.e("test%s", data.toString())
 
@@ -406,10 +407,10 @@ class ReInventFragment : Fragment(R.layout.fragment_reinvent), OnMapReadyCallbac
                     ?.toInt().orEmpty + binding.etJmlSakit.text?.toString()
                     ?.toInt().orEmpty) > jumlahTanam
             ) {
-                Timber.e(binding.etJmlHidup.text.toString())
-                binding.boxJmlHidup.warning(
-                    context?.getString(R.string.alert_reinvent_jumlah_hidup)
-                )
+//                Timber.e(binding.etJmlHidup.text.toString())
+//                binding.boxJmlHidup.warning(
+//                    context?.getString(R.string.alert_reinvent_jumlah_hidup)
+//                )
 
             } else {
                 binding.boxJmlHidup.error = null
@@ -462,15 +463,15 @@ class ReInventFragment : Fragment(R.layout.fragment_reinvent), OnMapReadyCallbac
             }
 
 
-            if (binding.etJmlMati.text?.toString()?.toInt().orEmpty > jumlahTanam) {
-                binding.boxJmlMati.warning(
-                    context?.getString(R.string.alert_reinvent_jumlah_hidup)
-                )
-
-            } else {
-                binding.boxJmlMati.error = null
-
-            }
+//            if (binding.etJmlMati.text?.toString()?.toInt().orEmpty > jumlahTanam) {
+//                binding.boxJmlMati.warning(
+//                    context?.getString(R.string.alert_reinvent_jumlah_hidup)
+//                )
+//
+//            } else {
+//                binding.boxJmlMati.error = null
+//
+//            }
 
 
             if (latitude.toString().isNotEmpty() && longitude.toString()
@@ -539,42 +540,45 @@ class ReInventFragment : Fragment(R.layout.fragment_reinvent), OnMapReadyCallbac
 
             binding.btnAdd -> {
 
-                if (edit == true) {
+//                if (edit == true) {
                     viewModels.updateReInvent(
                         jmlTanam = binding.etJmlTanam.text.toString(),
                         jmlHidup = binding.etJmlHidup.text.toString(),
                         jmlSakit = binding.etJmlSakit.text.toString(),
+                        jmlMati = binding.etJmlMati.text.toString(),
+                        penyulaman = binding.etPenyulaman.text.toString(),
                         keliling = binding.etKeliling.text.toString(),
                         tinggi = binding.etTinggi.text.toString(),
                         photo = uriImage,
                         lat = latitude.toString(),
                         lng = longitude.toString(),
                         idComodity = args.idKomoditas?.toInt(),
-                        id = id
+                        kodePlot = "01-GMF-P"
                     )
-                } else {
-                    reInventEntity = ReinventEntity(
-                        idPlot = args.idPlot?.toInt(),
-                        kodePlot = binding.etKodePlot.text.toString(),
-                        comodity = binding.etKomoditas.text.toString(),
-                        polaTanam = binding.etPolaTanam.text.toString(),
-                        reinventPhase = reinvent,
-                        jmlTanam = binding.etJmlTanam.text.toString(),
-                        jmlHidup = binding.etJmlHidup.text.toString(),
-                        jmlSakit = binding.etJmlSakit.text.toString(),
-                        keliling = binding.etKeliling.text.toString(),
-                        tinggi = binding.etTinggi.text.toString(),
-                        edit = true,
-                        penyulaman = binding.etPenyulaman.text.toString(),
-                        idComodity = args.idKomoditas,
-                        photo = uriImage,
-                        lat = latitude.toString(),
-                        lng = longitude.toString(),
-                    )
-
-                    viewModels.insertLocalReinvent(reInventEntity)
-
-                }
+//                }
+//                else {
+//                    reInventEntity = ReinventEntity(
+//                        idPlot = args.idPlot?.toInt(),
+//                        kodePlot = binding.etKodePlot.text.toString(),
+//                        comodity = binding.etKomoditas.text.toString(),
+//                        polaTanam = binding.etPolaTanam.text.toString(),
+//                        reinventPhase = reinvent,
+//                        jmlTanam = binding.etJmlTanam.text.toString(),
+//                        jmlHidup = binding.etJmlHidup.text.toString(),
+//                        jmlSakit = binding.etJmlSakit.text.toString(),
+//                        keliling = binding.etKeliling.text.toString(),
+//                        tinggi = binding.etTinggi.text.toString(),
+//                        edit = true,
+//                        penyulaman = binding.etPenyulaman.text.toString(),
+//                        idComodity = args.idKomoditas,
+//                        photo = uriImage,
+//                        lat = latitude.toString(),
+//                        lng = longitude.toString(),
+//                    )
+//
+//                    viewModels.insertLocalReinvent(reInventEntity)
+//
+//                }
 
                 navController.navigateOrNull(
                     ReInventFragmentDirections.actionReinventFragmentToReInventAssigmentFragment()

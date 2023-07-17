@@ -14,6 +14,8 @@ data class InventDataResponse(
     data class Data(
         @SerializedName("komoditas")
         val komoditas: String,
+        @SerializedName("kode_plot")
+        val kodePlot: String,
         @SerializedName("id")
         val id: Int,
         @SerializedName("parent_id")

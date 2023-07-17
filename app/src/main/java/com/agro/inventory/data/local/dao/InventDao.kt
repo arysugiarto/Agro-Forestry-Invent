@@ -16,8 +16,9 @@ interface InventDao {
 
     @Query("SELECT * FROM invent_entity")
     fun getInventAll(): Flow<List<InventEntity>>
+    
 
-    @Query("SELECT * FROM invent_entity WHERE comodity =:comodity  AND kodePlot =:kodePlot OR idComodity =:idComodity")
+    @Query("SELECT * FROM invent_entity WHERE comodity =:comodity  AND kodePlot =:kodePlot AND idComodity =:idComodity")
      fun getInvent(comodity: String, idComodity: String, kodePlot: String): Flow<List<InventEntity>>
 
     @Query("SELECT kodePlot FROM invent_entity")

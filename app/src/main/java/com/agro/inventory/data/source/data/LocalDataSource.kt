@@ -122,25 +122,29 @@ class LocalDataSource(
         jmlTanam: String?,
         jmlHidup: String?,
         jmlSakit: String?,
+        jmlMati: String?,
+        penyulaman: String?,
         keliling: String?,
         tinggi: String?,
         photo: String?,
         lat: String?,
         lng: String?,
         idComodity: Int?,
-        id: String?
+        kodePlot: String?
     ) =
         daoReInvent.updateReInvent(
             jmlTanam,
             jmlHidup,
             jmlSakit,
+            jmlMati,
+            penyulaman,
             keliling,
             tinggi,
             photo,
             lat,
             lng,
             idComodity,
-            id
+            kodePlot
         )
 
     suspend fun insertComodity(comodityEntity: List<ComodityEntity>) =
@@ -152,11 +156,11 @@ class LocalDataSource(
     suspend fun deleteComodity() = daoComodity.deleteComodity()
 
 
-    suspend fun insertDataInvent(inventDataEntity: List<InventDataEntity>) =
-        daoInventData.insertInventData(inventDataEntity)
+    suspend fun insertDataInvent(inventDataEntity: List<ReinventEntity>) =
+        daoReInvent.insertInventData(inventDataEntity)
 
     fun getInventData(kodePlot: String) =
-        daoInventData.getInventData(kodePlot)
+        daoReInvent.getInventData(kodePlot)
 
     suspend fun deleteInventData() = daoInventData.deleteInventData()
 

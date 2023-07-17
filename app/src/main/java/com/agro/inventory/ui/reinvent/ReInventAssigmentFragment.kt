@@ -11,6 +11,8 @@ import androidx.hilt.navigation.fragment.hiltNavGraphViewModels
 import androidx.lifecycle.lifecycleScope
 import cn.pedant.SweetAlert.SweetAlertDialog
 import com.agro.inventory.R
+import com.agro.inventory.data.local.entity.AuthEntity
+import com.agro.inventory.data.local.entity.ComodityEntity
 import com.agro.inventory.data.local.entity.InventDataEntity
 import com.agro.inventory.data.local.entity.InventEntity
 import com.agro.inventory.data.local.entity.InventPlotEntity
@@ -21,6 +23,7 @@ import com.agro.inventory.data.remote.Result
 import com.agro.inventory.data.remote.model.ListPlotResponse
 import com.agro.inventory.data.remote.model.invent.Comodity
 import com.agro.inventory.data.remote.model.invent.SaveInventBodyRequest
+import com.agro.inventory.data.remote.model.invent.TaskPlotReinventResponse
 import com.agro.inventory.data.remote.model.reinvent.InventDataResponse
 import com.agro.inventory.data.remote.model.reinvent.SaveReinventBodyRequest
 import com.agro.inventory.databinding.FragmentReinventAssigmentBinding
@@ -57,7 +60,7 @@ class ReInventAssigmentFragment : Fragment(R.layout.fragment_reinvent_assigment)
     lateinit var accessManager: AccessManager
 
     private val kodePlotAdapter = ReInventAdapter.codePlotAdapter
-    private var listComodity = emptyList<Comodity>()
+    private var listComodity = emptyList<ComodityEntity>()
     private val comodityAdapter = ReInventAdapter.cmodityAdapter
 
     private var saveReInvent = listOf<SaveReinventBodyRequest.Data>()
@@ -67,13 +70,14 @@ class ReInventAssigmentFragment : Fragment(R.layout.fragment_reinvent_assigment)
     var kodePlot = emptyString
     var idPlot = emptyString
     var komoditas = emptyString
-
+    var idComodity = emptyString
+    var userAccessId = emptyString
     var keyword = emptyString
 
-    private var item = ListPlotResponse()
+    private var item = TaskPlotReinventResponse()
     private var itemInventData = InventDataResponse()
     private lateinit var reInventPlotEntity: List<ReInventPlotEntity>
-    private lateinit var reInventDataEntity: List<InventDataEntity>
+    private lateinit var reInventDataEntity: List<ReinventEntity>
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -92,6 +96,12 @@ class ReInventAssigmentFragment : Fragment(R.layout.fragment_reinvent_assigment)
         viewModels.getReInventLocal("ALL")
         viewModels.getReInventAll()
 
+        var dataUser = emptyList<AuthEntity>()
+        viewModels.getAuth.observe(viewLifecycleOwner) { result ->
+            dataUser = result.orEmpty()
+            userAccessId = dataUser.firstOrNull()?.userAccessId.toString()
+
+        }
 
         var data = emptyList<ReInventPlotEntity>()
         viewModels.getReInventPlot.observe(viewLifecycleOwner) { result ->
@@ -130,7 +140,7 @@ class ReInventAssigmentFragment : Fragment(R.layout.fragment_reinvent_assigment)
                             diseasedTrees = it.jmlSakit?.toInt().orEmpty,
                             penyulamanTotal = it.penyulaman?.toInt().orEmpty,
                             komoditasId = 1,
-                            keliling = it.keliling?.toInt().orEmpty,
+                            keliling = it.keliling.orEmpty,
                             length = it.tinggi?.toInt().orEmpty,
                             userId = 2306,
                             lat = it.lat.toString(),
@@ -156,12 +166,9 @@ class ReInventAssigmentFragment : Fragment(R.layout.fragment_reinvent_assigment)
                 is Result.Loading -> {
                     binding.progressBar.isVisible = true
                 }
-
                 is Result.Success -> {
                     binding.progressBar.isVisible = false
-
                 }
-
                 is Result.Error -> {
 
                 }
@@ -195,7 +202,7 @@ class ReInventAssigmentFragment : Fragment(R.layout.fragment_reinvent_assigment)
 
 
     private fun initPlotCallback() {
-        viewModel.plot.observe(viewLifecycleOwner, EventObserver { result ->
+        viewModel.taskPlotReinvent.observe(viewLifecycleOwner, EventObserver { result ->
             when (result) {
                 is Result.Loading -> {}
                 is Result.Success -> {
@@ -210,7 +217,7 @@ class ReInventAssigmentFragment : Fragment(R.layout.fragment_reinvent_assigment)
                             kodePlot = it.kodePlot,
                             namearea = "Lahan 1",
                             komoditas = it.komoditas,
-                            polaTanam = it.polaTanamName,
+                            polaTanam = it.polaTanam,
                             status = false,
                             allData = "ALL"
                         )
@@ -240,21 +247,21 @@ class ReInventAssigmentFragment : Fragment(R.layout.fragment_reinvent_assigment)
 
                     itemInventData = result.data!!
                     reInventDataEntity = itemInventData.data?.map {
-                        InventDataEntity(
+                        ReinventEntity(
 //                            idPlot = it.id,
                             plantNumber= it.plantNumber,
-                            komoditas = it.komoditas,
-                            totalPlant = it.totalPlant,
+                            comodity = it.komoditas,
+                            jmlTanam = it.totalPlant.toString(),
                             keliling = it.diameter.toString(),
-                            length = it.length,
-                            alivesTotal = it.alivesTotal,
-                            diesTotal = it.diesTotal,
-                            diseasedTrees = it.diseasedTrees,
-                            penyulamanTotal = it.penyulamanTotal.toString(),
+                            tinggi = it.length.toString(),
+                            jmlHidup = it.alivesTotal.toString(),
+                            jmlMati = it.diesTotal.toString(),
+                            jmlSakit = it.diseasedTrees.toString(),
+                            penyulaman = it.penyulamanTotal.toString(),
                             lat = it.lat,
                             lng = it.lng,
                             photo = it.photo,
-                            kodePlot = "02-GMF-P"
+                            kodePlot = it.kodePlot
                         )
                     }.orEmpty()
 
@@ -271,15 +278,29 @@ class ReInventAssigmentFragment : Fragment(R.layout.fragment_reinvent_assigment)
 
     private fun initAdapterClick() {
         setOnClickCodePlot { item ->
-            if (item.polaTanam.toString() == "Monokultur") {
-                navController.navigateOrNull(
-                    ReInventAssigmentFragmentDirections.actionReInventAssigmentFragmentToReinventFragment(
-                        item.id.toString(),
-                        item.kodePlot,
-                        item.polaTanam,
-                        item.komoditas,
+            if (item.polaTanam.toString() == "Monokultur"|| item.polaTanam.toString() == "Nursery") {
+                viewModels.getLocalComodity("00-GML-N")
+                var data = emptyList<ComodityEntity>()
+                viewModels.getComodity.observe(viewLifecycleOwner) { result ->
+                    data = result.orEmpty()
+                    idPlot = data.firstOrNull()?.id.toString()
+                    kodePlot = data.firstOrNull()?.kodePlot.toString()
+                    polaTanam = item.polaTanam.toString()
+                    idComodity = data.firstOrNull()?.idComodity.toString()
+                    komoditas = data.firstOrNull()?.comodity.toString()
+
+                    navController.navigateOrNull(
+                        ReInventAssigmentFragmentDirections.actionReInventAssigmentFragmentToReinventFragment(
+                            idPlot = item.id.toString(),
+                            kodePlot = item.kodePlot,
+                            polaTanam = item.polaTanam,
+                            komoditas = item.komoditas,
+                            idKomoditas = "1"
+                        )
                     )
-                )
+
+                }
+
             } else if (item.polaTanam.toString() == "Polikultur") {
                 idPlot = item.id.toString()
                 kodePlot = item.kodePlot.toString()
@@ -296,16 +317,17 @@ class ReInventAssigmentFragment : Fragment(R.layout.fragment_reinvent_assigment)
         context?.alertDialog(dialogBinding.root)?.apply {
             show()
 
-            listComodity = listOf(
-                Comodity(
-                    1,
-                    "Kopi",
-                ),
-                Comodity(
-                    2,
-                    "Vannila",
-                )
-            )
+            Timber.e(kodePlot)
+            viewModels.getLocalComodity(kodePlot)
+            var data = emptyList<ComodityEntity>()
+            viewModels.getComodity.observe(viewLifecycleOwner) { result ->
+                data = result.orEmpty()
+                comodityAdapter.items = data
+                dialogBinding.rvComodity.adapter = comodityAdapter
+
+                Timber.e(data.toString())
+
+            }
 
             dialogBinding.apply {
 
@@ -316,11 +338,11 @@ class ReInventAssigmentFragment : Fragment(R.layout.fragment_reinvent_assigment)
             setOnClickComodityPlot { item ->
                 navController.navigateOrNull(
                     ReInventAssigmentFragmentDirections.actionReInventAssigmentFragmentToReinventFragment(
-                        idPlot,
-                        kodePlot,
-                        polaTanam,
-                        item.comodity,
-                        item.id.toString()
+                        idPlot = idPlot,
+                        kodePlot = kodePlot,
+                        polaTanam = polaTanam,
+                        komoditas = item.comodity,
+                        idKomoditas = item.idComodity.toString()
                     )
                 )
                 dismiss()
@@ -343,7 +365,7 @@ class ReInventAssigmentFragment : Fragment(R.layout.fragment_reinvent_assigment)
                     Timber.e("Berhasil")
                     SweetAlertDialog(requireContext(), SweetAlertDialog.SUCCESS_TYPE)
                         .setTitleText(context?.getString(R.string.success))
-                        .setContentText(context?.getString(R.string.register_employee))
+                        .setContentText(context?.getString(R.string.register_reinvent))
                         .setConfirmClickListener {
                             it.dismissWithAnimation()
 //                            viewModels.deleteAllActivities()
@@ -422,17 +444,32 @@ class ReInventAssigmentFragment : Fragment(R.layout.fragment_reinvent_assigment)
                 )
             }
             binding.fab -> {
-                viewModel.requestListPlot(
-                    "Sobi+Apps:ae7cda7f7b0e6f38638e40ad3ebb78a4",
-                    "1550446421",
-                    "2"
-                )
 
-                viewModel.requestInventData(
-                    "Sobi+Apps:11fbbd445c65d9a7f1c2b53ec88ba993",
-                    "1550471710",
-                    "2311"
-                )
+                var data = emptyList<AuthEntity>()
+                viewModels.getAuth.observe(viewLifecycleOwner) { result ->
+                    data = result.orEmpty()
+                    userAccessId = data.firstOrNull()?.userAccessId.toString()
+
+
+                    viewModel.requestComodity(
+                        "Sobi+Apps:ae7cda7f7b0e6f38638e40ad3ebb78a4",
+                        "1550446421",
+                        userAccessId
+                    )
+
+                    viewModel.requestTaskPlotReinvent(
+                        "Sobi+Apps:ae7cda7f7b0e6f38638e40ad3ebb78a4",
+                        "1550446421",
+                        userAccessId
+                    )
+
+                    viewModel.requestInventData(
+                        "Sobi+Apps:11fbbd445c65d9a7f1c2b53ec88ba993",
+                        "1550471710",
+                        userAccessId
+                    )
+
+                }
 
                 initInventDataCallback()
                 initPlotCallback()

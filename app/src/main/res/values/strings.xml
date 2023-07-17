@@ -87,5 +87,9 @@
     <string name="alert_reinvent_jumlah_hidup">Angka melebihi jumlah tanam</string>
     <string name="alert_reinvent_jumlah_sakit">Angka melebihi jumlah hidup</string>
     <string name="search_hint">Cari lahan atau kode plot</string>
+    <string name="invent_jml_tanam_hint">Mohon isi terlebih dahulu jumlah tanam</string>
+    <string name="invent_keliling_hint">Mohon isi terlebih dahulu keliling</string>
+    <string name="invent_tinggi_hint">Mohon isi terlebih dahulu tinggi</string>
+    <string name="register_reinvent">"Berhasil menambahkan data pendataan ulang. "</string>
 
 </resources>

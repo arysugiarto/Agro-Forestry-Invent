@@ -92,7 +92,7 @@ class InventAssigmentFragment : Fragment(R.layout.fragment_invent_assigment) {
         parentBottomAppBar?.isVisible = false
         parentNavigation?.isVisible = false
 
-        viewModelsAuth.getUserAccessId()
+//        viewModelsAuth.getUserAccessId()
         viewModels.getInventLocal("ALL")
         viewModels.getLocalInventAll()
 
@@ -105,6 +105,13 @@ class InventAssigmentFragment : Fragment(R.layout.fragment_invent_assigment) {
 //        }
 //
 //        Timber.e(args.userAccessId)
+
+        var dataUser = emptyList<AuthEntity>()
+        viewModels.getAuth.observe(viewLifecycleOwner) { result ->
+            dataUser = result.orEmpty()
+            userAccessId = dataUser.firstOrNull()?.userAccessId.toString()
+
+        }
 
 
         var data = emptyList<InventPlotEntity>()
@@ -142,12 +149,12 @@ class InventAssigmentFragment : Fragment(R.layout.fragment_invent_assigment) {
                             komoditasId = it.idComodity?.toInt().orEmpty,
                             keliling = it.keliling?.toInt()!!,
                             length = it.tinggi?.toInt()!!,
-                            userId = userAccessId.toInt(),
+                            userId = 2011,
                             lat = it.lat.toString(),
                             lng = it.lng.toString(),
                             uid = "f48666f9-f85a-461f-befb-7b03bdab2e44",
                             appSource = "12",
-                            createdBy = 206,
+                            createdBy = 2306,
                             deleted = 0
                         ),
                         images = it.photo.toString()
@@ -252,7 +259,7 @@ class InventAssigmentFragment : Fragment(R.layout.fragment_invent_assigment) {
             Timber.e(item.polaTanam)
             if (item.polaTanam.toString() == "Monokultur" || item.polaTanam.toString() == "Nursery") {
 
-                viewModels.getLocalComodity("00-GML-N")
+                viewModels.getLocalComodity(kodePlot)
                 var data = emptyList<ComodityEntity>()
                 viewModels.getComodity.observe(viewLifecycleOwner) { result ->
                     data = result.orEmpty()
@@ -268,7 +275,7 @@ class InventAssigmentFragment : Fragment(R.layout.fragment_invent_assigment) {
                             kodePlot = item.kodePlot,
                             polaTanam = item.polaTanam,
                             komoditas = item.komoditas,
-                            idKomoditas = idComodity
+                            idKomoditas = "1"
                         )
                     )
                 }
@@ -440,7 +447,6 @@ class InventAssigmentFragment : Fragment(R.layout.fragment_invent_assigment) {
                 }
 
 
-
                 viewModels.getInventLocal("")
                 initLocalPlotCallback()
                 initPlotCallback()
@@ -450,6 +456,7 @@ class InventAssigmentFragment : Fragment(R.layout.fragment_invent_assigment) {
 
             binding.ivUpload -> {
                 initSaveInvent()
+
                 viewModel.requestSaveInventAll(
                     "Sobi+Apps:ae7cda7f7b0e6f38638e40ad3ebb78a4",
                     "1550446421",

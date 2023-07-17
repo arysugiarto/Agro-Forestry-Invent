@@ -16,6 +16,7 @@ import com.agro.inventory.data.remote.Result
 import com.agro.inventory.data.remote.model.*
 import com.agro.inventory.data.remote.model.invent.ComodityResponse
 import com.agro.inventory.data.remote.model.invent.SaveInventBodyRequest
+import com.agro.inventory.data.remote.model.invent.TaskPlotReinventResponse
 import com.agro.inventory.data.remote.model.invent.TaskPlotResponse
 import com.agro.inventory.data.remote.model.reinvent.InventDataResponse
 import com.agro.inventory.data.remote.model.reinvent.SaveReinventBodyRequest
@@ -36,6 +37,10 @@ class HomeViewModel @Inject constructor(
     private var _taskPlot: MutableLiveData<Event<Result<TaskPlotResponse>>> = MutableLiveData()
     val taskPlot: LiveData<Event<Result<TaskPlotResponse>>>get() = _taskPlot
 
+    private var _taskPlotReinvent: MutableLiveData<Event<Result<TaskPlotReinventResponse>>> = MutableLiveData()
+    val taskPlotReinvent: LiveData<Event<Result<TaskPlotReinventResponse>>>get() = _taskPlotReinvent
+
+
     private var _comodity: MutableLiveData<Event<Result<ComodityResponse>>> = MutableLiveData()
     val comodity: LiveData<Event<Result<ComodityResponse>>>get() = _comodity
 
@@ -55,6 +60,12 @@ class HomeViewModel @Inject constructor(
         repository.requestTaskPlot(token,sobiDate, userId)
             .onEach { result ->
                 _taskPlot.value = Event(result)
+            }.launchIn(viewModelScope)
+
+    fun requestTaskPlotReinvent(token: String,sobiDate:String, userId:String) =
+        repository.requestTaskPlotReinvent(token,sobiDate, userId)
+            .onEach { result ->
+                _taskPlotReinvent.value = Event(result)
             }.launchIn(viewModelScope)
 
     fun requestComodity(token: String,sobiDate:String, userId:String) =

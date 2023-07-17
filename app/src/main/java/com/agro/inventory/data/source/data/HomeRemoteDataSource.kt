@@ -73,4 +73,9 @@ class HomeRemoteDataSource(callback: ApiCallback) {
             apiCallback.requestInventData(token, sobiDate, userId)
         }
 
+    fun requestTaskPlotReinvent(token: String, sobiDate: String, userId: String) =
+        flowResponse {
+            apiCallback.requestTaskPlotReinvent(token, sobiDate, userId)
+        }
+
 }

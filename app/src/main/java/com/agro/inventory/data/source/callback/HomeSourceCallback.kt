@@ -5,6 +5,7 @@ import com.agro.inventory.data.remote.Result
 import com.agro.inventory.data.remote.model.*
 import com.agro.inventory.data.remote.model.invent.ComodityResponse
 import com.agro.inventory.data.remote.model.invent.SaveInventBodyRequest
+import com.agro.inventory.data.remote.model.invent.TaskPlotReinventResponse
 import com.agro.inventory.data.remote.model.invent.TaskPlotResponse
 import com.agro.inventory.data.remote.model.reinvent.InventDataResponse
 import com.agro.inventory.data.remote.model.reinvent.SaveReinventBodyRequest
@@ -55,4 +56,10 @@ interface HomeSourceCallback {
         sobiDate: String,
         userId:String
     ): Flow<Result<InventDataResponse>>
+
+    fun requestTaskPlotReinvent(
+        token: String,
+        sobiDate: String,
+        userId:String
+    ): Flow<Result<TaskPlotReinventResponse>>
 }

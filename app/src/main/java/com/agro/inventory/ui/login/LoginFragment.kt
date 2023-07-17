@@ -113,7 +113,7 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
 //                            result.data?.data?.firstOrNull()?.userAccessId.toString()
 //                        )
                     }
-
+                    viewModels.deleteAuth()
                     authEntity = AuthEntity(
                         userAccessId = result.data?.data?.firstOrNull()?.userAccessId,
                         username =  result.data?.data?.firstOrNull()?.username,
