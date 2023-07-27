@@ -23,6 +23,7 @@ import androidx.fragment.app.viewModels
 import androidx.hilt.navigation.fragment.hiltNavGraphViewModels
 import androidx.navigation.fragment.navArgs
 import com.agro.inventory.R
+import com.agro.inventory.data.local.entity.AuthEntity
 import com.agro.inventory.data.local.entity.InventEntity
 import com.agro.inventory.databinding.FragmentInventBinding
 import com.agro.inventory.ui.main.MainFragment.Companion.parentBottomAppBar
@@ -70,6 +71,7 @@ class InventFragment : Fragment(R.layout.fragment_invent), OnMapReadyCallback {
     var idComodity = emptyString
     var edit = emptyBoolean
     var id = emptyString
+    var userAccessId = emptyString
 
     private var inventEntity: InventEntity = InventEntity()
     private lateinit var invent: List<InventEntity>
@@ -82,8 +84,6 @@ class InventFragment : Fragment(R.layout.fragment_invent), OnMapReadyCallback {
         initOnClick()
         initViewModel()
         getInvent()
-        onInputTextChanged()
-
 
         parentBottomAppBar?.isVisible = false
         parentNavigation?.isVisible = false
@@ -102,6 +102,14 @@ class InventFragment : Fragment(R.layout.fragment_invent), OnMapReadyCallback {
             idComodity = args.idKomoditas.toString()
         } else {
             idComodity = "0"
+        }
+
+        var data = emptyList<AuthEntity>()
+        viewModels.getAuth.observe(viewLifecycleOwner) { result ->
+            data = result.orEmpty()
+            userAccessId = data.firstOrNull()?.userAccessId.toString()
+
+
         }
 
     }
@@ -354,18 +362,6 @@ class InventFragment : Fragment(R.layout.fragment_invent), OnMapReadyCallback {
         )
     }
 
-    private fun onInputTextChanged() {
-        binding.boxJmlTanaman.editText?.addTextChangedListener {
-            binding.boxJmlTanaman.error = null
-        }
-        binding.boxKeliling.editText?.addTextChangedListener {
-            binding.boxKeliling.error = null
-        }
-        binding.boxTinggi.editText?.addTextChangedListener {
-            binding.boxTinggi.error = null
-        }
-    }
-
     private fun clearUserInput() {
         binding.boxJmlTanaman.setText()
         binding.boxKeliling.setText()
@@ -397,17 +393,12 @@ class InventFragment : Fragment(R.layout.fragment_invent), OnMapReadyCallback {
 
             binding.btnAdd -> {
                 if (binding.boxJmlTanaman.textIsEmpty()) {
-                    binding.boxJmlTanaman.warn(
-                        context?.getString(R.string.invent_jml_tanam_hint)
-                    )
+                        context?.toast("Mohon isi terlebih dahulu jumlah tanam")
                 } else if (binding.boxKeliling.textIsEmpty()) {
-                    binding.boxKeliling.warn(
-                        context?.getString(R.string.invent_keliling_hint)
-                    )
+                        context?.toast("Mohon isi terlebih dahulu keliling")
                 } else if (binding.boxTinggi.textIsEmpty()) {
-                    binding.boxTinggi.warn(
-                        context?.getString(R.string.invent_tinggi_hint)
-                    )
+                        context?.toast("Mohon isi terlebih dahulu tinggi")
+
                 } else {
                     activity.hideKeyboard(view)
                     if (edit == true) {
@@ -422,6 +413,9 @@ class InventFragment : Fragment(R.layout.fragment_invent), OnMapReadyCallback {
                             id = id
                         )
                         viewModels.updateStatusInventPlot(true, false, args.kodePlot)
+                        navController.navigateOrNull(
+                            InventFragmentDirections.actionInventFragmentToInventAssigmentFragment()
+                        )
                     } else {
                         inventEntity = InventEntity(
                             idPlot = args.idPlot?.toInt(),

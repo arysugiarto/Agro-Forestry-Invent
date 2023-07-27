@@ -1,5 +1,7 @@
 package com.agro.inventory.ui.invent.adapter
 
+import androidx.core.view.isVisible
+import com.agro.inventory.R
 import com.agro.inventory.base.BaseAdapter
 import com.agro.inventory.data.local.entity.ComodityEntity
 import com.agro.inventory.data.local.entity.InventPlotEntity
@@ -8,6 +10,7 @@ import com.agro.inventory.data.remote.model.ListPlotResponse
 import com.agro.inventory.data.remote.model.invent.Comodity
 import com.agro.inventory.databinding.ItemComodityBinding
 import com.agro.inventory.databinding.ItemPlotBinding
+import com.agro.inventory.util.color
 import com.agro.inventory.util.textOrNull
 
 
@@ -25,6 +28,18 @@ object ReInventAdapter {
 
                         btnNext.setOnClickListener {
                             onClickCodePlotCallback.invoke(item)
+                        }
+
+                        if (item.status == true){
+                            btnNext.text = "Lanjut"
+                            btnNext.setBackgroundColor(root.context.color(R.color.sandy_brown))
+                            btnDone.isVisible = true
+                        }
+
+                        if (item.status == true && item.statusDone == true){
+                            btnNext.isVisible = false
+                            btnDone.isVisible = false
+                            tvDone.isVisible = true
                         }
 
                     }

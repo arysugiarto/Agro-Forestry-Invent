@@ -18,8 +18,8 @@ import com.agro.inventory.data.local.entity.ReInventPlotEntity
 import com.agro.inventory.data.local.entity.ReinventEntity
 
 @Database(
-    entities = [InventPlotEntity::class, ReInventPlotEntity::class, InventEntity::class, ReinventEntity::class,ComodityEntity::class, InventDataEntity::class,AuthEntity::class] ,
-    version = 41,
+    entities = [InventPlotEntity::class, ReInventPlotEntity::class, InventEntity::class, ReinventEntity::class, ComodityEntity::class, InventDataEntity::class, AuthEntity::class] ,
+    version = 43,
     exportSchema = false
 )
 abstract class AgroDatabase : RoomDatabase() {

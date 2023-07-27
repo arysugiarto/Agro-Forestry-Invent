@@ -11,7 +11,7 @@ data class ReinventEntity(
     val idPlot: Int? = null,
     val kodePlot: String? = null,
     val jarakTanam: String? = null,
-    val reinventPhase: String? = null,
+    val reinventPhase: Int? = null,
     val polaTanam: String? = null,
     val comodity: String? = null,
     val jmlTanam: String? = null,

@@ -32,7 +32,7 @@ object InventAdapter {
                         if (item.status == true){
                             btnNext.text = "Lanjut"
                             btnNext.setBackgroundColor(root.context.color(R.color.sandy_brown))
-//                            btnDone.isVisible = true
+                            btnDone.isVisible = true
                         }
 
                         if (item.status == true && item.statusDone == true){

@@ -23,9 +23,9 @@ data class SaveInventBodyRequest(
             @SerializedName("komoditas_id")
             val komoditasId: Int,
             @SerializedName("keliling")
-            val keliling: Int,
+            val keliling: Double,
             @SerializedName("length")
-            val length: Int,
+            val length: Double,
             @SerializedName("user_id")
             val userId: Int,
             @SerializedName("lat")

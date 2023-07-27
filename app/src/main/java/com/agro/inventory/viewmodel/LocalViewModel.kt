@@ -65,7 +65,10 @@ class LocalViewModel @Inject constructor(
         lat: String? = null,
         lng: String? = null,
         idComodity: Int? = null,
-        kodePlot: String? = null
+        jumlahReinvent: Int? = null,
+        kodePlot: String? = null,
+        comodity: String? = null,
+
     ) =
         viewModelScope.launch {
             repository.updateReInvent(
@@ -80,7 +83,10 @@ class LocalViewModel @Inject constructor(
                 lat,
                 lng,
                 idComodity,
-                kodePlot
+                jumlahReinvent,
+                kodePlot,
+                comodity,
+
             )
         }
 

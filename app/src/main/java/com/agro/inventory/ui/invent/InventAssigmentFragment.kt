@@ -31,6 +31,7 @@ import com.agro.inventory.ui.main.MainFragment.Companion.parentBottomAppBar
 import com.agro.inventory.ui.main.MainFragment.Companion.parentNavigation
 import com.agro.inventory.util.addDelayOnTypeWithScope
 import com.agro.inventory.util.alertDialog
+import com.agro.inventory.util.emptyInt
 import com.agro.inventory.util.emptyString
 import com.agro.inventory.util.hideKeyboard
 import com.agro.inventory.util.livevent.EventObserver
@@ -69,7 +70,7 @@ class InventAssigmentFragment : Fragment(R.layout.fragment_invent_assigment) {
     var kodePlot = emptyString
     var idPlot = emptyString
     var komoditas = emptyString
-    var userAccessId = emptyString
+    var userAccessId = emptyInt
     var idComodity = emptyString
 
     var keyword = emptyString
@@ -109,7 +110,7 @@ class InventAssigmentFragment : Fragment(R.layout.fragment_invent_assigment) {
         var dataUser = emptyList<AuthEntity>()
         viewModels.getAuth.observe(viewLifecycleOwner) { result ->
             dataUser = result.orEmpty()
-            userAccessId = dataUser.firstOrNull()?.userAccessId.toString()
+            userAccessId = dataUser.firstOrNull()?.userAccessId.orEmpty
 
         }
 
@@ -147,9 +148,9 @@ class InventAssigmentFragment : Fragment(R.layout.fragment_invent_assigment) {
                             plantNumber = 1,
                             totalPlant = it.jmlTanam?.toInt()!!,
                             komoditasId = it.idComodity?.toInt().orEmpty,
-                            keliling = it.keliling?.toInt()!!,
-                            length = it.tinggi?.toInt()!!,
-                            userId = 2011,
+                            keliling = it.keliling?.toDouble().orEmpty,
+                            length = it.tinggi?.toDouble().orEmpty,
+                            userId = userAccessId.toInt(),
                             lat = it.lat.toString(),
                             lng = it.lng.toString(),
                             uid = "f48666f9-f85a-461f-befb-7b03bdab2e44",
@@ -429,19 +430,19 @@ class InventAssigmentFragment : Fragment(R.layout.fragment_invent_assigment) {
                 var data = emptyList<AuthEntity>()
                 viewModels.getAuth.observe(viewLifecycleOwner) { result ->
                     data = result.orEmpty()
-                    userAccessId = data.firstOrNull()?.userAccessId.toString()
+                    userAccessId = data.firstOrNull()?.userAccessId.orEmpty
 
                     viewModel.requestTaskPlot(
                         "Sobi+Apps:ae7cda7f7b0e6f38638e40ad3ebb78a4",
                         "1550446421",
-                        userAccessId
+                        userAccessId.toString()
                     )
 
 
                     viewModel.requestComodity(
                         "Sobi+Apps:ae7cda7f7b0e6f38638e40ad3ebb78a4",
                         "1550446421",
-                        userAccessId
+                        userAccessId.toString()
                     )
 
                 }

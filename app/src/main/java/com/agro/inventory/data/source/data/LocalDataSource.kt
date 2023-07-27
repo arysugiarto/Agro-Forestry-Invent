@@ -130,7 +130,10 @@ class LocalDataSource(
         lat: String?,
         lng: String?,
         idComodity: Int?,
-        kodePlot: String?
+        jumlahReinvent: Int?,
+        kodePlot: String?,
+        comodity: String?,
+
     ) =
         daoReInvent.updateReInvent(
             jmlTanam,
@@ -144,7 +147,9 @@ class LocalDataSource(
             lat,
             lng,
             idComodity,
-            kodePlot
+            jumlahReinvent,
+            kodePlot,
+            comodity,
         )
 
     suspend fun insertComodity(comodityEntity: List<ComodityEntity>) =

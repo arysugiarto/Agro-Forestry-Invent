@@ -26,7 +26,7 @@ interface ReInventDao {
     @Query("SELECT * FROM reinvent_entity WHERE idComodity =:idComodity AND kodePlot =:kodePlot")
      fun getReInvent(idComodity: String, kodePlot: String): Flow<List<ReinventEntity>>
 
-    @Query("UPDATE reinvent_entity SET jmlTanam =:jmlTanam,jmlHidup =:jmlHidup, jmlSakit =:jmlSakit, jmlMati =:jmlMati,penyulaman =:penyulaman, keliling =:keliling, tinggi =:tinggi, photo =:photo, lat =:lat, lng =:lng, idComodity =:idComodity WHERE kodePlot =:kodePlot")
+    @Query("UPDATE reinvent_entity SET jmlTanam =:jmlTanam,jmlHidup =:jmlHidup, jmlSakit =:jmlSakit, jmlMati =:jmlMati,penyulaman =:penyulaman, keliling =:keliling, tinggi =:tinggi, photo =:photo, lat =:lat, lng =:lng, idComodity =:idComodity,reinventPhase =:jumlahReinvent WHERE kodePlot =:kodePlot AND comodity =:comodity")
     suspend fun updateReInvent(
         jmlTanam: String?,
         jmlHidup: String?,
@@ -39,7 +39,10 @@ interface ReInventDao {
         lat: String?,
         lng: String?,
         idComodity: Int?,
-        kodePlot: String?
+        jumlahReinvent: Int?,
+        kodePlot: String?,
+        comodity: String?,
+
     )
 
     @Query("DELETE FROM reinvent_entity")

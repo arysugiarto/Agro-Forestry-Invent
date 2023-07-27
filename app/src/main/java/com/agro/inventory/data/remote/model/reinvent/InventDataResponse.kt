@@ -109,6 +109,8 @@ data class InventDataResponse(
         @SerializedName("notes")
         val notes: Any,
         @SerializedName("count_reinvent")
-        val countReinvent: Any
+        val countReinvent: Int,
+        @SerializedName("jumlah_reinvent")
+        val jumlahReinvent: Int
     )
 }

@@ -90,7 +90,10 @@ class LocalRepository(
         lat: String?,
         lng: String?,
         idComodity: Int?,
-        kodePlot: String?
+        jumlahReinvent: Int?,
+        kodePlot: String?,
+        comodity: String?,
+
     ) =
         localDataSource.updateReInvent(
             jmlTanam,
@@ -104,7 +107,9 @@ class LocalRepository(
             lat,
             lng,
             idComodity,
-            kodePlot
+            jumlahReinvent,
+            kodePlot,
+            comodity,
         )
 
     override suspend fun insertComodity(comodity: List<ComodityEntity>) = localDataSource.insertComodity(comodity)

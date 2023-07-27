@@ -76,15 +76,16 @@ class ReInventFragment : Fragment(R.layout.fragment_reinvent), OnMapReadyCallbac
     var idComodity = emptyString
     var edit = emptyBoolean
     var id = emptyString
+    var idPlot = emptyInt
 
-    var jumlahHidup = emptyInt
-    var jumlahSakit = emptyInt
-    var jumlahHIdupSakit = emptyInt
-    var jumlahTanam = emptyInt.orEmpty
+    var jumlahHidup = 0
+    var jumlahSakit = 0
+    var jumlahTanam = 0
+    var jumlahMati = 0
     var baseImage = emptyString
 
-    private var reInventEntity: ReinventEntity = ReinventEntity()
 
+    private var reInventEntity: ReinventEntity = ReinventEntity()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -108,8 +109,6 @@ class ReInventFragment : Fragment(R.layout.fragment_reinvent), OnMapReadyCallbac
             binding.etKomoditas.textOrNull = args.komoditas
         }
 
-//        binding.etJmlTanam.textOrNull = "100"
-
     }
 
     private fun initViewModel() {
@@ -129,7 +128,7 @@ class ReInventFragment : Fragment(R.layout.fragment_reinvent), OnMapReadyCallbac
                 binding.etKomoditas.textOrNull = data.firstOrNull()?.comodity
                 binding.etKeliling.textOrNull = data.firstOrNull()?.keliling
                 binding.etTinggi.textOrNull = data.firstOrNull()?.tinggi
-                binding.etJmlTanam.textOrNull = data.firstOrNull()?.jmlTanam
+//                binding.etJmlTanam.textOrNull = data.firstOrNull()?.jmlTanam
                 binding.etJmlHidup.textOrNull = data.firstOrNull()?.jmlHidup
                 binding.etJmlSakit.textOrNull = data.firstOrNull()?.jmlSakit
                 binding.etPolaTanam.textOrNull = data.firstOrNull()?.polaTanam
@@ -143,11 +142,13 @@ class ReInventFragment : Fragment(R.layout.fragment_reinvent), OnMapReadyCallbac
                 )
 
                 uriImage = data.firstOrNull()?.photo.toString()
+
+
                 lat = data.firstOrNull()?.lat.toString()
                 long = data.firstOrNull()?.lng.toString()
 
-            }else{
-                viewModels.getLocalInventData("01-GMF-P")
+            } else {
+                viewModels.getLocalInventData(args.kodePlot.toString())
                 var dataInvent = emptyList<ReinventEntity>()
                 viewModels.getInventData.observe(viewLifecycleOwner) { result ->
                     dataInvent = result.orEmpty()
@@ -155,12 +156,13 @@ class ReInventFragment : Fragment(R.layout.fragment_reinvent), OnMapReadyCallbac
 
                     binding.etKodePlot.textOrNull = dataInvent.firstOrNull()?.kodePlot
                     binding.etKomoditas.textOrNull = dataInvent.firstOrNull()?.comodity
-//                    binding.etPendataan.textOrNull = dataInvent.firstOrNull()?.countReinvent
+                    binding.etPendataan.textOrNull = dataInvent.firstOrNull()?.reinventPhase.toString()
                     binding.etTinggi.textOrNull = dataInvent.firstOrNull()?.tinggi.toString()
-                    binding.etJmlTanam.textOrNull = dataInvent.firstOrNull()?.jmlTanam.toString()
+                    jumlahTanam = dataInvent.firstOrNull()?.jmlTanam?.toInt().orEmpty
                     binding.etJmlHidup.textOrNull = dataInvent.firstOrNull()?.jmlHidup.toString()
                     binding.etJmlSakit.textOrNull = dataInvent.firstOrNull()?.jmlSakit.toString()
-                    binding.etPenyulaman.textOrNull = dataInvent.firstOrNull()?.penyulaman.toString()
+                    binding.etPenyulaman.textOrNull =
+                        dataInvent.firstOrNull()?.penyulaman.toString()
                     binding.etKeliling.textOrNull = dataInvent.firstOrNull()?.keliling.toString()
                     binding.etJmlMati.textOrNull = dataInvent.firstOrNull()?.jmlMati.toString()
                     idComodity = dataInvent.firstOrNull()?.idComodity.toString()
@@ -171,11 +173,16 @@ class ReInventFragment : Fragment(R.layout.fragment_reinvent), OnMapReadyCallbac
                         ImageCornerOptions.ROUNDED
                     )
 
-                    uriImage = dataInvent.firstOrNull()?.photo.toString()
+                    idPlot = dataInvent.firstOrNull()?.idPlot.orEmpty
+
+//                    uriImage = "https://s3-ap-southeast-1.amazonaws.com/sobi-server/Prod-agro/image/" + dataInvent.firstOrNull()?.photo.toString()
                     lat = dataInvent.firstOrNull()?.lat.toString()
                     long = dataInvent.firstOrNull()?.lng.toString()
 
-                    jumlahTanam = binding.etJmlTanam.text.toString()?.toInt().orEmpty
+                    binding.etJmlTanam.textOrNull = jumlahTanam.toString()
+                    jumlahHidup = binding.etJmlHidup.text.toString().toInt().orEmpty
+                    jumlahSakit = binding.etJmlSakit.text.toString().toInt().orEmpty
+
                 }
             }
 
@@ -392,127 +399,44 @@ class ReInventFragment : Fragment(R.layout.fragment_reinvent), OnMapReadyCallbac
 
     private fun onInputTextChanged() {
         binding.boxJmlHidup.editText?.addTextChangedListener {
-
-
-            if (binding.etJmlHidup.text?.isEmpty().orEmpty) {
+            if (binding.etJmlHidup.text?.isEmpty() == true) {
                 binding.etJmlHidup.textOrNull = "0"
-                jumlahHidup = 0
             }
-            if (binding.etJmlSakit.text?.isEmpty().orEmpty) {
+            jumlahHidup = binding.etJmlHidup.text.toString().toInt()
+
+            val jmlHidupSakit = (jumlahHidup + jumlahSakit)
+
+            if (jmlHidupSakit > jumlahTanam) {
+                context.toast("Jumlah hidup & sakit tidak boleh melebihi jumlah tanam")
+            }
+
+        }
+
+        binding.boxJmlSakit.editText?.addTextChangedListener {
+            if (binding.etJmlSakit.text?.isEmpty() == true) {
                 binding.etJmlSakit.textOrNull = "0"
-                jumlahSakit = 0
             }
 
-            if ((binding.etJmlHidup.text?.toString()
-                    ?.toInt().orEmpty + binding.etJmlSakit.text?.toString()
-                    ?.toInt().orEmpty) > jumlahTanam
-            ) {
-//                Timber.e(binding.etJmlHidup.text.toString())
-//                binding.boxJmlHidup.warning(
-//                    context?.getString(R.string.alert_reinvent_jumlah_hidup)
-//                )
+            jumlahSakit = binding.etJmlSakit.text.toString().toInt()
 
-            } else {
-                binding.boxJmlHidup.error = null
-            }
+            val jmlHidupSakit = (jumlahHidup + jumlahSakit)
 
-            if (latitude.toString().isNotEmpty() && longitude.toString()
-                    .isNotEmpty() && binding.etJmlSakit.text?.isNotEmpty().orEmpty && binding.etJmlHidup.text?.isNotEmpty().orEmpty
-                && binding.etKeliling.text?.isNotEmpty().orEmpty && binding.etTinggi.text?.isNotEmpty().orEmpty
-            ) {
-                binding.btnAdd.isVisible = true
-                binding.btnAddFalse.isVisible = false
-            } else {
-                binding.btnAdd.isVisible = false
-                binding.btnAddFalse.isVisible = true
+            if (jmlHidupSakit > jumlahTanam) {
+                context.toast("Jumlah hidup & sakit tidak boleh melebihi jumlah tanam")
             }
         }
 
-//        binding.boxJmlSakit.editText?.addTextChangedListener {
-//            if (binding.etJmlHidup.text?.isEmpty().orEmpty){
-//                binding.etJmlHidup.textOrNull = "0"
-//            }
-//            if (binding.etJmlSakit.text?.isEmpty().orEmpty){
-//                binding.etJmlSakit.textOrNull = "0"
-//            }
-//            if ((binding.etJmlSakit.text?.toString()?.toInt().orEmpty + binding.etJmlHidup.text?.toString()?.toInt().orEmpty) > jumlahTanam) {
-//                binding.boxJmlSakit.warning(
-//                    context?.getString(R.string.alert_reinvent_jumlah_sakit)
-//                )
-//                binding.btnAdd.isVisible = false
-//            } else {
-//                binding.boxJmlSakit.error = null
-//                binding.btnAdd.isVisible = true
-//            }
-//
-//            if (latitude.toString().isNotEmpty() && longitude.toString()
-//                    .isNotEmpty() && binding.etJmlSakit.text?.isNotEmpty().orEmpty && binding.etJmlHidup.text?.isNotEmpty().orEmpty
-//                && binding.etKeliling.text?.isNotEmpty().orEmpty &&  binding.etTinggi.text?.isNotEmpty().orEmpty
-//            ){
-//                binding.btnAdd.isVisible = true
-//                binding.btnAddFalse.isVisible = false
-//            }else{
-//                binding.btnAdd.isVisible = false
-//                binding.btnAddFalse.isVisible = true
-//            }
-//        }
-
         binding.boxJmlMati.editText?.addTextChangedListener {
-            if (binding.etJmlMati.text?.isEmpty().orEmpty) {
+            if (binding.etJmlMati.text?.isEmpty() == true) {
                 binding.etJmlMati.textOrNull = "0"
             }
 
+            jumlahMati = binding.etJmlMati.text.toString().toInt()
 
-//            if (binding.etJmlMati.text?.toString()?.toInt().orEmpty > jumlahTanam) {
-//                binding.boxJmlMati.warning(
-//                    context?.getString(R.string.alert_reinvent_jumlah_hidup)
-//                )
-//
-//            } else {
-//                binding.boxJmlMati.error = null
-//
-//            }
-
-
-            if (latitude.toString().isNotEmpty() && longitude.toString()
-                    .isNotEmpty() && binding.etJmlSakit.text?.isNotEmpty().orEmpty && binding.etJmlHidup.text?.isNotEmpty().orEmpty
-                && binding.etKeliling.text?.isNotEmpty().orEmpty && binding.etTinggi.text?.isNotEmpty().orEmpty
-            ) {
-                binding.btnAdd.isVisible = true
-                binding.btnAddFalse.isVisible = false
-            } else {
-                binding.btnAdd.isVisible = false
-                binding.btnAddFalse.isVisible = true
+            if (jumlahMati > jumlahTanam) {
+                context.toast("Jumlah mati tidak boleh melebihi jumlah tanam")
             }
         }
-
-
-        binding.boxTinggi.editText?.addTextChangedListener {
-            if (latitude.toString().isNotEmpty() && longitude.toString()
-                    .isNotEmpty() && binding.etJmlSakit.text?.isNotEmpty().orEmpty && binding.etJmlHidup.text?.isNotEmpty().orEmpty
-                && binding.etKeliling.text?.isNotEmpty().orEmpty && binding.etTinggi.text?.isNotEmpty().orEmpty
-            ) {
-                binding.btnAdd.isVisible = true
-                binding.btnAddFalse.isVisible = false
-            } else {
-                binding.btnAdd.isVisible = false
-                binding.btnAddFalse.isVisible = true
-            }
-        }
-
-        binding.boxKeliling.editText?.addTextChangedListener {
-            if (latitude.toString().isNotEmpty() && longitude.toString()
-                    .isNotEmpty() && binding.etJmlSakit.text?.isNotEmpty().orEmpty && binding.etJmlHidup.text?.isNotEmpty().orEmpty
-                && binding.etKeliling.text?.isNotEmpty().orEmpty && binding.etTinggi.text?.isNotEmpty().orEmpty
-            ) {
-                binding.btnAdd.isVisible = true
-                binding.btnAddFalse.isVisible = false
-            } else {
-                binding.btnAdd.isVisible = false
-                binding.btnAddFalse.isVisible = true
-            }
-        }
-
 
     }
 
@@ -539,8 +463,21 @@ class ReInventFragment : Fragment(R.layout.fragment_reinvent), OnMapReadyCallbac
             }
 
             binding.btnAdd -> {
-
-//                if (edit == true) {
+                if (binding.boxJmlHidup.textIsEmpty()) {
+                    context.toast("Mohon lengkapi data terlebih dahulu")
+                } else if (binding.boxJmlSakit.textIsEmpty()) {
+                    context.toast("Mohon lengkapi data terlebih dahulu")
+                } else if (binding.boxJmlMati.textIsEmpty()) {
+                    context.toast("Mohon lengkapi data terlebih dahulu")
+                } else if (binding.boxKeliling.textIsEmpty()) {
+                    context.toast("Mohon lengkapi data terlebih dahulu")
+                } else if (binding.boxTinggi.textIsEmpty()) {
+                    context.toast("Mohon lengkapi data terlebih dahulu")
+                } else if (binding.boxPenyulaman.textIsEmpty()) {
+                    context.toast("Mohon lengkapi data terlebih dahulu")
+                }
+                else {
+                    activity.hideKeyboard(view)
                     viewModels.updateReInvent(
                         jmlTanam = binding.etJmlTanam.text.toString(),
                         jmlHidup = binding.etJmlHidup.text.toString(),
@@ -549,43 +486,20 @@ class ReInventFragment : Fragment(R.layout.fragment_reinvent), OnMapReadyCallbac
                         penyulaman = binding.etPenyulaman.text.toString(),
                         keliling = binding.etKeliling.text.toString(),
                         tinggi = binding.etTinggi.text.toString(),
-                        photo = uriImage,
+                        photo = baseImage,
                         lat = latitude.toString(),
                         lng = longitude.toString(),
                         idComodity = args.idKomoditas?.toInt(),
-                        kodePlot = "01-GMF-P"
+                        jumlahReinvent = binding.etPendataan.text.toString().toInt(),
+                        kodePlot = args.kodePlot.toString(),
+                        comodity = args.komoditas,
                     )
-//                }
-//                else {
-//                    reInventEntity = ReinventEntity(
-//                        idPlot = args.idPlot?.toInt(),
-//                        kodePlot = binding.etKodePlot.text.toString(),
-//                        comodity = binding.etKomoditas.text.toString(),
-//                        polaTanam = binding.etPolaTanam.text.toString(),
-//                        reinventPhase = reinvent,
-//                        jmlTanam = binding.etJmlTanam.text.toString(),
-//                        jmlHidup = binding.etJmlHidup.text.toString(),
-//                        jmlSakit = binding.etJmlSakit.text.toString(),
-//                        keliling = binding.etKeliling.text.toString(),
-//                        tinggi = binding.etTinggi.text.toString(),
-//                        edit = true,
-//                        penyulaman = binding.etPenyulaman.text.toString(),
-//                        idComodity = args.idKomoditas,
-//                        photo = uriImage,
-//                        lat = latitude.toString(),
-//                        lng = longitude.toString(),
-//                    )
-//
-//                    viewModels.insertLocalReinvent(reInventEntity)
-//
-//                }
+                    navController.navigateOrNull(
+                        ReInventFragmentDirections.actionReinventFragmentToReInventAssigmentFragment()
+                    )
 
-                navController.navigateOrNull(
-                    ReInventFragmentDirections.actionReinventFragmentToReInventAssigmentFragment()
-                )
-//                }
-
-
+                    viewModels.updateStatusReInventPlot(true, false, args.kodePlot)
+                }
             }
 
             binding.tvTitle -> {

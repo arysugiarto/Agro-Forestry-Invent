@@ -30,6 +30,8 @@ data class SaveReinventBodyRequest(
             val penyulamanTotal: Int,
             @SerializedName("komoditas_id")
             val komoditasId: Int,
+            @SerializedName("count_reinvent")
+            val countReinvent: Int,
             @SerializedName("keliling")
             val keliling: String,
             @SerializedName("length")

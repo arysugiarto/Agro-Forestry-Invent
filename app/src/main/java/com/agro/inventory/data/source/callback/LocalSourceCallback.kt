@@ -57,7 +57,10 @@ interface LocalSourceCallback {
         lat: String?,
         lng: String?,
         idComodity: Int?,
-        kodePlot: String?
+        jumlahreinvent: Int?,
+        kodePlot: String?,
+        comodity: String?,
+
     )
 
     suspend fun insertInventLocal(inventEntity: InventEntity)
