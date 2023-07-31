@@ -28,9 +28,11 @@ import com.agro.inventory.data.remote.model.reinvent.InventDataResponse
 import com.agro.inventory.data.remote.model.reinvent.SaveReinventBodyRequest
 import com.agro.inventory.databinding.FragmentReinventAssigmentBinding
 import com.agro.inventory.databinding.LayoutChooseComodityBinding
+import com.agro.inventory.ui.invent.adapter.InventAdapter
 import com.agro.inventory.ui.invent.adapter.ReInventAdapter
 import com.agro.inventory.ui.invent.adapter.ReInventAdapter.setOnClickCodePlot
 import com.agro.inventory.ui.invent.adapter.ReInventAdapter.setOnClickComodityPlot
+import com.agro.inventory.ui.invent.adapter.ReInventAdapter.setOnClickDone
 import com.agro.inventory.ui.main.MainFragment.Companion.parentBottomAppBar
 import com.agro.inventory.ui.main.MainFragment.Companion.parentNavigation
 import com.agro.inventory.util.addDelayOnTypeWithScope
@@ -311,6 +313,10 @@ class ReInventAssigmentFragment : Fragment(R.layout.fragment_reinvent_assigment)
             }
         }
 
+
+        setOnClickDone { item ->
+            viewModels.deleteLocalItemReInventPlot(item.id)
+        }
     }
 
     private fun dialogChoosePlot() {

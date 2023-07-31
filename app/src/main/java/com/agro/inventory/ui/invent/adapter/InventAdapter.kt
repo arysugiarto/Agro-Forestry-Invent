@@ -13,7 +13,7 @@ import com.agro.inventory.util.color
 import com.agro.inventory.util.textOrNull
 
 
-object InventAdapter {
+object    InventAdapter {
 
     val codePlotAdapter  =
         BaseAdapter.adapterOf<InventPlotEntity, ItemPlotBinding>(

@@ -292,7 +292,8 @@ class InventAssigmentFragment : Fragment(R.layout.fragment_invent_assigment) {
         }
 
         InventAdapter.setOnClickDone { item ->
-            viewModels.updateStatusInventPlot(true, true, item.kodePlot)
+//            viewModels.updateStatusInventPlot(true, true, item.kodePlot)
+            viewModels.deleteLocalItemInventPlot(item.id)
         }
 
     }

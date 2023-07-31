@@ -29,6 +29,10 @@ class LocalRepository(
 
      suspend fun deleteInventPlot() = localDataSource.deleteInventPlot()
 
+    override suspend fun deleteLocalItemInventPlot(id: Int?) =
+        localDataSource.deleteItemInventPlot(id)
+
+
     // reinvent
 
     override suspend fun insertReInventPlotLocal(reInventPlotEntity: List<ReInventPlotEntity>) = localDataSource.insertReInventPlot(reInventPlotEntity)
@@ -43,6 +47,9 @@ class LocalRepository(
         )
 
     override suspend fun deleteReInventPlot() = localDataSource.deleteReInventPlot()
+
+    override suspend fun deleteLocalItemReInventPlot(id: Int?) =
+        localDataSource.deleteItemReInventPlot(id)
 
 
     //input

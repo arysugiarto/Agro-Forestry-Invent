@@ -56,6 +56,8 @@ class LocalDataSource(
 
     suspend fun deleteInventPlot() = daoInventPlot.deletePlotInvent()
 
+    suspend fun deleteItemInventPlot(id: Int?) = daoInventPlot.deleteItemInventPlotId(id)
+
     // reinvent
     suspend fun insertReInventPlot(reinventPlotEntity: List<ReInventPlotEntity>) =
         daoReInventPlot.insertPlotReInvent(reinventPlotEntity)
@@ -75,6 +77,8 @@ class LocalDataSource(
         )
 
     suspend fun deleteReInventPlot() = daoReInventPlot.deletePlotReInvent()
+
+    suspend fun deleteItemReInventPlot(id: Int?) = daoReInventPlot.deleteItemReInventPlotId(id)
 
 
     //input

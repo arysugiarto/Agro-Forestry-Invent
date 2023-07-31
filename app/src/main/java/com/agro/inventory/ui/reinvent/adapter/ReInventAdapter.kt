@@ -42,6 +42,11 @@ object ReInventAdapter {
                             tvDone.isVisible = true
                         }
 
+                        btnDone.setOnClickListener{
+                            onClickDoneCallback.invoke(item)
+                        }
+
+
                     }
                 }
             ),
@@ -88,5 +93,10 @@ object ReInventAdapter {
         onClickComodityCallback = item
     }
 
+    private var onClickDoneCallback: (ReInventPlotEntity) -> Unit = {}
+
+    fun setOnClickDone(item: (ReInventPlotEntity) -> Unit) {
+        onClickDoneCallback = item
+    }
 
 }

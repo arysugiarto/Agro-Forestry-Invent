@@ -23,6 +23,8 @@ interface LocalSourceCallback {
     )
 
 
+    suspend fun deleteLocalItemInventPlot(id: Int?)
+
     //reinvent
 
     suspend fun insertReInventPlotLocal(areaEntity: List<ReInventPlotEntity>)
@@ -35,6 +37,8 @@ interface LocalSourceCallback {
         kodePlot: String?
     )
     suspend fun deleteReInventPlot()
+
+    suspend fun deleteLocalItemReInventPlot(id: Int?)
 
 
 //  input

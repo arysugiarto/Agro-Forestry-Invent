@@ -119,6 +119,12 @@ class LocalViewModel @Inject constructor(
             )
         }
 
+    fun deleteLocalItemReInventPlot(id: Int? = null) =
+        viewModelScope.launch {
+            repository.deleteLocalItemReInventPlot(id)
+        }
+
+
     fun getLocalInvent(comodity: String,idComodity: String, kodePlot: String) =
         repository.getInvent(comodity, idComodity, kodePlot)
             .onEach { result ->
@@ -142,6 +148,12 @@ class LocalViewModel @Inject constructor(
 //        get() = repository
 //            .getLocalInventPlot()
 //            .asLiveData(viewModelScope.coroutineContext)
+
+
+    fun deleteLocalItemInventPlot(id: Int? = null) =
+        viewModelScope.launch {
+            repository.deleteLocalItemInventPlot(id)
+        }
 
     fun getInventLocal(search: String) =
         repository.getLocalInventPlot(search)

@@ -30,4 +30,7 @@ interface ReInvenPlotDao {
     @Query("DELETE FROM plot_reinvent_entity")
     suspend fun deletePlotReInvent()
 
+    @Query("DELETE FROM plot_reinvent_entity WHERE id = :id")
+    suspend fun deleteItemReInventPlotId(id: Int?)
+
 }

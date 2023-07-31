@@ -32,4 +32,7 @@ interface InvenPlotDao {
     @Query("DELETE FROM plot_invent_entity")
     suspend fun deletePlotInvent()
 
+    @Query("DELETE FROM plot_invent_entity WHERE id = :id")
+    suspend fun deleteItemInventPlotId(id: Int?)
+
 }
