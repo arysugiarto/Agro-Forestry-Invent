@@ -20,7 +20,9 @@ data class ListPlotResponse(
         val polaTanam: String? = null,
         @SerializedName("komoditas")
         val komoditas: String? = null,
-        @SerializedName("polaTanamtxt")
+        @SerializedName("polaTanam")
         val polaTanamName: String? = null,
+        @SerializedName("komoditas_id")
+        val komoditasId: Int? = null,
     )
 }

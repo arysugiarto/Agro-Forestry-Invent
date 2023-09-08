@@ -155,9 +155,29 @@
                     android:text="@string/title_accurate"
                     android:textAppearance="@style/TextAppearance.OpenSans.SemiBold.Body2"
                     android:textColor="@color/black"
-                    android:visibility="gone"
                     app:layout_constraintStart_toEndOf="@+id/ivPhoto"
                     app:layout_constraintTop_toBottomOf="@+id/tvTitleLongitude" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/tvValueAccuracy"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:maxLength="2"
+                    android:textAppearance="@style/TextAppearance.Poppins.Regular.Body2"
+                    android:textColor="@color/black"
+                    app:layout_constraintStart_toEndOf="@+id/tvTitleAccurate"
+                    app:layout_constraintTop_toTopOf="@+id/tvTitleAccurate" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/tvMeters"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Meter"
+                    android:visibility="gone"
+                    android:textAppearance="@style/TextAppearance.Poppins.Regular.Body2"
+                    android:textColor="@color/black"
+                    app:layout_constraintStart_toEndOf="@+id/tvValueAccuracy"
+                    app:layout_constraintTop_toTopOf="@+id/tvValueAccuracy" />
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/btnTakePhoto"

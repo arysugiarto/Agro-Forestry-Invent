@@ -143,7 +143,7 @@ class ReInventAssigmentFragment : Fragment(R.layout.fragment_reinvent_assigment)
                             diseasedTrees = it.jmlSakit?.toInt().orEmpty,
                             penyulamanTotal = it.penyulaman?.toInt().orEmpty,
                             countReinvent = it.reinventPhase.orEmpty,
-                            komoditasId = 1,
+                            komoditasId = it.idComodity?.toInt().orEmpty,
                             keliling = it.keliling.orEmpty,
                             length = it.tinggi?.toInt().orEmpty,
                             userId = userAccessId.toInt(),
@@ -222,6 +222,7 @@ class ReInventAssigmentFragment : Fragment(R.layout.fragment_reinvent_assigment)
                             namearea = "Lahan 1",
                             komoditas = it.komoditas,
                             polaTanam = it.polaTanam,
+                            idKomoditas = it.komoditasId,
                             status = false,
                             allData = "ALL"
                         )
@@ -264,7 +265,8 @@ class ReInventAssigmentFragment : Fragment(R.layout.fragment_reinvent_assigment)
                             lat = it.lat,
                             lng = it.lng,
                             photo = it.photo,
-                            kodePlot = it.kodePlot
+                            kodePlot = it.kodePlot,
+                            idComodity = it.komoditasId.toString()
                         )
                     }.orEmpty()
 
@@ -298,7 +300,7 @@ class ReInventAssigmentFragment : Fragment(R.layout.fragment_reinvent_assigment)
                             kodePlot = item.kodePlot,
                             polaTanam = item.polaTanam,
                             komoditas = item.komoditas,
-                            idKomoditas = "1"
+                            idKomoditas = item.idKomoditas.toString()
                         )
                     )
 
@@ -361,12 +363,12 @@ class ReInventAssigmentFragment : Fragment(R.layout.fragment_reinvent_assigment)
         viewModel.saveReInventAll.observe(viewLifecycleOwner, EventObserver { result ->
             when (result) {
                 is Result.Loading -> {
-//                    binding.progressBar.isVisible = true
+                    binding.progressBar.isVisible = true
 //                    binding.tvProgress.isVisible = true
                 }
 
                 is Result.Success -> {
-//                    binding.progressBar.isVisible = false
+                    binding.progressBar.isVisible = false
 //                    binding.tvProgress.isVisible = false
 
                     Timber.e("Berhasil")

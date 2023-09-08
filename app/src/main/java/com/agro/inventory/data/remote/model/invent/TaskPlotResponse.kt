@@ -25,6 +25,8 @@ data class TaskPlotResponse(
         @SerializedName("pola_tanam")
         val polaTanam: String? = null,
         @SerializedName("komoditas")
-        val komoditas: String? = null
+        val komoditas: String? = null,
+        @SerializedName("komoditas_id")
+        val komoditasId: Int? = null,
     )
 }

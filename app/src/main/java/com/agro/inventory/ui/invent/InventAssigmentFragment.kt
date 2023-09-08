@@ -212,6 +212,7 @@ class InventAssigmentFragment : Fragment(R.layout.fragment_invent_assigment) {
                             nameMember = it.memberName,
                             komoditas = it.komoditas,
                             polaTanam = it.polaTanam,
+                            idKomoditas = it.komoditasId,
                             status = false,
                             allData = "ALL"
                         )
@@ -264,7 +265,7 @@ class InventAssigmentFragment : Fragment(R.layout.fragment_invent_assigment) {
                 var data = emptyList<ComodityEntity>()
                 viewModels.getComodity.observe(viewLifecycleOwner) { result ->
                     data = result.orEmpty()
-                    idPlot = data.firstOrNull()?.id.toString()
+                    idPlot = data.firstOrNull()?.idPlot.toString()
                     kodePlot = data.firstOrNull()?.kodePlot.toString()
                     polaTanam = item.polaTanam.toString()
                     idComodity = data.firstOrNull()?.idComodity.toString()
@@ -272,17 +273,17 @@ class InventAssigmentFragment : Fragment(R.layout.fragment_invent_assigment) {
 
                     navController.navigateOrNull(
                         InventAssigmentFragmentDirections.actionInventAssigmentFragmentToInventFragment(
-                            idPlot = item.id.toString(),
+                            idPlot = item.idPlot.toString(),
                             kodePlot = item.kodePlot,
                             polaTanam = item.polaTanam,
                             komoditas = item.komoditas,
-                            idKomoditas = "1"
+                            idKomoditas = item.idKomoditas.toString()
                         )
                     )
                 }
 
             } else if (item.polaTanam.toString() == "Polikultur") {
-                idPlot = item.id.toString()
+                idPlot = item.idPlot.toString()
                 kodePlot = item.kodePlot.toString()
                 polaTanam = item.polaTanam.toString()
                 komoditas = item.komoditas.toString()

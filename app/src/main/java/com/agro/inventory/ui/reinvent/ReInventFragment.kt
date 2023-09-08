@@ -84,6 +84,8 @@ class ReInventFragment : Fragment(R.layout.fragment_reinvent), OnMapReadyCallbac
     var jumlahMati = 0
     var baseImage = emptyString
 
+    private var accuracy = emptyString
+
 
     private var reInventEntity: ReinventEntity = ReinventEntity()
 
@@ -179,7 +181,12 @@ class ReInventFragment : Fragment(R.layout.fragment_reinvent), OnMapReadyCallbac
                     lat = dataInvent.firstOrNull()?.lat.toString()
                     long = dataInvent.firstOrNull()?.lng.toString()
 
-                    binding.etJmlTanam.textOrNull = jumlahTanam.toString()
+                    if(dataInvent.isEmpty()){
+                        binding.etJmlTanam.textOrNull = "0"
+                    }else{
+                        binding.etJmlTanam.textOrNull = jumlahTanam.toString()
+                    }
+
                     jumlahHidup = binding.etJmlHidup.text.toString().toInt().orEmpty
                     jumlahSakit = binding.etJmlSakit.text.toString().toInt().orEmpty
 
@@ -207,13 +214,20 @@ class ReInventFragment : Fragment(R.layout.fragment_reinvent), OnMapReadyCallbac
                         latitude = location.latitude
                         longitude = location.longitude
 
+                        accuracy = location.accuracy.toString()
+
                         Timber.tag(ContentValues.TAG)
                             .d("Latidude : $latitude longitude : $longitude")
 
+                        val delim = "."
                         // Set coordinate to textview
                         binding.tvLattitude.text = latitude.toString()
                         binding.tvLongitude.text = longitude.toString()
+                        binding.tvValueAccuracy.text = accuracy.substringBefore(delim)
 
+                        if (accuracy.isNotEmpty()){
+                            binding.tvMeters.isVisible = true
+                        }
                         initMap()
 
                     } else {

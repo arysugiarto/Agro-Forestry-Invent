@@ -3,6 +3,7 @@ package com.agro.inventory.ui.invent
 import android.Manifest
 import android.annotation.SuppressLint
 import android.app.Activity
+import android.content.ContentValues
 import android.content.ContentValues.TAG
 import android.content.Context
 import android.content.Context.LOCATION_SERVICE
@@ -72,6 +73,7 @@ class InventFragment : Fragment(R.layout.fragment_invent), OnMapReadyCallback {
     var edit = emptyBoolean
     var id = emptyString
     var userAccessId = emptyString
+    private var accuracy = emptyString
 
     private var inventEntity: InventEntity = InventEntity()
     private lateinit var invent: List<InventEntity>
@@ -268,11 +270,20 @@ class InventFragment : Fragment(R.layout.fragment_invent), OnMapReadyCallback {
                         latitude = location.latitude
                         longitude = location.longitude
 
-                        Timber.tag(TAG).d("Latidude : $latitude longitude : $longitude")
+                        accuracy = location.accuracy.toString()
 
+                        Timber.tag(ContentValues.TAG)
+                            .d("Latidude : $latitude longitude : $longitude")
+
+                        val delim = "."
                         // Set coordinate to textview
                         binding.tvLattitude.text = latitude.toString()
                         binding.tvLongitude.text = longitude.toString()
+                        binding.tvValueAccuracy.text = accuracy.substringBefore(delim)
+
+                        if (accuracy.isNotEmpty()){
+                            binding.tvMeters.isVisible = true
+                        }
 
                         initMap()
 
