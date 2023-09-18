@@ -91,5 +91,6 @@
     <string name="invent_keliling_hint">Mohon isi terlebih dahulu keliling</string>
     <string name="invent_tinggi_hint">Mohon isi terlebih dahulu tinggi</string>
     <string name="register_reinvent">"Berhasil menambahkan data pendataan ulang. "</string>
+    <string name="delete_assigment">Berhasil menghapus penuasan</string>
 
 </resources>

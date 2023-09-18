@@ -21,6 +21,7 @@ import com.agro.inventory.data.local.entity.ReinventEntity
 import com.agro.inventory.data.preferences.AccessManager
 import com.agro.inventory.data.remote.Result
 import com.agro.inventory.data.remote.model.ListPlotResponse
+import com.agro.inventory.data.remote.model.RemovePenugasanBodyRequest
 import com.agro.inventory.data.remote.model.invent.Comodity
 import com.agro.inventory.data.remote.model.invent.SaveInventBodyRequest
 import com.agro.inventory.data.remote.model.invent.TaskPlotReinventResponse
@@ -67,6 +68,7 @@ class ReInventAssigmentFragment : Fragment(R.layout.fragment_reinvent_assigment)
     private val comodityAdapter = ReInventAdapter.cmodityAdapter
 
     private var saveReInvent = listOf<SaveReinventBodyRequest.Data>()
+    private var remove = listOf<RemovePenugasanBodyRequest.Data>()
 
 
     var polaTanam = emptyString
@@ -145,11 +147,11 @@ class ReInventAssigmentFragment : Fragment(R.layout.fragment_reinvent_assigment)
                             countReinvent = it.reinventPhase.orEmpty,
                             komoditasId = it.idComodity?.toInt().orEmpty,
                             keliling = it.keliling.orEmpty,
-                            length = it.tinggi?.toInt().orEmpty,
+                            length = it.tinggi?.toDouble().orEmpty,
                             userId = userAccessId.toInt(),
                             lat = it.lat.toString(),
                             lng = it.lng.toString(),
-                            uid ="f48666f9-f85a-461f-befb-7b03bdab2e44" ,
+                            uid = "f48666f9-f85a-461f-befb-7b03bdab2e44",
                             appSource = "12",
                             createdBy = 206,
                             deleted = 0
@@ -170,9 +172,11 @@ class ReInventAssigmentFragment : Fragment(R.layout.fragment_reinvent_assigment)
                 is Result.Loading -> {
                     binding.progressBar.isVisible = true
                 }
+
                 is Result.Success -> {
                     binding.progressBar.isVisible = false
                 }
+
                 is Result.Error -> {
 
                 }
@@ -187,7 +191,7 @@ class ReInventAssigmentFragment : Fragment(R.layout.fragment_reinvent_assigment)
         initLocalPlotCallback()
     }
 
-    private fun initLocalPlotCallback(){
+    private fun initLocalPlotCallback() {
         viewModels.getReInventLocal("ALL")
         var data = emptyList<ReInventPlotEntity>()
         viewModels.getReInventPlot.observe(viewLifecycleOwner) { result ->
@@ -210,7 +214,7 @@ class ReInventAssigmentFragment : Fragment(R.layout.fragment_reinvent_assigment)
             when (result) {
                 is Result.Loading -> {}
                 is Result.Success -> {
-                    binding.progressBar.isVisible= false
+                    binding.progressBar.isVisible = false
                     viewModels.deleteAllReInventPlot()
 //                    binding.fab.isVisible = false
 
@@ -219,10 +223,11 @@ class ReInventAssigmentFragment : Fragment(R.layout.fragment_reinvent_assigment)
                         ReInventPlotEntity(
                             idPlot = it.id,
                             kodePlot = it.kodePlot,
-                            namearea = "Lahan 1",
+                            namearea = it.areaName,
                             komoditas = it.komoditas,
                             polaTanam = it.polaTanam,
                             idKomoditas = it.komoditasId,
+                            penugasanId = it.penugasanId,
                             status = false,
                             allData = "ALL"
                         )
@@ -233,6 +238,7 @@ class ReInventAssigmentFragment : Fragment(R.layout.fragment_reinvent_assigment)
                     Timber.e(reInventPlotEntity.toString())
 
                 }
+
                 is Result.Error<*> -> {}
                 else -> {}
             }
@@ -252,7 +258,7 @@ class ReInventAssigmentFragment : Fragment(R.layout.fragment_reinvent_assigment)
                     reInventDataEntity = itemInventData.data?.map {
                         ReinventEntity(
                             idPlot = it.plotId,
-                            plantNumber= it.plantNumber,
+                            plantNumber = it.plantNumber,
                             reinventPhase = it.jumlahReinvent,
                             comodity = it.komoditas,
                             jmlTanam = it.totalPlant.toString(),
@@ -275,36 +281,56 @@ class ReInventAssigmentFragment : Fragment(R.layout.fragment_reinvent_assigment)
                     Timber.e("invent data%s", reInventDataEntity.toString())
 
                 }
+
                 is Result.Error<*> -> {}
                 else -> {}
             }
         })
     }
 
-    private fun initAdapterClick() {
-        setOnClickCodePlot { item ->
-            if (item.polaTanam.toString() == "Monokultur"|| item.polaTanam.toString() == "Nursery") {
-                viewModels.getLocalComodity("00-GML-N")
-                var data = emptyList<ComodityEntity>()
-                viewModels.getComodity.observe(viewLifecycleOwner) { result ->
-                    data = result.orEmpty()
-                    idPlot = data.firstOrNull()?.id.toString()
-                    kodePlot = data.firstOrNull()?.kodePlot.toString()
-                    polaTanam = item.polaTanam.toString()
-                    idComodity = data.firstOrNull()?.idComodity.toString()
-                    komoditas = data.firstOrNull()?.comodity.toString()
+    private fun initRemoveAssigment() {
+        viewModel.removeAssigment.observe(viewLifecycleOwner, EventObserver { result ->
+            when (result) {
+                is Result.Loading -> {
+                }
 
-                    navController.navigateOrNull(
-                        ReInventAssigmentFragmentDirections.actionReInventAssigmentFragmentToReinventFragment(
-                            idPlot = item.idPlot.toString(),
-                            kodePlot = item.kodePlot,
-                            polaTanam = item.polaTanam,
-                            komoditas = item.komoditas,
-                            idKomoditas = item.idKomoditas.toString()
-                        )
-                    )
+                is Result.Success -> {
+
+                    Timber.e("Berhasil")
+                    SweetAlertDialog(requireContext(), SweetAlertDialog.SUCCESS_TYPE)
+                        .setTitleText(context?.getString(R.string.success))
+                        .setContentText(context?.getString(R.string.delete_assigment))
+                        .setConfirmClickListener {
+                            it.dismissWithAnimation()
+
+                        }
+                        .show()
+
+                    viewModel.setRemoveAssigmentNothing()
+                }
+
+                is Result.Error -> {
 
                 }
+
+                else -> Unit
+            }
+        })
+
+    }
+
+    private fun initAdapterClick() {
+        setOnClickCodePlot { item ->
+            if (item.polaTanam.toString() == "Monokultur" || item.polaTanam.toString() == "Nursery") {
+                navController.navigateOrNull(
+                    ReInventAssigmentFragmentDirections.actionReInventAssigmentFragmentToReinventFragment(
+                        idPlot = item.idPlot.toString(),
+                        kodePlot = item.kodePlot,
+                        polaTanam = item.polaTanam,
+                        komoditas = item.komoditas,
+                        idKomoditas = item.idKomoditas.toString()
+                    )
+                )
 
             } else if (item.polaTanam.toString() == "Polikultur") {
                 idPlot = item.idPlot.toString()
@@ -318,6 +344,22 @@ class ReInventAssigmentFragment : Fragment(R.layout.fragment_reinvent_assigment)
 
         setOnClickDone { item ->
             viewModels.deleteLocalItemReInventPlot(item.id)
+
+            remove = listOf(
+                RemovePenugasanBodyRequest.Data(
+                    RemovePenugasanBodyRequest.Data.Penugasan(
+                        id = item.penugasanId
+                    )
+                )
+            )
+
+            initRemoveAssigment()
+
+            viewModel.requestRemoveAssigment(
+                "Sobi+Apps:11fbbd445c65d9a7f1c2b53ec88ba993",
+                "1550471710",
+                remove
+            )
         }
     }
 
@@ -448,6 +490,7 @@ class ReInventAssigmentFragment : Fragment(R.layout.fragment_reinvent_assigment)
                     ReInventAssigmentFragmentDirections.actionInventAssigmentFragmentToHomeFragment()
                 )
             }
+
             binding.fab -> {
 
                 var data = emptyList<AuthEntity>()

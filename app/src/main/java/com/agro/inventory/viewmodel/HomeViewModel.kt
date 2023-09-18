@@ -56,6 +56,11 @@ class HomeViewModel @Inject constructor(
     val saveReInventAll: LiveData<Event<Result<SaveReinventBodyRequest.Data>>> get() = _saveReInventAll
 
 
+    private var _removeAssigment: MutableLiveData<Event<Result<RemovePenugasanBodyRequest.Data>>> = MutableLiveData()
+    val removeAssigment: LiveData<Event<Result<RemovePenugasanBodyRequest.Data>>> get() = _removeAssigment
+
+
+
     fun requestTaskPlot(token: String,sobiDate:String, userId:String) =
         repository.requestTaskPlot(token,sobiDate, userId)
             .onEach { result ->
@@ -96,6 +101,11 @@ class HomeViewModel @Inject constructor(
                 _inventData.value = Event(result)
             }.launchIn(viewModelScope)
 
+    fun requestRemoveAssigment(token: String, sobiDate: String, bodyRequest: List<RemovePenugasanBodyRequest.Data>) =
+        repository.requestRemoveAssigment (token, sobiDate, bodyRequest).onEach { result ->
+            _removeAssigment.value = Event(result)
+        }.launchIn(viewModelScope)
+
 
 
     fun setSaveAllInventNothing() {
@@ -104,6 +114,10 @@ class HomeViewModel @Inject constructor(
 
     fun setSaveAllReInventNothing() {
         _saveReInventAll.value = Event(Result.nothing())
+    }
+
+    fun setRemoveAssigmentNothing() {
+        _removeAssigment.value = Event(Result.nothing())
     }
 
 

@@ -90,4 +90,11 @@ interface ApiCallback {
         @Query("userId") areaId: String,
     ): Response<TaskPlotReinventResponse>
 
+    @POST(Const.NETWORK.REMOVE_ASSIGMENT)
+    suspend fun requestRemoveAssigment(
+        @Header("Authorization") token: String,
+        @Header("Sobi-Date") sobiDate: String,
+        @Body body: JsonElement
+    ): Response<RemovePenugasanBodyRequest.Data>
+
 }

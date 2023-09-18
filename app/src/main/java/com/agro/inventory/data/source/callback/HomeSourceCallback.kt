@@ -23,7 +23,7 @@ interface HomeSourceCallback {
     fun requestListPlot(
         token: String,
         sobiDate: String,
-        areaID:String
+        areaID: String
     ): Flow<Result<ListPlotResponse>>
 
     fun requestDetailsPlot(
@@ -32,34 +32,48 @@ interface HomeSourceCallback {
         plotId: String
     ): Flow<Result<DetailsPlotResponse>>
 
-    fun requestSaveInventAll(token: String, sobiDate: String,bodyRequest: List<SaveInventBodyRequest.Data> ):
+    fun requestSaveInventAll(
+        token: String,
+        sobiDate: String,
+        bodyRequest: List<SaveInventBodyRequest.Data>
+    ):
             Flow<Result<SaveInventBodyRequest.Data>>
 
-    fun requestSaveReInventAll(token: String, sobiDate: String,bodyRequest: List<SaveReinventBodyRequest.Data> ):
+    fun requestSaveReInventAll(
+        token: String,
+        sobiDate: String,
+        bodyRequest: List<SaveReinventBodyRequest.Data>
+    ):
             Flow<Result<SaveReinventBodyRequest.Data>>
 
     fun requestTaskPlot(
         token: String,
         sobiDate: String,
-        userId:String
+        userId: String
     ): Flow<Result<TaskPlotResponse>>
 
     fun requestComodity(
         token: String,
         sobiDate: String,
-        userId:String
+        userId: String
     ): Flow<Result<ComodityResponse>>
 
 
     fun requestInventData(
         token: String,
         sobiDate: String,
-        userId:String
+        userId: String
     ): Flow<Result<InventDataResponse>>
 
     fun requestTaskPlotReinvent(
         token: String,
         sobiDate: String,
-        userId:String
+        userId: String
     ): Flow<Result<TaskPlotReinventResponse>>
+
+    fun requestRemoveAssigment(
+        token: String,
+        sobiDate: String,
+        bodyRequest: List<RemovePenugasanBodyRequest.Data>
+    ): Flow<Result<RemovePenugasanBodyRequest.Data>>
 }

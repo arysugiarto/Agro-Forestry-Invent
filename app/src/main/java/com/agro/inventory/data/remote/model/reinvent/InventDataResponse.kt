@@ -49,7 +49,7 @@ data class InventDataResponse(
         @SerializedName("keliling_manual")
         val kelilingManual: Any,
         @SerializedName("length")
-        val length: Int,
+        val length: Double,
         @SerializedName("length_manual")
         val lengthManual: Any,
         @SerializedName("length_200")

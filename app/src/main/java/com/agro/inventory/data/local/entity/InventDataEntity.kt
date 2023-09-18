@@ -23,7 +23,7 @@ data class InventDataEntity(
     val diameterManual: String? = null,
     val keliling: String? = null,
     val kelilingManual: String? = null,
-    val length: Int? = null,
+    val length: Double? = null,
     val lengthManual: String? = null,
     val lat: String? = null,
     val lng: String? = null,

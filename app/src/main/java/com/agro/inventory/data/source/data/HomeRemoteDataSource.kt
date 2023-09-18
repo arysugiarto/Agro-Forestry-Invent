@@ -1,6 +1,7 @@
 package com.agro.inventory.data.source.data
 
 import com.agro.inventory.data.remote.api.ApiCallback
+import com.agro.inventory.data.remote.model.RemovePenugasanBodyRequest
 import com.agro.inventory.data.remote.model.invent.SaveInventBodyRequest
 import com.agro.inventory.data.remote.model.reinvent.SaveReinventBodyRequest
 import com.agro.inventory.util.flowResponse
@@ -78,4 +79,13 @@ class HomeRemoteDataSource(callback: ApiCallback) {
             apiCallback.requestTaskPlotReinvent(token, sobiDate, userId)
         }
 
+    fun requestRemoveAssigment(token: String, sobiDate: String, removeAssigmentBodyRequest: List<RemovePenugasanBodyRequest.Data>) = flowResponse {
+        val data = gson.toJsonTree(removeAssigmentBodyRequest)
+
+        val body = gson.toJsonElement {
+            put("data", data)
+        }
+        apiCallback.requestRemoveAssigment(token, sobiDate, body)
+
+    }
 }

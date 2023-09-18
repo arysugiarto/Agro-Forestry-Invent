@@ -130,7 +130,7 @@ class ReInventFragment : Fragment(R.layout.fragment_reinvent), OnMapReadyCallbac
                 binding.etKomoditas.textOrNull = data.firstOrNull()?.comodity
                 binding.etKeliling.textOrNull = data.firstOrNull()?.keliling
                 binding.etTinggi.textOrNull = data.firstOrNull()?.tinggi
-//                binding.etJmlTanam.textOrNull = data.firstOrNull()?.jmlTanam
+                binding.etJmlTanam.textOrNull = data.firstOrNull()?.jmlTanam
                 binding.etJmlHidup.textOrNull = data.firstOrNull()?.jmlHidup
                 binding.etJmlSakit.textOrNull = data.firstOrNull()?.jmlSakit
                 binding.etPolaTanam.textOrNull = data.firstOrNull()?.polaTanam

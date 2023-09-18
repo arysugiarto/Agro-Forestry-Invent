@@ -35,7 +35,7 @@ data class SaveReinventBodyRequest(
             @SerializedName("keliling")
             val keliling: String,
             @SerializedName("length")
-            val length: Int,
+            val length: Double,
             @SerializedName("user_id")
             val userId: Int,
             @SerializedName("lat")

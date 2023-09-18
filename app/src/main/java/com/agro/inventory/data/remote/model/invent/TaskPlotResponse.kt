@@ -14,6 +14,8 @@ data class TaskPlotResponse(
     data class Data(
         @SerializedName("id")
         val id: Int? = null,
+        @SerializedName("penugasan_id")
+        val penugasanId: Int? = null,
         @SerializedName("kode_plot")
         val kodePlot: String? = null,
         @SerializedName("area_id")

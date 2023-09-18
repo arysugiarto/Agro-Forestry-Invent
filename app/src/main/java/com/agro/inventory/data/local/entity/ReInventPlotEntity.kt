@@ -16,6 +16,7 @@ data class ReInventPlotEntity(
     val komoditas: String? = null,
     val polaTanam: String? = null,
     val idKomoditas: Int? = null,
+    val penugasanId: Int? = null,
     val status: Boolean? = null,
     val statusDone: Boolean? = null,
     val allData: String? = null

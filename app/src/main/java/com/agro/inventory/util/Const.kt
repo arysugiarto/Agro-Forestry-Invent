@@ -23,6 +23,8 @@ object Const {
 
         const val INVENT_DATA = "$PREFIX/plot/getDataInven"
 
+        const val REMOVE_ASSIGMENT = "$PREFIX/plot/removeAssignment"
+
         object Media {
             const val UPLOAD = "$PREFIX/monitoring/upload_photo"
             const val FILE_FIELD = "file[]"

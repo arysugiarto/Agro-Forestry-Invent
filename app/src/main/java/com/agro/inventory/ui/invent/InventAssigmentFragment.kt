@@ -19,6 +19,7 @@ import com.agro.inventory.data.local.entity.InventPlotEntity
 import com.agro.inventory.data.preferences.AccessManager
 import com.agro.inventory.data.remote.Result
 import com.agro.inventory.data.remote.model.ListPlotResponse
+import com.agro.inventory.data.remote.model.RemovePenugasanBodyRequest
 import com.agro.inventory.data.remote.model.invent.SaveInventBodyRequest
 import com.agro.inventory.data.remote.model.invent.Comodity
 import com.agro.inventory.data.remote.model.invent.ComodityResponse
@@ -59,6 +60,7 @@ class InventAssigmentFragment : Fragment(R.layout.fragment_invent_assigment) {
     private var listComodity = emptyList<ComodityEntity>()
     private val comodityAdapter = InventAdapter.cmodityAdapter
     private var saveInvent = listOf<SaveInventBodyRequest.Data>()
+    private var remove = listOf<RemovePenugasanBodyRequest.Data>()
 
 
     @Inject
@@ -213,6 +215,7 @@ class InventAssigmentFragment : Fragment(R.layout.fragment_invent_assigment) {
                             komoditas = it.komoditas,
                             polaTanam = it.polaTanam,
                             idKomoditas = it.komoditasId,
+                            penugasanId = it.penugasanId,
                             status = false,
                             allData = "ALL"
                         )
@@ -255,22 +258,42 @@ class InventAssigmentFragment : Fragment(R.layout.fragment_invent_assigment) {
         })
     }
 
+    private fun initRemoveAssigment() {
+        viewModel.removeAssigment.observe(viewLifecycleOwner, EventObserver { result ->
+            when (result) {
+                is Result.Loading -> {
+                }
+
+                is Result.Success -> {
+
+                    Timber.e("Berhasil")
+                    SweetAlertDialog(requireContext(), SweetAlertDialog.SUCCESS_TYPE)
+                        .setTitleText(context?.getString(R.string.success))
+                        .setContentText(context?.getString(R.string.delete_assigment))
+                        .setConfirmClickListener {
+                            it.dismissWithAnimation()
+
+                        }
+                        .show()
+
+                    viewModel.setRemoveAssigmentNothing()
+                }
+
+                is Result.Error -> {
+
+                }
+
+                else -> Unit
+            }
+        })
+
+    }
+
 
     private fun initAdapterClick() {
         InventAdapter.setOnClickCodePlot { item ->
             Timber.e(item.polaTanam)
             if (item.polaTanam.toString() == "Monokultur" || item.polaTanam.toString() == "Nursery") {
-
-                viewModels.getLocalComodity(kodePlot)
-                var data = emptyList<ComodityEntity>()
-                viewModels.getComodity.observe(viewLifecycleOwner) { result ->
-                    data = result.orEmpty()
-                    idPlot = data.firstOrNull()?.idPlot.toString()
-                    kodePlot = data.firstOrNull()?.kodePlot.toString()
-                    polaTanam = item.polaTanam.toString()
-                    idComodity = data.firstOrNull()?.idComodity.toString()
-                    komoditas = data.firstOrNull()?.comodity.toString()
-
                     navController.navigateOrNull(
                         InventAssigmentFragmentDirections.actionInventAssigmentFragmentToInventFragment(
                             idPlot = item.idPlot.toString(),
@@ -280,7 +303,6 @@ class InventAssigmentFragment : Fragment(R.layout.fragment_invent_assigment) {
                             idKomoditas = item.idKomoditas.toString()
                         )
                     )
-                }
 
             } else if (item.polaTanam.toString() == "Polikultur") {
                 idPlot = item.idPlot.toString()
@@ -295,6 +317,22 @@ class InventAssigmentFragment : Fragment(R.layout.fragment_invent_assigment) {
         InventAdapter.setOnClickDone { item ->
 //            viewModels.updateStatusInventPlot(true, true, item.kodePlot)
             viewModels.deleteLocalItemInventPlot(item.id)
+
+            remove = listOf(
+                RemovePenugasanBodyRequest.Data(
+                    RemovePenugasanBodyRequest.Data.Penugasan(
+                        id =  item.penugasanId
+                    )
+                )
+            )
+
+            initRemoveAssigment()
+
+            viewModel.requestRemoveAssigment(
+                "Sobi+Apps:11fbbd445c65d9a7f1c2b53ec88ba993",
+                "1550471710",
+                remove
+            )
         }
 
     }

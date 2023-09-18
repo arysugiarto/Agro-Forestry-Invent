@@ -134,7 +134,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="@dimen/screen_margin"
                 android:layout_marginBottom="@dimen/normal_margin"
-                android:backgroundTint="@color/sandy_brown"
+                android:backgroundTint="@color/persimmon"
                 android:text="@string/done"
                 android:textAllCaps="false"
                 android:textAppearance="@style/TextAppearance.OpenSans.SemiBold.Button"

@@ -1,5 +1,6 @@
 package com.agro.inventory.data.repositories
 
+import com.agro.inventory.data.remote.model.RemovePenugasanBodyRequest
 import com.agro.inventory.data.remote.model.invent.SaveInventBodyRequest
 import com.agro.inventory.data.remote.model.reinvent.SaveReinventBodyRequest
 import com.agro.inventory.data.source.callback.HomeSourceCallback
@@ -60,6 +61,16 @@ class HomeRepository(
     override fun requestTaskPlotReinvent(token:String, sobiDate:String, userId:String) =
         remoteDataSource.requestTaskPlotReinvent(token,sobiDate, userId)
 
+    override fun requestRemoveAssigment(
+        token: String,
+        role: String,
+        bodyRequest: List<RemovePenugasanBodyRequest.Data>
+    ) =
+        remoteDataSource.requestRemoveAssigment(
+            token,
+            role,
+            bodyRequest
+        )
 
 
 
