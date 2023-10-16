@@ -22,6 +22,7 @@ data class InventEntity(
     val photo: String? = null,
     val lat: String? = null,
     val lng: String? = null,
+    val status: Boolean? = null
 )
 
 

@@ -25,7 +25,7 @@
             android:drawablePadding="@dimen/screen_margin"
             android:layout_marginStart="@dimen/screen_margin"
             android:text="@string/input_data"
-            android:textColor="@color/green"
+            android:textColor="@color/white"
             android:textAppearance="@style/TextAppearance.OpenSans.Bold.Headline6"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -37,7 +37,7 @@
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="@dimen/zero_margin"
-        app:layout_constraintBottom_toTopOf="@+id/clButton"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/clToolbars">
 
@@ -64,148 +64,206 @@
                 android:name="com.google.android.gms.maps.SupportMapFragment"
                 android:layout_width="@dimen/zero_margin"
                 android:layout_height="@dimen/zero_margin"
-                android:layout_marginStart="@dimen/screen_margin"
-                android:layout_marginTop="@dimen/screen_margin"
-                android:layout_marginEnd="@dimen/screen_margin"
                 app:layout_constraintDimensionRatio="2:1"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/label" />
 
-
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/screen_margin"
+                android:background="@drawable/bg_input"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/fLocation">
+
+                <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/glFoto"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    app:layout_constraintGuide_percent="0.30" />
 
                 <com.google.android.material.imageview.ShapeableImageView
                     android:id="@+id/ivPhoto"
                     android:layout_width="@dimen/_100sdp"
                     android:layout_height="@dimen/zero_margin"
                     android:layout_marginStart="@dimen/screen_margin"
-                    android:background="@color/gray"
-                    android:padding="@dimen/normal_margin"
+                    android:background="@color/white"
                     android:src="@drawable/ic_image"
-                    app:layout_constraintBottom_toBottomOf="@id/btnTakePhoto"
                     app:layout_constraintDimensionRatio="1:1"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="@+id/tvTitleCoordinate" />
+                    app:layout_constraintTop_toTopOf="@+id/tvTitleCoordinate"
+                    app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.CornerSize10Percent" />
+
+                <com.google.android.material.imageview.ShapeableImageView
+                    android:id="@+id/ivPlus"
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/zero_margin"
+                    android:src="@drawable/ic_plus"
+                    app:layout_constraintBottom_toBottomOf="@id/ivPhoto"
+                    app:layout_constraintDimensionRatio="1:1"
+                    app:layout_constraintStart_toStartOf="@+id/glFoto"
+                    app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.CornerSize10Percent" />
 
                 <com.google.android.material.textview.MaterialTextView
                     android:id="@+id/tvTitleCoordinate"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/small_margin"
+                    android:layout_marginStart="@dimen/medium_margin"
+                    android:layout_marginTop="@dimen/screen_margin"
                     android:text="@string/title_coordinate"
                     android:textAppearance="@style/TextAppearance.OpenSans.SemiBold.Body2"
-                    android:textColor="@color/black"
+                    android:textColor="@color/white"
                     app:layout_constraintStart_toEndOf="@+id/ivPhoto"
                     app:layout_constraintTop_toTopOf="parent" />
+
+                <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/glLat"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    app:layout_constraintGuide_percent="0.6" />
 
                 <com.google.android.material.textview.MaterialTextView
                     android:id="@+id/tvTitleLattitude"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/small_margin"
+                    android:layout_marginStart="@dimen/medium_margin"
                     android:text="@string/lattitude"
                     android:textAppearance="@style/TextAppearance.OpenSans.SemiBold.Body2"
-                    android:textColor="@color/black"
+                    android:textColor="@color/white"
                     app:layout_constraintStart_toEndOf="@+id/ivPhoto"
                     app:layout_constraintTop_toBottomOf="@+id/tvTitleCoordinate" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/tvDotLat"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:maxLength="1"
+                    android:text=":"
+                    android:textAppearance="@style/TextAppearance.OpenSans.Regular.Body2"
+                    android:textColor="@color/white"
+                    app:layout_constraintStart_toEndOf="@+id/glLat"
+                    app:layout_constraintTop_toTopOf="@+id/tvTitleLattitude" />
 
                 <com.google.android.material.textview.MaterialTextView
                     android:id="@+id/tvLattitude"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:maxLength="10"
+                    android:layout_marginStart="@dimen/normal_margin"
                     android:textAppearance="@style/TextAppearance.OpenSans.Regular.Body2"
-                    android:textColor="@color/black"
-                    app:layout_constraintStart_toEndOf="@+id/tvTitleLattitude"
-                    app:layout_constraintTop_toTopOf="@+id/tvTitleLattitude" />
+                    android:textColor="@color/white"
+                    app:layout_constraintStart_toEndOf="@+id/tvDotLat"
+                    app:layout_constraintTop_toTopOf="@+id/tvDotLat" />
 
                 <com.google.android.material.textview.MaterialTextView
                     android:id="@+id/tvTitleLongitude"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/small_margin"
+                    android:layout_marginStart="@dimen/medium_margin"
                     android:text="@string/title_logitude"
                     android:textAppearance="@style/TextAppearance.OpenSans.SemiBold.Body2"
-                    android:textColor="@color/black"
+                    android:textColor="@color/white"
                     app:layout_constraintStart_toEndOf="@+id/ivPhoto"
                     app:layout_constraintTop_toBottomOf="@+id/tvTitleLattitude" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/tvDotLong"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:maxLength="1"
+                    android:text=":"
+                    android:textAppearance="@style/TextAppearance.OpenSans.Regular.Body2"
+                    android:textColor="@color/white"
+                    app:layout_constraintStart_toEndOf="@+id/glLat"
+                    app:layout_constraintTop_toTopOf="@+id/tvTitleLongitude" />
 
                 <com.google.android.material.textview.MaterialTextView
                     android:id="@+id/tvLongitude"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:maxLength="10"
-                    android:textAppearance="@style/TextAppearance.Poppins.Regular.Body2"
-                    android:textColor="@color/black"
-                    app:layout_constraintStart_toEndOf="@+id/tvTitleLongitude"
-                    app:layout_constraintTop_toTopOf="@+id/tvTitleLongitude" />
+                    android:layout_marginStart="@dimen/normal_margin"
+                    android:textAppearance="@style/TextAppearance.OpenSans.Regular.Body2"
+                    android:textColor="@color/white"
+                    app:layout_constraintStart_toEndOf="@+id/tvDotLong"
+                    app:layout_constraintTop_toTopOf="@+id/tvDotLong" />
+
 
                 <com.google.android.material.textview.MaterialTextView
                     android:id="@+id/tvTitleAccurate"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/small_margin"
+                    android:layout_marginStart="@dimen/medium_margin"
                     android:text="@string/title_accurate"
                     android:textAppearance="@style/TextAppearance.OpenSans.SemiBold.Body2"
-                    android:textColor="@color/black"
+                    android:textColor="@color/white"
                     app:layout_constraintStart_toEndOf="@+id/ivPhoto"
                     app:layout_constraintTop_toBottomOf="@+id/tvTitleLongitude" />
 
                 <com.google.android.material.textview.MaterialTextView
-                    android:id="@+id/tvValueAccuracy"
+                    android:id="@+id/tvDotAccurate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:maxLength="1"
+                    android:text=":"
+                    android:textAppearance="@style/TextAppearance.OpenSans.Regular.Body2"
+                    android:textColor="@color/white"
+                    app:layout_constraintStart_toEndOf="@+id/glLat"
+                    app:layout_constraintTop_toTopOf="@+id/tvTitleAccurate" />
+
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/tvTitleAccurateValue"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:maxLength="2"
-                    android:textAppearance="@style/TextAppearance.Poppins.Regular.Body2"
-                    android:textColor="@color/black"
-                    app:layout_constraintStart_toEndOf="@+id/tvTitleAccurate"
-                    app:layout_constraintTop_toTopOf="@+id/tvTitleAccurate" />
+                    android:text=""
+                    android:layout_marginStart="@dimen/normal_margin"
+                    android:textAppearance="@style/TextAppearance.OpenSans.SemiBold.Body2"
+                    android:textColor="@color/white"
+                    app:layout_constraintBottom_toBottomOf="@+id/tvDotAccurate"
+                    app:layout_constraintStart_toEndOf="@+id/tvDotAccurate"
+                    app:layout_constraintTop_toTopOf="@+id/tvDotAccurate" />
 
                 <com.google.android.material.textview.MaterialTextView
                     android:id="@+id/tvMeters"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Meter"
-                    android:visibility="gone"
                     android:textAppearance="@style/TextAppearance.Poppins.Regular.Body2"
-                    android:textColor="@color/black"
-                    app:layout_constraintStart_toEndOf="@+id/tvValueAccuracy"
-                    app:layout_constraintTop_toTopOf="@+id/tvValueAccuracy" />
+                    android:textColor="@color/white"
+                    android:visibility="gone"
+                    app:layout_constraintStart_toEndOf="@+id/tvTitleAccurateValue"
+                    app:layout_constraintTop_toTopOf="@+id/tvTitleAccurateValue" />
 
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/btnTakePhoto"
-                    android:layout_width="@dimen/zero_margin"
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/small_margin"
-                    android:layout_marginTop="@dimen/small_margin"
+                    android:layout_marginStart="@dimen/screen_margin"
+                    android:layout_marginTop="@dimen/screen_margin"
                     android:layout_marginEnd="@dimen/screen_margin"
-                    android:backgroundTint="@color/green"
-                    android:drawableLeft="@drawable/ic_camera"
-                    android:text="@string/login_photo"
-                    android:textAppearance="@style/TextAppearance.OpenSans.Medium.Body2"
-                    app:layout_constraintBottom_toBottomOf="@+id/ivPhoto"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    android:layout_marginBottom="@dimen/extra_more_huge_margin"
+                    android:background="@drawable/bg_form"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/ivPhoto"
-                    app:layout_constraintTop_toBottomOf="@id/tvTitleAccurate"
-                    tools:ignore="DuplicateSpeakableTextCheck" />
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/ivPhoto">
+
 
                 <com.google.android.material.textview.MaterialTextView
                     android:id="@+id/tvType"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/screen_margin"
-                    android:layout_marginTop="@dimen/normal_margin"
+                    android:layout_marginTop="@dimen/screen_margin"
                     android:text="@string/kode_plot"
                     android:textAppearance="@style/TextAppearance.OpenSans.SemiBold.Body2"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/btnTakePhoto" />
+                    app:layout_constraintTop_toTopOf="parent" />
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/boxKodePlot"
@@ -225,7 +283,7 @@
                     app:boxStrokeWidthFocused="1dp"
                     android:enabled="false"
                     app:expandedHintEnabled="false"
-                    app:layout_constraintEnd_toStartOf="@+id/boxPolaTanam"
+                    app:layout_constraintEnd_toStartOf="@+id/glPolaTanam"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/tvType"
                     app:placeholderText="@string/kode_plot_hint"
@@ -250,7 +308,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
-                    app:layout_constraintGuide_percent="0.4" />
+                    app:layout_constraintGuide_percent="0.5" />
 
                 <com.google.android.material.textview.MaterialTextView
                     android:id="@+id/tvPolaTanam"
@@ -329,7 +387,7 @@
                     app:boxStrokeWidth="@dimen/_1sdp"
                     app:boxStrokeWidthFocused="1dp"
                     app:expandedHintEnabled="false"
-                   app:layout_constraintEnd_toStartOf="@+id/boxJarakTanam"
+                   app:layout_constraintEnd_toStartOf="@+id/glPolaTanam"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/tvComodity"
                     app:placeholderText="Kopi"
@@ -403,8 +461,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="@+id/boxJmlTanaman"
-                    app:layout_constraintBottom_toBottomOf="@id/boxJmlTanaman"
+                    app:layout_constraintTop_toBottomOf="@+id/boxJarakTanam"
                     android:layout_marginTop="@dimen/normal_margin"
                     android:layout_marginStart="@dimen/screen_margin"
                     android:textAlignment="textStart"
@@ -428,9 +485,9 @@
                     app:boxStrokeWidth="@dimen/_1sdp"
                     app:boxStrokeWidthFocused="1dp"
                     app:expandedHintEnabled="false"
-                    app:layout_constraintStart_toStartOf="@+id/glPolaTanam"
+                    app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/boxKomoditas"
+                    app:layout_constraintTop_toBottomOf="@+id/tvJmlTanaman"
                     app:placeholderTextAppearance="@style/TextAppearance.OpenSans.Regular.Body2"
                     app:placeholderTextColor="@color/dove_gray">
 
@@ -453,8 +510,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="@+id/boxKeliling"
-                    app:layout_constraintBottom_toBottomOf="@id/boxKeliling"
+                    app:layout_constraintTop_toBottomOf="@+id/boxJmlTanaman"
                     android:layout_marginTop="@dimen/normal_margin"
                     android:layout_marginStart="@dimen/screen_margin"
                     android:textAlignment="textStart"
@@ -467,8 +523,8 @@
                     android:layout_width="@dimen/zero_margin"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/screen_margin"
-                    android:layout_marginEnd="@dimen/screen_margin"
                     android:layout_marginTop="@dimen/screen_margin"
+                    android:layout_marginEnd="@dimen/screen_margin"
                     app:boxBackgroundColor="@color/white"
                     app:boxCornerRadiusBottomEnd="@dimen/_8sdp"
                     app:boxCornerRadiusBottomStart="@dimen/_8sdp"
@@ -478,9 +534,9 @@
                     app:boxStrokeWidth="@dimen/_1sdp"
                     app:boxStrokeWidthFocused="1dp"
                     app:expandedHintEnabled="false"
-                    app:layout_constraintStart_toStartOf="@+id/glPolaTanam"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/boxJmlTanaman"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/tvKelilingCm"
+                    app:layout_constraintTop_toBottomOf="@+id/tvKeliling"
                     app:placeholderTextAppearance="@style/TextAppearance.OpenSans.Regular.Body2"
                     app:placeholderTextColor="@color/dove_gray">
 
@@ -499,12 +555,25 @@
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/tvKelilingCm"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toTopOf="@+id/boxKeliling"
+                    app:layout_constraintBottom_toBottomOf="@+id/boxKeliling"
+                    app:layout_constraintEnd_toStartOf="@id/glPolaTanam"
+                    android:layout_marginEnd="@dimen/screen_margin"
+                    android:layout_marginTop="@dimen/normal_margin"
+                    android:layout_marginStart="@dimen/screen_margin"
+                    android:textAlignment="textStart"
+                    android:text="cm"
+                    android:textAppearance="@style/TextAppearance.OpenSans.SemiBold.Body2" />
+
+                <com.google.android.material.textview.MaterialTextView
                     android:id="@+id/tvTinggi"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="@+id/boxTinggi"
-                    app:layout_constraintBottom_toBottomOf="@id/boxTinggi"
+                    app:layout_constraintStart_toStartOf="@id/glPolaTanam"
+                    app:layout_constraintTop_toBottomOf="@+id/boxJmlTanaman"
                     android:layout_marginTop="@dimen/normal_margin"
                     android:layout_marginStart="@dimen/screen_margin"
                     android:textAlignment="textStart"
@@ -530,8 +599,8 @@
                     app:boxStrokeWidthFocused="1dp"
                     app:expandedHintEnabled="false"
                     app:layout_constraintStart_toStartOf="@+id/glPolaTanam"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/boxKeliling"
+                    app:layout_constraintEnd_toStartOf="@+id/tvTinggiCm"
+                    app:layout_constraintTop_toBottomOf="@+id/tvTinggi"
                     app:placeholderTextAppearance="@style/TextAppearance.OpenSans.Regular.Body2"
                     app:placeholderTextColor="@color/dove_gray">
 
@@ -549,84 +618,116 @@
 
                 </com.google.android.material.textfield.TextInputLayout>
 
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/tvTinggiCm"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toTopOf="@+id/boxTinggi"
+                    app:layout_constraintBottom_toBottomOf="@+id/boxTinggi"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:layout_marginEnd="@dimen/screen_margin"
+                    android:layout_marginStart="@dimen/screen_margin"
+                    android:textAlignment="textStart"
+                    android:text="cm"
+                    android:textAppearance="@style/TextAppearance.OpenSans.SemiBold.Body2" />
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/tvRequired"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/normal_margin"
+                        android:layout_marginEnd="@dimen/screen_margin"
+                        android:text="Wajib di Isi*"
+                        android:textAlignment="textStart"
+                        android:textAppearance="@style/TextAppearance.OpenSans.SemiBold.Body2"
+                        android:textColor="@color/monza"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/boxTinggi" />
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/clButton"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/screen_margin"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/tvRequired">
+
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/btnCancel"
+                            android:layout_width="@dimen/_80sdp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/screen_margin"
+                            android:layout_marginTop="@dimen/normal_margin"
+                            android:layout_marginEnd="@dimen/screen_margin"
+                            android:layout_marginBottom="@dimen/large_margin"
+                            android:backgroundTint="@color/white"
+                            android:insetTop="@dimen/zero_margin"
+                            android:insetBottom="@dimen/zero_margin"
+                            android:text="@string/cancelled"
+                            android:textAppearance="@style/TextAppearance.OpenSans.Medium.Body2"
+                            android:textColor="@color/lochinvar"
+                            app:cornerRadius="@dimen/_20sdp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toStartOf="@+id/btnAdd"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:strokeColor="@color/lochinvar"
+                            app:strokeWidth="@dimen/_1sdp" />
+
+                        <androidx.constraintlayout.widget.Guideline
+                            android:id="@+id/glButton"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            app:layout_constraintGuide_percent="0.5" />
+
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/btnAdd"
+                            android:layout_width="@dimen/_80sdp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/screen_margin"
+                            android:layout_marginTop="@dimen/normal_margin"
+                            android:layout_marginEnd="@dimen/screen_margin"
+                            android:layout_marginBottom="@dimen/large_margin"
+                            android:backgroundTint="@color/lochinvar"
+                            android:insetTop="@dimen/zero_margin"
+                            android:insetBottom="@dimen/zero_margin"
+                            android:paddingTop="@dimen/normal_margin"
+                            android:text="@string/save"
+                            android:textAppearance="@style/TextAppearance.OpenSans.Medium.Body2"
+                            app:cornerRadius="@dimen/_20sdp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:strokeColor="@color/lochinvar"
+                            app:strokeWidth="@dimen/_1sdp" />
+
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/btnAddFalse"
+                            android:layout_width="@dimen/zero_margin"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/screen_margin"
+                            android:layout_marginTop="@dimen/screen_margin"
+                            android:layout_marginEnd="@dimen/screen_margin"
+                            android:layout_marginBottom="@dimen/large_margin"
+                            android:backgroundTint="@color/gray"
+                            android:insetTop="@dimen/zero_margin"
+                            android:insetBottom="@dimen/zero_margin"
+                            android:paddingTop="@dimen/normal_margin"
+                            android:text="@string/save"
+                            android:textAppearance="@style/TextAppearance.OpenSans.Medium.Body2"
+                            android:visibility="gone"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toEndOf="@+id/glButton"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
             </androidx.constraintlayout.widget.ConstraintLayout>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.core.widget.NestedScrollView>
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/clButton"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/white"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
-
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/btnCancel"
-            android:layout_width="@dimen/zero_margin"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/screen_margin"
-            android:layout_marginTop="@dimen/screen_margin"
-            android:layout_marginEnd="@dimen/screen_margin"
-            android:layout_marginBottom="@dimen/large_margin"
-            android:backgroundTint="@color/red"
-            android:insetTop="@dimen/zero_margin"
-            android:insetBottom="@dimen/zero_margin"
-            android:text="@string/cancelled"
-            android:textAppearance="@style/TextAppearance.OpenSans.Medium.Body2"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/glButton"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/glButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            app:layout_constraintGuide_percent="0.5" />
-
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/btnAdd"
-            android:layout_width="@dimen/zero_margin"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/screen_margin"
-            android:layout_marginTop="@dimen/screen_margin"
-            android:layout_marginEnd="@dimen/screen_margin"
-            android:layout_marginBottom="@dimen/large_margin"
-            android:backgroundTint="@color/sandy_brown"
-            android:insetTop="@dimen/zero_margin"
-            android:insetBottom="@dimen/zero_margin"
-            android:paddingTop="@dimen/normal_margin"
-            android:text="@string/save"
-            android:textAppearance="@style/TextAppearance.OpenSans.Medium.Body2"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/glButton"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/btnAddFalse"
-            android:layout_width="@dimen/zero_margin"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/screen_margin"
-            android:layout_marginTop="@dimen/screen_margin"
-            android:layout_marginEnd="@dimen/screen_margin"
-            android:layout_marginBottom="@dimen/large_margin"
-            android:backgroundTint="@color/gray"
-            android:insetTop="@dimen/zero_margin"
-            android:visibility="gone"
-            android:insetBottom="@dimen/zero_margin"
-            android:paddingTop="@dimen/normal_margin"
-            android:text="@string/save"
-            android:textAppearance="@style/TextAppearance.OpenSans.Medium.Body2"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/glButton"
-            app:layout_constraintTop_toTopOf="parent" />
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

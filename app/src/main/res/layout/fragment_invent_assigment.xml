@@ -10,7 +10,7 @@
         android:id="@+id/clToolbars"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/sandy_brown"
+        android:background="@color/dallas"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -23,10 +23,10 @@
             android:layout_marginTop="@dimen/screen_margin"
             android:layout_marginBottom="@dimen/screen_margin"
             android:drawableLeft="@drawable/ic_arrow_back"
-            android:drawablePadding="@dimen/screen_margin"
+            android:drawablePadding="@dimen/medium_margin"
             android:text="@string/invent"
             android:textAppearance="@style/TextAppearance.OpenSans.Bold.Headline6"
-            android:textColor="@color/green"
+            android:textColor="@color/white"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -36,19 +36,49 @@
             android:layout_width="@dimen/_30sdp"
             android:layout_height="@dimen/zero_margin"
             android:layout_marginEnd="@dimen/screen_margin"
-            android:src="@drawable/ic_upload"
+            android:src="@drawable/ic_cloud_upload"
             android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tvStatusUpload"
+            android:layout_width="@dimen/zero_margin"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/normal_margin"
+            android:layout_marginBottom="@dimen/screen_margin"
+            android:text="1/"
+            android:textAppearance="@style/TextAppearance.OpenSans.Bold.Body2"
+            android:textColor="@color/white"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/tvStatusSecondUpload"
+            app:layout_constraintStart_toStartOf="@id/ivUpload"
+            app:layout_constraintTop_toBottomOf="@id/ivUpload" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tvStatusSecondUpload"
+            android:layout_width="@dimen/zero_margin"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/normal_margin"
+            android:text="2"
+            android:textAppearance="@style/TextAppearance.OpenSans.Bold.Body2"
+            android:textColor="@color/white"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="@+id/tvStatusUpload"
+            app:layout_constraintEnd_toEndOf="@+id/ivUpload"
+            app:layout_constraintTop_toTopOf="@id/tvStatusUpload" />
+
         <ImageView
             android:id="@+id/ivDot"
-            android:layout_width="@dimen/_10sdp"
+            android:layout_width="wrap_content"
             android:layout_height="@dimen/zero_margin"
-            android:src="@drawable/ic_dot"
+            android:layout_marginTop="@dimen/medium_margin"
+            android:layout_marginEnd="@dimen/screen_margin"
+            android:src="@drawable/danger"
             android:visibility="gone"
-            app:layout_constraintEnd_toEndOf="@id/ivUpload"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@+id/ivUpload" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
@@ -62,74 +92,99 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:background="@color/dallas">
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/boxSearch"
-                style="@style/TextInputLayout.Login.Form.Outlined.Dense"
-                android:layout_width="@dimen/zero_margin"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/screen_margin"
-                android:layout_marginTop="@dimen/normal_margin"
-                android:layout_marginEnd="@dimen/screen_margin"
-                android:layout_marginBottom="@dimen/screen_margin"
-                app:boxBackgroundColor="@color/white"
-                app:boxCornerRadiusBottomEnd="@dimen/_8sdp"
-                app:boxCornerRadiusBottomStart="@dimen/_8sdp"
-                app:boxCornerRadiusTopEnd="@dimen/_8sdp"
-                app:boxCornerRadiusTopStart="@dimen/_8sdp"
-                app:boxStrokeColor="@color/green"
-                app:boxStrokeWidth="@dimen/_1sdp"
-                app:boxStrokeWidthFocused="1dp"
-                app:endIconDrawable="@drawable/ic_search"
-                app:endIconMode="custom"
-                app:endIconTint="@color/nobel"
-                app:expandedHintEnabled="false"
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="@dimen/screen_margin"
+                android:background="@drawable/bg_home"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:placeholderText="@string/search_hint"
-                app:placeholderTextAppearance="@style/TextAppearance.OpenSans.Regular.Body2"
-                app:placeholderTextColor="@color/gray">
+                app:layout_constraintTop_toTopOf="parent">
 
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/etSearch"
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/clSearch"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:imeOptions="actionSearch"
-                    android:inputType="text"
-                    android:maxLength="255"
-                    android:maxLines="1"
-                    android:textAppearance="@style/TextAppearance.OpenSans.Regular.Caption"
-                    android:textColor="@color/dove_gray" />
+                    android:layout_marginTop="@dimen/screen_margin"
+                    android:background="@color/white"
+                    app:layout_constraintTop_toTopOf="parent">
 
-            </com.google.android.material.textfield.TextInputLayout>
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/boxSearch"
+                        style="@style/TextInputLayout.Login.Form.Outlined.Dense"
+                        android:layout_width="@dimen/zero_margin"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/screen_margin"
+                        android:layout_marginTop="@dimen/screen_margin"
+                        android:layout_marginEnd="@dimen/screen_margin"
+                        android:layout_marginBottom="@dimen/screen_margin"
+                        app:boxBackgroundColor="@color/white"
+                        app:boxCornerRadiusBottomEnd="@dimen/_16sdp"
+                        app:boxCornerRadiusBottomStart="@dimen/_16sdp"
+                        app:boxCornerRadiusTopEnd="@dimen/_16sdp"
+                        app:boxCornerRadiusTopStart="@dimen/_16sdp"
+                        app:boxStrokeColor="@color/green"
+                        app:boxStrokeWidth="@dimen/_1sdp"
+                        app:boxStrokeWidthFocused="1dp"
+                        app:endIconDrawable="@drawable/ic_search"
+                        app:endIconMode="custom"
+                        app:endIconTint="@color/nobel"
+                        app:expandedHintEnabled="false"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:placeholderText="@string/search_hint"
+                        app:placeholderTextAppearance="@style/TextAppearance.OpenSans.Regular.Body2"
+                        app:placeholderTextColor="@color/gray">
 
-            <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/label"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/screen_margin"
-                android:layout_marginTop="@dimen/screen_margin"
-                android:layout_marginBottom="@dimen/screen_margin"
-                android:text="@string/list_plot"
-                android:textAppearance="@style/TextAppearance.OpenSans.Bold.Body1"
-                android:textColor="@color/black"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/boxSearch" />
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/etSearch"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:imeOptions="actionSearch"
+                            android:inputType="text"
+                            android:maxLength="255"
+                            android:maxLines="1"
+                            android:textAppearance="@style/TextAppearance.OpenSans.Regular.Caption"
+                            android:textColor="@color/dove_gray" />
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rvPlot"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/small_margin"
-                android:clipToPadding="false"
-                android:orientation="vertical"
-                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/label" />
+                    </com.google.android.material.textfield.TextInputLayout>
 
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/label"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/screen_margin"
+                    android:layout_marginTop="@dimen/screen_margin"
+                    android:layout_marginBottom="@dimen/screen_margin"
+                    android:text="@string/list_plot"
+                    android:textAppearance="@style/TextAppearance.OpenSans.Bold.Body1"
+                    android:textColor="@color/black"
+                    android:visibility="gone"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/clSearch" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rvPlot"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/small_margin"
+                    android:clipToPadding="false"
+                    android:orientation="vertical"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/label" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -159,7 +214,7 @@
         android:text="@string/empty_area"
         android:textAlignment="center"
         android:textAppearance="@style/TextAppearance.OpenSans.Bold.Body1"
-        android:textColor="@color/green"
+        android:textColor="@color/lochinvar"
         android:textStyle="bold"
         android:visibility="gone"
         app:layout_constraintBottom_toTopOf="@+id/glEmpty"

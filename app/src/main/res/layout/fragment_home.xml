@@ -4,13 +4,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/anakiwa">
+    android:background="@color/white">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/clToolbars"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/green"
+        android:background="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -22,99 +22,77 @@
             android:layout_marginStart="@dimen/screen_margin"
             android:layout_marginTop="@dimen/screen_margin"
             android:layout_marginBottom="@dimen/screen_margin"
-            android:text="@string/nav_home"
             android:textAppearance="@style/TextAppearance.OpenSans.Bold.Headline6"
-            android:textColor="@color/sandy_brown"
+            android:textColor="@color/white"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-                <ImageView
-                    android:id="@+id/ivLogout"
-                    android:layout_width="@dimen/_30sdp"
-                    android:layout_height="@dimen/zero_margin"
-                    android:layout_marginTop="@dimen/screen_margin"
-                    android:layout_marginBottom="@dimen/screen_margin"
-                    android:layout_marginEnd="@dimen/screen_margin"
-                    android:src="@drawable/dots"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+        <ImageView
+            android:id="@+id/ivLogout"
+            android:layout_width="@dimen/_30sdp"
+            android:layout_height="@dimen/zero_margin"
+            android:layout_marginTop="@dimen/screen_margin"
+            android:layout_marginEnd="@dimen/screen_margin"
+            android:layout_marginBottom="@dimen/screen_margin"
+            android:src="@drawable/dots"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <androidx.core.widget.NestedScrollView
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/zero_margin"
-        android:visibility="gone"
-        app:layout_constraintBottom_toBottomOf="parent"
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/ivUser"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/screen_margin"
+        android:layout_marginTop="@dimen/semi_huge_margin"
+        android:layout_marginEnd="@dimen/screen_margin"
+        android:layout_marginBottom="@dimen/semi_huge_margin"
+        android:src="@drawable/ic_user"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/clToolbars">
+        app:layout_constraintTop_toBottomOf="@+id/clToolbars" />
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/label"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/screen_margin"
-                android:layout_marginTop="@dimen/screen_margin"
-                android:layout_marginBottom="@dimen/screen_margin"
-                android:text="@string/list_land"
-                android:textAppearance="@style/TextAppearance.OpenSans.Bold.Body1"
-                android:textColor="@color/black"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rvLand"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/small_margin"
-                android:clipToPadding="false"
-                android:orientation="vertical"
-                android:visibility="gone"
-                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/label" />
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-    </androidx.core.widget.NestedScrollView>
-
-    <ImageView
-        android:id="@+id/ivEmptyState"
-        android:layout_width="@dimen/_130sdp"
-        android:layout_height="@dimen/_130sdp"
-        android:layout_marginTop="@dimen/screen_margin"
-        android:layout_marginBottom="@dimen/screen_margin"
-        android:paddingBottom="@dimen/screen_margin"
-        android:src="@drawable/iv_task"
-        android:visibility="gone"
-        app:layout_constraintBottom_toTopOf="@+id/tvEmptyState"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
 
     <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/tvEmptyState"
-        android:layout_width="match_parent"
+        android:id="@+id/tvWelcome"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/large_margin"
+        android:layout_marginStart="@dimen/screen_margin"
         android:layout_marginTop="@dimen/screen_margin"
-        android:layout_marginEnd="@dimen/large_margin"
         android:layout_marginBottom="@dimen/screen_margin"
-        android:text="@string/empty_area"
-        android:textAlignment="center"
-        android:textAppearance="@style/TextAppearance.OpenSans.Bold.Body1"
-        android:textColor="@color/green"
-        android:textStyle="bold"
-        android:visibility="gone"
-        app:layout_constraintBottom_toTopOf="@+id/glEmpty"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        android:text="@string/welcome"
+        android:textAppearance="@style/TextAppearance.OpenSans.Regular.Body1"
+        android:textColor="@color/black"
+        app:layout_constraintStart_toEndOf="@+id/ivUser"
+        app:layout_constraintTop_toTopOf="@+id/ivUser" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/tvUser"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/screen_margin"
+        android:layout_marginTop="@dimen/normal_margin"
+        android:layout_marginBottom="@dimen/screen_margin"
+        android:text="user"
+        android:textAppearance="@style/TextAppearance.OpenSans.SemiBold.Body1"
+        android:textColor="@color/black"
+        app:layout_constraintStart_toEndOf="@+id/ivUser"
+        app:layout_constraintTop_toBottomOf="@+id/tvWelcome" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/tvBeranda"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/screen_margin"
+        android:layout_marginTop="@dimen/screen_margin"
+        android:layout_marginBottom="@dimen/screen_margin"
+        android:text="Beranda"
+        android:textAppearance="@style/TextAppearance.OpenSans.Bold.Headline5"
+        android:textColor="@color/black"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ivUser" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fab"
@@ -158,9 +136,10 @@
         android:layout_marginTop="@dimen/screen_margin"
         android:layout_marginEnd="@dimen/large_margin"
         android:layout_marginBottom="@dimen/screen_margin"
+        android:text="@string/progress_upload"
         android:textAlignment="center"
         android:textAppearance="@style/TextAppearance.OpenSans.Bold.Body1"
-        android:textColor="@color/green"
+        android:textColor="@color/black"
         android:textStyle="bold"
         android:visibility="gone"
         app:layout_constraintEnd_toEndOf="parent"
@@ -170,50 +149,109 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginTop="@dimen/screen_margin"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/clToolbars">
+        app:layout_constraintTop_toBottomOf="@+id/tvBeranda">
 
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/btnInvent"
-            android:layout_width="@dimen/zero_margin"
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/cvInvent"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/screen_margin"
-            android:layout_marginTop="@dimen/screen_margin"
+            android:layout_marginTop="@dimen/normal_margin"
             android:layout_marginEnd="@dimen/screen_margin"
-            android:layout_marginBottom="@dimen/large_margin"
-            android:backgroundTint="@color/sandy_brown"
-            android:insetTop="@dimen/zero_margin"
-            android:insetBottom="@dimen/zero_margin"
-            android:paddingTop="@dimen/normal_margin"
-            android:text="@string/invent"
-            android:textAppearance="@style/TextAppearance.OpenSans.Medium.Body2"
-            android:textColor="@color/green"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:cardBackgroundColor="@color/anzac"
+            app:cardCornerRadius="@dimen/screen_margin"
+            app:layout_constraintCircleRadius="@dimen/screen_margin"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent">
 
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/btnReInvent"
-            android:layout_width="@dimen/zero_margin"
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <com.google.android.material.imageview.ShapeableImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/screen_margin"
+                    android:layout_marginTop="@dimen/semi_huge_margin"
+                    android:layout_marginEnd="@dimen/screen_margin"
+                    android:layout_marginBottom="@dimen/semi_huge_margin"
+                    android:src="@drawable/ic_invent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/tvInvent"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/screen_margin"
+                    android:layout_marginTop="@dimen/screen_margin"
+                    android:layout_marginEnd="@dimen/screen_margin"
+                    android:layout_marginBottom="@dimen/screen_margin"
+                    android:gravity="end"
+                    android:text="@string/invent_reguler"
+                    android:textAppearance="@style/TextAppearance.OpenSans.SemiBold.Body1"
+                    android:textColor="@color/white"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </com.google.android.material.card.MaterialCardView>
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/cvReInvent"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/screen_margin"
-            android:layout_marginTop="@dimen/screen_margin"
+            android:layout_marginTop="@dimen/large_margin"
             android:layout_marginEnd="@dimen/screen_margin"
-            android:layout_marginBottom="@dimen/large_margin"
-            android:backgroundTint="@color/sandy_brown"
-            android:insetTop="@dimen/zero_margin"
-            android:insetBottom="@dimen/zero_margin"
-            android:paddingTop="@dimen/normal_margin"
-            android:text="@string/reinvent"
-            android:textAppearance="@style/TextAppearance.OpenSans.Medium.Body2"
-            android:textColor="@color/green"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:cardBackgroundColor="@color/anzac"
+            app:cardCornerRadius="@dimen/screen_margin"
+            app:layout_constraintCircleRadius="@dimen/screen_margin"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/btnInvent" />
+            app:layout_constraintTop_toBottomOf="@id/cvInvent">
 
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <com.google.android.material.imageview.ShapeableImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/screen_margin"
+                    android:layout_marginTop="@dimen/semi_huge_margin"
+                    android:layout_marginEnd="@dimen/screen_margin"
+                    android:layout_marginBottom="@dimen/semi_huge_margin"
+                    android:src="@drawable/ic_reinvent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/tvReInvent"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/screen_margin"
+                    android:layout_marginTop="@dimen/screen_margin"
+                    android:layout_marginEnd="@dimen/screen_margin"
+                    android:layout_marginBottom="@dimen/screen_margin"
+                    android:gravity="end"
+                    android:text="@string/reinvent_reguler"
+                    android:textAppearance="@style/TextAppearance.OpenSans.SemiBold.Body1"
+                    android:textColor="@color/white"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </com.google.android.material.card.MaterialCardView>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

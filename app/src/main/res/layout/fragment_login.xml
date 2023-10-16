@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white">
+    android:background="@drawable/background_logn">
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
@@ -18,192 +18,208 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <ImageView
-                android:id="@+id/ivLogo"
-                android:layout_width="@dimen/_60sdp"
-                android:layout_height="@dimen/_60sdp"
-                android:layout_marginStart="@dimen/screen_margin"
-                android:src="@drawable/logosobi"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                android:contentDescription="TODO" />
-
-            <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/tvWelcome"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="@dimen/screen_margin"
-                android:text="@string/welcome"
-                android:textAppearance="@style/TextAppearance.Poppins.Medium.Headline5"
-                android:textColor="@color/green"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/ivLogo" />
-
-            <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/tvTitle"
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/cvPemanenan"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/screen_margin"
+                android:layout_marginTop="@dimen/normal_margin"
                 android:layout_marginEnd="@dimen/screen_margin"
-                android:text="@string/welcome_login_app"
-                android:textAppearance="@style/TextAppearance.Poppins.Bold.Headline5"
-                android:textColor="@color/green"
-                app:layout_constraintEnd_toEndOf="parent"
+                app:cardBackgroundColor="@color/white"
+                app:cardCornerRadius="@dimen/screen_margin"
+                app:layout_constraintCircleRadius="@dimen/screen_margin"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tvWelcome" />
+                app:layout_constraintTop_toTopOf="parent">
 
-            <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/tvLogin"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/screen_margin"
-                android:layout_marginTop="@dimen/semi_huge_margin"
-                android:layout_marginEnd="@dimen/screen_margin"
-                android:text="@string/login_login"
-                android:textAppearance="@style/TextAppearance.Poppins.Bold.Subtitle1"
-                android:textColor="@color/green"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tvTitle" />
-
-            <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/tvUsername"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/screen_margin"
-                android:layout_marginTop="@dimen/large_margin"
-                android:layout_marginEnd="@dimen/screen_margin"
-                android:text="@string/username"
-                android:textAppearance="@style/TextAppearance.Poppins.Medium.Body2"
-                android:textColor="@color/green"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tvLogin" />
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/boxUsername"
-                style="@style/TextInputLayout.Login.Form.Outlined.Dense"
-                android:layout_width="@dimen/zero_margin"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/screen_margin"
-                android:layout_marginTop="@dimen/medium_margin"
-                android:layout_marginEnd="@dimen/screen_margin"
-                app:boxBackgroundColor="@color/white"
-                app:boxCornerRadiusBottomEnd="@dimen/_8sdp"
-                app:boxCornerRadiusBottomStart="@dimen/_8sdp"
-                app:boxCornerRadiusTopEnd="@dimen/_8sdp"
-                app:boxCornerRadiusTopStart="@dimen/_8sdp"
-                app:boxStrokeColor="@drawable/bg_input_text"
-                app:boxStrokeWidth="@dimen/_1sdp"
-                app:boxStrokeWidthFocused="1dp"
-                app:expandedHintEnabled="false"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tvUsername"
-                app:placeholderText="@string/login_username_hint"
-                app:placeholderTextAppearance="@style/TextAppearance.OpenSans.Regular.Body2"
-                app:placeholderTextColor="@color/dove_gray">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/etUsername"
+                <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:imeOptions="actionNext"
-                    android:inputType="textEmailAddress"
-                    android:maxLength="255"
-                    android:maxLines="1"
-                    android:textAppearance="@style/TextAppearance.OpenSans.Regular.Body2"
-                    android:textColor="@color/dove_gray"
-                    tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck" />
+                    android:layout_height="match_parent">
 
-            </com.google.android.material.textfield.TextInputLayout>
+                    <ImageView
+                        android:id="@+id/ivLogo"
+                        android:layout_width="@dimen/_60sdp"
+                        android:layout_height="@dimen/_60sdp"
+                        android:layout_marginStart="@dimen/screen_margin"
+                        android:layout_marginTop="@dimen/extra_huge_margin"
+                        android:contentDescription="TODO"
+                        android:src="@drawable/logosobi"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/tvTitle"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/screen_margin"
+                        android:layout_marginEnd="@dimen/screen_margin"
+                        android:gravity="center"
+                        android:text="@string/welcome_login_app"
+                        android:textAppearance="@style/TextAppearance.Poppins.Bold.Headline6"
+                        android:textColor="@color/black"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/ivLogo" />
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/boxUsername"
+                        style="@style/TextInputLayout.Login.Form.Outlined.Dense"
+                        android:layout_width="@dimen/zero_margin"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/large_margin"
+                        android:layout_marginTop="@dimen/medium_margin"
+                        android:layout_marginEnd="@dimen/large_margin"
+                        app:boxBackgroundColor="@color/lochinvar"
+                        app:boxCornerRadiusBottomEnd="@dimen/large_margin"
+                        app:boxCornerRadiusBottomStart="@dimen/large_margin"
+                        app:boxCornerRadiusTopEnd="@dimen/large_margin"
+                        app:boxCornerRadiusTopStart="@dimen/large_margin"
+                        app:boxStrokeColor="@drawable/bg_input_text"
+                        app:boxStrokeWidth="@dimen/_1sdp"
+                        app:boxStrokeWidthFocused="1dp"
+                        app:startIconDrawable="@drawable/ic_login_user"
+                        app:startIconTint="@color/white"
+                        app:expandedHintEnabled="false"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/tvTitle"
+                        app:placeholderText="@string/login_username_hint"
+                        app:placeholderTextAppearance="@style/TextAppearance.OpenSans.Regular.Body2"
+                        app:placeholderTextColor="@color/white">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/etUsername"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:imeOptions="actionNext"
+                            android:inputType="textEmailAddress"
+                            android:maxLength="255"
+                            android:maxLines="1"
+                            android:padding="@dimen/screen_margin"
+                            android:textAppearance="@style/TextAppearance.OpenSans.Regular.Body2"
+                            android:textColor="@color/white"
+                            tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck" />
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/boxPassword"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                        android:layout_width="@dimen/zero_margin"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/large_margin"
+                        android:layout_marginTop="@dimen/medium_margin"
+                        android:layout_marginEnd="@dimen/large_margin"
+                        app:boxBackgroundColor="@color/lochinvar"
+                        app:boxCornerRadiusBottomEnd="@dimen/large_margin"
+                        app:boxCornerRadiusBottomStart="@dimen/large_margin"
+                        app:boxCornerRadiusTopEnd="@dimen/large_margin"
+                        app:boxCornerRadiusTopStart="@dimen/large_margin"
+                        app:boxStrokeColor="@drawable/bg_input_text"
+                        app:boxStrokeWidth="@dimen/_1sdp"
+                        app:startIconTint="@color/white"
+                        app:endIconTint="@color/white"
+                        app:startIconDrawable="@drawable/ic_login_pass"
+                        app:boxStrokeWidthFocused="1dp"
+                        app:endIconMode="password_toggle"
+                        app:expandedHintEnabled="false"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/boxUsername"
+                        app:placeholderText="@string/login_password_hint"
+                        app:placeholderTextAppearance="@style/TextAppearance.OpenSans.Regular.Body2"
+                        app:placeholderTextColor="@color/white">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/etPassword"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:imeOptions="actionDone"
+                            android:inputType="textPassword"
+                            android:maxLength="255"
+                            android:maxLines="1"
+                            android:padding="@dimen/screen_margin"
+                            android:textAppearance="@style/TextAppearance.OpenSans.Regular.Body2"
+                            android:textColor="@color/white"
+                            tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <ImageView
+                        android:id="@+id/ivCheckedOutline"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_marginStart="@dimen/large_margin"
+                        android:layout_marginTop="@dimen/screen_margin"
+                        android:src="@drawable/ic_check_box_outline"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/boxPassword" />
+
+                    <ImageView
+                        android:id="@+id/ivChecked"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_marginStart="@dimen/screen_margin"
+                        android:visibility="gone"
+                        android:layout_marginTop="@dimen/screen_margin"
+                        android:src="@drawable/ic_check_box"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/boxPassword" />
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/tvRememberMe"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/normal_margin"
+                        android:layout_marginTop="@dimen/screen_margin"
+                        android:layout_marginEnd="@dimen/screen_margin"
+                        android:gravity="center"
+                        app:layout_constraintBottom_toBottomOf="@+id/ivCheckedOutline"
+                        app:layout_constraintStart_toEndOf="@+id/ivCheckedOutline"
+                        android:text="@string/remember_me"
+                        android:textAppearance="@style/TextAppearance.OpenSans.SemiBold.Body2"
+                        android:textColor="@color/dove_gray"
+                        app:layout_constraintTop_toBottomOf="@id/boxPassword" />
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btnLogin"
+                        android:layout_width="@dimen/zero_margin"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/large_margin"
+                        android:layout_marginTop="@dimen/screen_margin"
+                        android:layout_marginEnd="@dimen/large_margin"
+                        android:layout_marginBottom="@dimen/extra_huge_margin"
+                        android:backgroundTint="@color/sandy_brown"
+                        android:insetTop="@dimen/zero_margin"
+                        android:insetBottom="@dimen/zero_margin"
+                        android:text="@string/login_login"
+                        android:textAppearance="@style/TextAppearance.Poppins.Medium.Body2"
+                        android:textColor="@color/white"
+                        app:cornerRadius="@dimen/large_margin"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/ivCheckedOutline"
+                        tools:ignore="DuplicateSpeakableTextCheck" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </com.google.android.material.card.MaterialCardView>
 
             <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/tvPassword"
+                android:id="@+id/tvVersion"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/screen_margin"
-                android:layout_marginTop="@dimen/large_margin"
-                android:layout_marginEnd="@dimen/screen_margin"
-                android:text="@string/password"
-                android:textAppearance="@style/TextAppearance.Poppins.Medium.Body2"
-                android:textColor="@color/green"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/boxUsername" />
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/boxPassword"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
-                android:layout_width="@dimen/zero_margin"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/screen_margin"
-                android:layout_marginTop="@dimen/medium_margin"
-                android:layout_marginEnd="@dimen/screen_margin"
-                app:boxBackgroundColor="@color/white"
-                app:boxCornerRadiusBottomEnd="@dimen/_8sdp"
-                app:boxCornerRadiusBottomStart="@dimen/_8sdp"
-                app:boxCornerRadiusTopEnd="@dimen/_8sdp"
-                app:boxCornerRadiusTopStart="@dimen/_8sdp"
-                app:boxStrokeColor="@drawable/bg_input_text"
-                app:boxStrokeWidth="@dimen/_1sdp"
-                app:boxStrokeWidthFocused="1dp"
-                app:endIconMode="password_toggle"
-                app:expandedHintEnabled="false"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tvPassword"
-                app:placeholderText="@string/login_password_hint"
-                app:placeholderTextAppearance="@style/TextAppearance.OpenSans.Regular.Body2"
-                app:placeholderTextColor="@color/dove_gray">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/etPassword"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:imeOptions="actionDone"
-                    android:inputType="textPassword"
-                    android:maxLength="255"
-                    android:maxLines="1"
-                    android:textAppearance="@style/TextAppearance.OpenSans.Regular.Body2"
-                    android:textColor="@color/dove_gray"
-                    tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
-
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/tvForgotPassword"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/small_margin"
-                android:layout_marginTop="@dimen/screen_margin"
                 android:layout_marginEnd="@dimen/screen_margin"
                 android:gravity="center"
-                android:visibility="gone"
-                android:text="@string/login_forgot_password"
-                android:textAppearance="@style/TextAppearance.OpenSans.Medium.Body2"
-                android:textColor="@color/mariner"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/boxPassword" />
-
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/btnLogin"
-                android:layout_width="@dimen/zero_margin"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/screen_margin"
-                android:layout_marginTop="@dimen/screen_margin"
-                android:layout_marginEnd="@dimen/screen_margin"
-                android:insetTop="@dimen/zero_margin"
-                android:backgroundTint="@color/sandy_brown"
-                android:insetBottom="@dimen/zero_margin"
-                android:textColor="@color/green"
-                android:text="@string/login_login"
-                android:textAppearance="@style/TextAppearance.Poppins.Medium.Body2"
+                android:layout_marginTop="@dimen/extra_huge_margin"
+                android:text="© 2021 PT. Sosial Bisnis Indonesia - V 1.1.0"
+                android:textAppearance="@style/TextAppearance.OpenSans.Regular.Body1"
+                android:textColor="@color/white"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tvForgotPassword"
-                tools:ignore="DuplicateSpeakableTextCheck" />
+                app:layout_constraintTop_toBottomOf="@id/cvPemanenan" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

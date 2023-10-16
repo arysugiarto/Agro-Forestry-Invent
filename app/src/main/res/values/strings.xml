@@ -20,7 +20,7 @@
     <string name="login_password_hint">Masukan password</string>
     <string name="login_username_hint">Masukan username</string>
     <string name="add_worker">Monitoring pekerja</string>
-    <string name="title_coordinate">Koordinat</string>
+    <string name="title_coordinate">KOORDINAT</string>
     <string name="lattitude">Latitude :</string>
     <string name="title_logitude">Longitude :</string>
     <string name="login_photo">Ambil Photo plot</string>
@@ -92,5 +92,11 @@
     <string name="invent_tinggi_hint">Mohon isi terlebih dahulu tinggi</string>
     <string name="register_reinvent">"Berhasil menambahkan data pendataan ulang. "</string>
     <string name="delete_assigment">Berhasil menghapus penuasan</string>
+    <string name="not_data">Belum ada penugasan, mohon tambahkan terlebih dahulu</string>
+    <string name="warning">Gagal memuat data</string>
+    <string name="remember_me">Ingat Saya</string>
+    <string name="progress_upload">Upload dalam proses</string>
+    <string name="invent_reguler">PENDATAAN \nREGULER</string>
+    <string name="reinvent_reguler">PENDATAAN \nULANG</string>
 
 </resources>

@@ -43,8 +43,17 @@ class LocalViewModel @Inject constructor(
 
     private var _getInventPlot: MutableLiveData<List<InventPlotEntity>> = MutableLiveData()
     val getInventPlot: LiveData<List<InventPlotEntity>> get() = _getInventPlot
+
+    private var _getInventPlotByStatus: MutableLiveData<List<InventPlotEntity>> = MutableLiveData()
+    val getInventPlotByStatus: LiveData<List<InventPlotEntity>> get() = _getInventPlotByStatus
+
+
     private var _getReInventPlot: MutableLiveData<List<ReInventPlotEntity>> = MutableLiveData()
     val getReInventPlot: LiveData<List<ReInventPlotEntity>> get() = _getReInventPlot
+
+    private var _getReInventPlotByStatus: MutableLiveData<List<ReInventPlotEntity>> = MutableLiveData()
+    val getReInventPlotByStatus: LiveData<List<ReInventPlotEntity>> get() = _getReInventPlotByStatus
+
 
     private var _getComodity: MutableLiveData<List<ComodityEntity>> = MutableLiveData()
     val getComodity: LiveData<List<ComodityEntity>> get() = _getComodity
@@ -119,9 +128,9 @@ class LocalViewModel @Inject constructor(
             )
         }
 
-    fun deleteLocalItemReInventPlot(id: Int? = null) =
+    fun deleteLocalItemReInventPlot(statusDone: Boolean?) =
         viewModelScope.launch {
-            repository.deleteLocalItemReInventPlot(id)
+            repository.deleteLocalItemReInventPlot(statusDone)
         }
 
 
@@ -131,8 +140,8 @@ class LocalViewModel @Inject constructor(
                 _getInvent.value = result
             }.launchIn(viewModelScope)
 
-    fun getLocalInventAll() =
-        repository.getInventAll()
+    fun getLocalInventAll(status: Boolean?) =
+        repository.getInventAll(status)
             .onEach { result ->
                 _getInventAll.value = result
             }.launchIn(viewModelScope)
@@ -150,15 +159,27 @@ class LocalViewModel @Inject constructor(
 //            .asLiveData(viewModelScope.coroutineContext)
 
 
-    fun deleteLocalItemInventPlot(id: Int? = null) =
+    fun deleteLocalItemInventPlot(status: Boolean?) =
         viewModelScope.launch {
-            repository.deleteLocalItemInventPlot(id)
+            repository.deleteLocalItemInventPlot(status)
         }
+
+    fun deleteLocalItemInvent(status: Boolean?) =
+        viewModelScope.launch {
+            repository.deleteLocalItemInvent(status)
+        }
+
 
     fun getInventLocal(search: String) =
         repository.getLocalInventPlot(search)
             .onEach { result ->
                 _getInventPlot.value = result
+            }.launchIn(viewModelScope)
+
+    fun getInventLocalByStatus(statusDone: Boolean?) =
+        repository.getLocalInventPlotByStatus(statusDone)
+            .onEach { result ->
+                _getInventPlotByStatus.value = result
             }.launchIn(viewModelScope)
 
 
@@ -197,6 +218,13 @@ class LocalViewModel @Inject constructor(
                 _getReInventPlot.value = result
             }.launchIn(viewModelScope)
 
+    fun getReInventLocalByStatus(statusDone: Boolean?) =
+        repository.getLocalReInventPlotByStatus(statusDone)
+            .onEach { result ->
+                _getReInventPlotByStatus.value = result
+            }.launchIn(viewModelScope)
+
+
     fun getReInventAll() =
         repository.getReInventAll()
             .onEach { result ->
@@ -222,6 +250,11 @@ class LocalViewModel @Inject constructor(
     fun deleteAllReInventPlot() = viewModelScope.launch {
         repository.deleteReInventPlot()
     }
+
+    fun deleteLocalItemReInvent(status: Boolean?) =
+        viewModelScope.launch {
+            repository.deleteLocalItemReInvent(status)
+        }
 
 
     // input
@@ -293,5 +326,29 @@ class LocalViewModel @Inject constructor(
     fun deleteAuth() = viewModelScope.launch {
         repository.deleteAuth()
     }
+
+    fun updateStatusInvent(
+        status: Boolean? = null,
+        kodePlot: String? = null
+
+    ) =
+        viewModelScope.launch {
+            repository.updateStatusInvent(
+                status,
+                kodePlot,
+            )
+        }
+
+    fun updateStatusReInvent(
+        status: Boolean? = null,
+        kodePlot: String? = null
+
+    ) =
+        viewModelScope.launch {
+            repository.updateStatusReInvent(
+                status,
+                kodePlot,
+            )
+        }
 
 }

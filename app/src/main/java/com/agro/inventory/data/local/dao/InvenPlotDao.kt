@@ -14,17 +14,20 @@ interface InvenPlotDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertPlotInvent(inventPlotEntity: List<InventPlotEntity>)
 
-//    @Query("SELECT * FROM plot_invent_entity WHERE " +
+    //    @Query("SELECT * FROM plot_invent_entity WHERE " +
 //            "kodePlot LIKE :queryString" + ORDER BY id ASC")
 //    fun getPlotInvent(kodePlot : String?): Flow<List<InventPlotEntity>>
 //
-        @Query("SELECT * FROM plot_invent_entity WHERE " +
-                "kodePlot LIKE :queryString OR allData LIKE :queryString " + "ORDER BY id ASC")
-        fun getPlotInvent(queryString: String): Flow<List<InventPlotEntity>>
+    @Query("SELECT * FROM plot_invent_entity WHERE " + "kodePlot LIKE :queryString OR allData LIKE :queryString " + "ORDER BY id ASC")
+    fun getPlotInvent(queryString: String): Flow<List<InventPlotEntity>>
+
+    @Query("SELECT * FROM plot_invent_entity WHERE statusDone =:statusDone")
+    fun getPlotInventByStatus(statusDone: Boolean?): Flow<List<InventPlotEntity>>
+
 
     @Query("UPDATE plot_invent_entity SET status =:status, statusDone =:statusDone WHERE kodePlot =:kodePlot")
     suspend fun updateStatusPlotInvent(
-        status:Boolean?,
+        status: Boolean?,
         statusDone: Boolean?,
         kodePlot: String?,
     )
@@ -32,7 +35,7 @@ interface InvenPlotDao {
     @Query("DELETE FROM plot_invent_entity")
     suspend fun deletePlotInvent()
 
-    @Query("DELETE FROM plot_invent_entity WHERE id = :id")
-    suspend fun deleteItemInventPlotId(id: Int?)
+    @Query("DELETE FROM plot_invent_entity WHERE statusDone = :statusDone")
+    suspend fun deleteItemInventPlotId(statusDone: Boolean?)
 
 }

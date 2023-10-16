@@ -100,6 +100,7 @@ class ReInventAssigmentFragment : Fragment(R.layout.fragment_reinvent_assigment)
 
         viewModels.getReInventLocal("ALL")
         viewModels.getReInventAll()
+        viewModels.getReInventLocalByStatus(true)
 
         var dataUser = emptyList<AuthEntity>()
         viewModels.getAuth.observe(viewLifecycleOwner) { result ->
@@ -115,13 +116,13 @@ class ReInventAssigmentFragment : Fragment(R.layout.fragment_reinvent_assigment)
                 binding.ivEmptyState.isVisible = true
                 binding.tvEmptyState.isVisible = true
                 binding.fab.isVisible = true
-                binding.rvLand.isVisible = false
+                binding.rvPlot.isVisible = false
                 binding.label.isVisible = false
             } else {
                 binding.ivEmptyState.isVisible = false
                 binding.tvEmptyState.isVisible = false
                 binding.fab.isVisible = false
-                binding.rvLand.isVisible = true
+                binding.rvPlot.isVisible = true
                 binding.label.isVisible = true
             }
 
@@ -132,6 +133,7 @@ class ReInventAssigmentFragment : Fragment(R.layout.fragment_reinvent_assigment)
             dataReInvent = result.orEmpty()
             binding.ivDot.isVisible = data.isNotEmpty()
             binding.ivUpload.isVisible = data.isNotEmpty()
+            binding.tvStatusUpload.isVisible = data.isNotEmpty()
 
             saveReInvent =
                 dataReInvent.map {
@@ -163,6 +165,20 @@ class ReInventAssigmentFragment : Fragment(R.layout.fragment_reinvent_assigment)
             Timber.e(saveReInvent.toString())
 
         }
+
+        var dataPlotDone = emptyList<ReInventPlotEntity>()
+        viewModels.getReInventPlotByStatus.observe(viewLifecycleOwner) { result ->
+            dataPlotDone = result.orEmpty()
+
+            remove = dataPlotDone.map {
+                RemovePenugasanBodyRequest.Data(
+                    RemovePenugasanBodyRequest.Data.Penugasan(
+                        id = it.penugasanId
+                    )
+                )
+            }
+        }
+
 
     }
 
@@ -197,14 +213,14 @@ class ReInventAssigmentFragment : Fragment(R.layout.fragment_reinvent_assigment)
         viewModels.getReInventPlot.observe(viewLifecycleOwner) { result ->
             data = result.orEmpty()
             kodePlotAdapter.items = data
-            binding.rvLand.adapter = kodePlotAdapter
+            binding.rvPlot.adapter = kodePlotAdapter
 
         }
     }
 
 
     private fun initAdapter() {
-        binding.rvLand.adapter = kodePlotAdapter
+        binding.rvPlot.adapter = kodePlotAdapter
         binding.etSearch.setOnEditorActionListener(onImeSearchClicked)
     }
 
@@ -239,7 +255,18 @@ class ReInventAssigmentFragment : Fragment(R.layout.fragment_reinvent_assigment)
 
                 }
 
-                is Result.Error<*> -> {}
+                is Result.Error<*> -> {
+                    binding.progressBar.isVisible = false
+
+                    SweetAlertDialog(requireContext(), SweetAlertDialog.ERROR_TYPE)
+                        .setTitleText(context?.getString(R.string.warning))
+                        .setContentText(context?.getString(R.string.not_data))
+                        .setConfirmClickListener {
+                            it.dismissWithAnimation()
+
+                        }
+                        .show()
+                }
                 else -> {}
             }
         })
@@ -343,23 +370,11 @@ class ReInventAssigmentFragment : Fragment(R.layout.fragment_reinvent_assigment)
 
 
         setOnClickDone { item ->
-            viewModels.deleteLocalItemReInventPlot(item.id)
+//            viewModels.deleteLocalItemReInventPlot(item.id)
+            viewModels.updateStatusReInventPlot(true, true, item.kodePlot)
+            viewModels.updateStatusReInvent(true, item.kodePlot)
 
-            remove = listOf(
-                RemovePenugasanBodyRequest.Data(
-                    RemovePenugasanBodyRequest.Data.Penugasan(
-                        id = item.penugasanId
-                    )
-                )
-            )
 
-            initRemoveAssigment()
-
-            viewModel.requestRemoveAssigment(
-                "Sobi+Apps:11fbbd445c65d9a7f1c2b53ec88ba993",
-                "1550471710",
-                remove
-            )
         }
     }
 
@@ -419,6 +434,17 @@ class ReInventAssigmentFragment : Fragment(R.layout.fragment_reinvent_assigment)
                         .setContentText(context?.getString(R.string.register_reinvent))
                         .setConfirmClickListener {
                             it.dismissWithAnimation()
+
+                            viewModels.deleteLocalItemReInventPlot(true)
+                            viewModels.deleteLocalItemReInvent(true)
+
+                            initRemoveAssigment()
+
+                            viewModel.requestRemoveAssigment(
+                                "Sobi+Apps:11fbbd445c65d9a7f1c2b53ec88ba993",
+                                "1550471710",
+                                remove
+                            )
 
                         }
                         .show()

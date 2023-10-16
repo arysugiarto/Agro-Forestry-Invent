@@ -279,7 +279,7 @@ class InventFragment : Fragment(R.layout.fragment_invent), OnMapReadyCallback {
                         // Set coordinate to textview
                         binding.tvLattitude.text = latitude.toString()
                         binding.tvLongitude.text = longitude.toString()
-                        binding.tvValueAccuracy.text = accuracy.substringBefore(delim)
+                        binding.tvTitleAccurateValue.text = accuracy.substringBefore(delim)
 
                         if (accuracy.isNotEmpty()){
                             binding.tvMeters.isVisible = true
@@ -382,7 +382,7 @@ class InventFragment : Fragment(R.layout.fragment_invent), OnMapReadyCallback {
     private fun initOnClick() {
         binding.apply {
             etKodePlot.setOnClickListener(onClickCallback)
-            btnTakePhoto.setOnClickListener(onClickCallback)
+            ivPlus.setOnClickListener(onClickCallback)
             btnCancel.setOnClickListener(onClickCallback)
             btnAdd.setOnClickListener(onClickCallback)
             tvTitle.setOnClickListener(onClickCallback)
@@ -394,7 +394,7 @@ class InventFragment : Fragment(R.layout.fragment_invent), OnMapReadyCallback {
     private val onClickCallback = View.OnClickListener { view ->
         when (view) {
 
-            binding.btnTakePhoto -> {
+            binding.ivPlus -> {
                 photoPicker()
             }
 

@@ -12,6 +12,7 @@ import androidx.hilt.navigation.fragment.hiltNavGraphViewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.agro.inventory.R
+import com.agro.inventory.data.local.entity.AuthEntity
 import com.agro.inventory.data.local.entity.InventPlotEntity
 import com.agro.inventory.data.preferences.AccessManager
 import com.agro.inventory.databinding.FragmentHomeBinding
@@ -51,6 +52,19 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         parentBottomAppBar?.isVisible = false
         parentNavigation?.isVisible = false
 
+        var data = emptyList<AuthEntity>()
+        viewModels.getAuth.observe(viewLifecycleOwner) { result ->
+            data = result.orEmpty()
+            userAccessId = data.firstOrNull()?.userAccessId.toString()
+
+
+            if (data.firstOrNull()?.firstname !== null ){
+                binding.tvUser.textOrNull = data.firstOrNull()?.firstname
+            }else{
+                binding.tvUser.textOrNull = ""
+            }
+        }
+
 
     }
 
@@ -59,21 +73,21 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
             tvTitle.setOnClickListener(onClickCallback)
             fab.setOnClickListener(onClickCallback)
             ivLogout.setOnClickListener(onClickCallback)
-            btnInvent.setOnClickListener(onClickCallback)
-            btnReInvent.setOnClickListener(onClickCallback)
+            cvInvent.setOnClickListener(onClickCallback)
+            cvReInvent.setOnClickListener(onClickCallback)
         }
     }
 
     private val onClickCallback = View.OnClickListener { view ->
         when (view) {
-            binding.btnInvent->{
+            binding.cvInvent->{
                 navController.navigateOrNull(
                     HomeFragmentDirections.actionHomeFragmentToInventAssigmentFragment(userAccessId)
                 )
                 Timber.e(userAccessId)
             }
 
-            binding.btnReInvent->{
+            binding.cvReInvent->{
                 navController.navigateOrNull(
                     HomeFragmentDirections.actionHomeFragmentToReInventAssigmentFragment()
                 )

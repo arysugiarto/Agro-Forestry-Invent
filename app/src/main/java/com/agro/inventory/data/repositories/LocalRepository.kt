@@ -20,6 +20,8 @@ class LocalRepository(
 
     override  fun getLocalInventPlot(search: String) = localDataSource.getPlotInvent(search)
 
+    override  fun getLocalInventPlotByStatus(status: Boolean?) = localDataSource.getPlotInventByStatus(status)
+
     override suspend fun updateStatusInventPlot(status:Boolean?, statusDone: Boolean?, kodePlot: String? ) =
         localDataSource.updatePlotInvent(
             status,
@@ -29,13 +31,17 @@ class LocalRepository(
 
      suspend fun deleteInventPlot() = localDataSource.deleteInventPlot()
 
-    override suspend fun deleteLocalItemInventPlot(id: Int?) =
-        localDataSource.deleteItemInventPlot(id)
+    override suspend fun deleteLocalItemInventPlot(statusDone: Boolean?) =
+        localDataSource.deleteItemInventPlot(statusDone)
+    override suspend fun deleteLocalItemInvent(status: Boolean?) =
+        localDataSource.deleteItemInven(status)
 
 
     // reinvent
 
     override suspend fun insertReInventPlotLocal(reInventPlotEntity: List<ReInventPlotEntity>) = localDataSource.insertReInventPlot(reInventPlotEntity)
+
+    override  fun getLocalReInventPlotByStatus(status: Boolean?) = localDataSource.getPlotReInventByStatus(status)
 
     override  fun getLocalReInventPlot(search: String) = localDataSource.getPlotReInvent(search)
 
@@ -48,16 +54,18 @@ class LocalRepository(
 
     override suspend fun deleteReInventPlot() = localDataSource.deleteReInventPlot()
 
-    override suspend fun deleteLocalItemReInventPlot(id: Int?) =
-        localDataSource.deleteItemReInventPlot(id)
+    override suspend fun deleteLocalItemReInventPlot(statusDone: Boolean?) =
+        localDataSource.deleteItemReInventPlot(statusDone)
 
+    override suspend fun deleteLocalItemReInvent(status: Boolean?) =
+        localDataSource.deleteItemReInven(status)
 
     //input
     override suspend fun insertInventLocal(inventEntity: InventEntity) = localDataSource.insertInvent(inventEntity)
 
     override fun getInvent(comodity: String, idComodity: String, kodePlot: String) = localDataSource.getInvent(comodity,idComodity, kodePlot)
 
-    override fun getInventAll() = localDataSource.getInventAll()
+    override fun getInventAll(status: Boolean?) = localDataSource.getInventAll(status)
 
     override suspend fun updateInvent(
         jmlTanam: String?,
@@ -147,5 +155,17 @@ class LocalRepository(
     override fun getAuth() = localDataSource.getAuth()
 
     override suspend fun deleteAuth() = localDataSource.deleteAuth()
+
+    override suspend fun updateStatusInvent(status:Boolean?, kodePlot: String? ) =
+        localDataSource.updateStatusInvent(
+            status,
+            kodePlot
+        )
+
+    override suspend fun updateStatusReInvent(status:Boolean?, kodePlot: String? ) =
+        localDataSource.updateStatusReInvent(
+            status,
+            kodePlot
+        )
 
 }

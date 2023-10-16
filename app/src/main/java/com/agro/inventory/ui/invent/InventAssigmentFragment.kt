@@ -54,8 +54,6 @@ class InventAssigmentFragment : Fragment(R.layout.fragment_invent_assigment) {
     private val binding by viewBinding<FragmentInventAssigmentBinding>()
     private val viewModel by hiltNavGraphViewModels<HomeViewModel>(R.id.home)
     private val viewModels by viewModels<LocalViewModel>()
-    private val viewModelsAuth by viewModels<AuthViewModel>()
-    private val args by navArgs<InventAssigmentFragmentArgs>()
 
     private var listComodity = emptyList<ComodityEntity>()
     private val comodityAdapter = InventAdapter.cmodityAdapter
@@ -95,19 +93,10 @@ class InventAssigmentFragment : Fragment(R.layout.fragment_invent_assigment) {
         parentBottomAppBar?.isVisible = false
         parentNavigation?.isVisible = false
 
-//        viewModelsAuth.getUserAccessId()
         viewModels.getInventLocal("ALL")
-        viewModels.getLocalInventAll()
+        viewModels.getInventLocalByStatus(true)
+        viewModels.getLocalInventAll(true)
 
-
-//        viewModelsAuth.useraccess.observe(viewLifecycleOwner) {
-//            userAccessId = it
-//
-//            Timber.e(userAccessId)
-//
-//        }
-//
-//        Timber.e(args.userAccessId)
 
         var dataUser = emptyList<AuthEntity>()
         viewModels.getAuth.observe(viewLifecycleOwner) { result ->
@@ -115,7 +104,6 @@ class InventAssigmentFragment : Fragment(R.layout.fragment_invent_assigment) {
             userAccessId = dataUser.firstOrNull()?.userAccessId.orEmpty
 
         }
-
 
         var data = emptyList<InventPlotEntity>()
         viewModels.getInventPlot.observe(viewLifecycleOwner) { result ->
@@ -136,11 +124,27 @@ class InventAssigmentFragment : Fragment(R.layout.fragment_invent_assigment) {
 
         }
 
+
+        var dataPlotDone = emptyList<InventPlotEntity>()
+        viewModels.getInventPlotByStatus.observe(viewLifecycleOwner) { result ->
+            dataPlotDone = result.orEmpty()
+
+            remove = dataPlotDone.map {
+                RemovePenugasanBodyRequest.Data(
+                    RemovePenugasanBodyRequest.Data.Penugasan(
+                        id = it.penugasanId
+                    )
+                )
+            }
+        }
+
         var dataInvent = emptyList<InventEntity>()
         viewModels.getInventAll.observe(viewLifecycleOwner) { result ->
             dataInvent = result.orEmpty()
             binding.ivDot.isVisible = data.isNotEmpty()
             binding.ivUpload.isVisible = data.isNotEmpty()
+            binding.tvStatusUpload.isVisible = data.isNotEmpty()
+            binding.tvStatusSecondUpload.isVisible = data.isNotEmpty()
 
             saveInvent =
                 dataInvent.map {
@@ -165,7 +169,6 @@ class InventAssigmentFragment : Fragment(R.layout.fragment_invent_assigment) {
                     )
                 }
             Timber.e(saveInvent.toString())
-
         }
 
     }
@@ -199,6 +202,7 @@ class InventAssigmentFragment : Fragment(R.layout.fragment_invent_assigment) {
                 is Result.Loading -> {
                     binding.progressBar.isVisible = true
                 }
+
                 is Result.Success -> {
                     binding.progressBar.isVisible = false
 
@@ -224,7 +228,19 @@ class InventAssigmentFragment : Fragment(R.layout.fragment_invent_assigment) {
                     viewModels.insertLocalInventPlot(inventPlotEntity)
                 }
 
-                is Result.Error<*> -> {}
+                is Result.Error<*> -> {
+                    binding.progressBar.isVisible = false
+
+                    SweetAlertDialog(requireContext(), SweetAlertDialog.ERROR_TYPE)
+                        .setTitleText(context?.getString(R.string.warning))
+                        .setContentText(context?.getString(R.string.not_data))
+                        .setConfirmClickListener {
+                            it.dismissWithAnimation()
+
+                        }
+                        .show()
+                }
+
                 else -> {}
             }
         })
@@ -266,15 +282,15 @@ class InventAssigmentFragment : Fragment(R.layout.fragment_invent_assigment) {
 
                 is Result.Success -> {
 
-                    Timber.e("Berhasil")
-                    SweetAlertDialog(requireContext(), SweetAlertDialog.SUCCESS_TYPE)
-                        .setTitleText(context?.getString(R.string.success))
-                        .setContentText(context?.getString(R.string.delete_assigment))
-                        .setConfirmClickListener {
-                            it.dismissWithAnimation()
-
-                        }
-                        .show()
+                    Timber.e("Berhasil penugasan")
+//                    SweetAlertDialog(requireContext(), SweetAlertDialog.SUCCESS_TYPE)
+//                        .setTitleText(context?.getString(R.string.success))
+//                        .setContentText(context?.getString(R.string.delete_assigment))
+//                        .setConfirmClickListener {
+//                            it.dismissWithAnimation()
+//
+//                        }
+//                        .show()
 
                     viewModel.setRemoveAssigmentNothing()
                 }
@@ -294,15 +310,15 @@ class InventAssigmentFragment : Fragment(R.layout.fragment_invent_assigment) {
         InventAdapter.setOnClickCodePlot { item ->
             Timber.e(item.polaTanam)
             if (item.polaTanam.toString() == "Monokultur" || item.polaTanam.toString() == "Nursery") {
-                    navController.navigateOrNull(
-                        InventAssigmentFragmentDirections.actionInventAssigmentFragmentToInventFragment(
-                            idPlot = item.idPlot.toString(),
-                            kodePlot = item.kodePlot,
-                            polaTanam = item.polaTanam,
-                            komoditas = item.komoditas,
-                            idKomoditas = item.idKomoditas.toString()
-                        )
+                navController.navigateOrNull(
+                    InventAssigmentFragmentDirections.actionInventAssigmentFragmentToInventFragment(
+                        idPlot = item.idPlot.toString(),
+                        kodePlot = item.kodePlot,
+                        polaTanam = item.polaTanam,
+                        komoditas = item.komoditas,
+                        idKomoditas = item.idKomoditas.toString()
                     )
+                )
 
             } else if (item.polaTanam.toString() == "Polikultur") {
                 idPlot = item.idPlot.toString()
@@ -315,24 +331,8 @@ class InventAssigmentFragment : Fragment(R.layout.fragment_invent_assigment) {
         }
 
         InventAdapter.setOnClickDone { item ->
-//            viewModels.updateStatusInventPlot(true, true, item.kodePlot)
-            viewModels.deleteLocalItemInventPlot(item.id)
-
-            remove = listOf(
-                RemovePenugasanBodyRequest.Data(
-                    RemovePenugasanBodyRequest.Data.Penugasan(
-                        id =  item.penugasanId
-                    )
-                )
-            )
-
-            initRemoveAssigment()
-
-            viewModel.requestRemoveAssigment(
-                "Sobi+Apps:11fbbd445c65d9a7f1c2b53ec88ba993",
-                "1550471710",
-                remove
-            )
+            viewModels.updateStatusInventPlot(true, true, item.kodePlot)
+            viewModels.updateStatusInvent(true, item.kodePlot)
         }
 
     }
@@ -394,6 +394,16 @@ class InventAssigmentFragment : Fragment(R.layout.fragment_invent_assigment) {
                             binding.ivDot.isVisible = false
                             binding.ivUpload.isVisible = false
 
+                            viewModels.deleteLocalItemInventPlot(true)
+                            viewModels.deleteLocalItemInvent(true)
+
+                            initRemoveAssigment()
+                            viewModel.requestRemoveAssigment(
+                                "Sobi+Apps:11fbbd445c65d9a7f1c2b53ec88ba993",
+                                "1550471710",
+                                remove
+                            )
+
                         }
                         .show()
 
@@ -438,7 +448,6 @@ class InventAssigmentFragment : Fragment(R.layout.fragment_invent_assigment) {
                 viewModels.getInventLocal(keyword)
 
             } else {
-
 
             }
             activity?.hideKeyboard(v)
@@ -486,7 +495,6 @@ class InventAssigmentFragment : Fragment(R.layout.fragment_invent_assigment) {
                     )
 
                 }
-
 
                 viewModels.getInventLocal("")
                 initLocalPlotCallback()

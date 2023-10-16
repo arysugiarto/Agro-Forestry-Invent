@@ -14,8 +14,8 @@ interface InventDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertInvent(inventActivity: InventEntity)
 
-    @Query("SELECT * FROM invent_entity")
-    fun getInventAll(): Flow<List<InventEntity>>
+    @Query("SELECT * FROM invent_entity WHERE status =:status")
+    fun getInventAll(status: Boolean?): Flow<List<InventEntity>>
     
 
     @Query("SELECT * FROM invent_entity WHERE comodity =:comodity  AND kodePlot =:kodePlot AND idComodity =:idComodity")
@@ -39,6 +39,14 @@ interface InventDao {
     @Query("DELETE FROM invent_entity")
     suspend fun deleteInvent()
 
+    @Query("UPDATE invent_entity SET status =:status WHERE kodePlot =:kodePlot")
+    suspend fun updateStatusInvent(
+        status:Boolean?,
+        kodePlot: String?,
+    )
+
+    @Query("DELETE FROM invent_entity WHERE status = :status")
+    suspend fun deleteItemInvent(status: Boolean?)
 
 
 }

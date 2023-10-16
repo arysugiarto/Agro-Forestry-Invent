@@ -27,5 +27,11 @@
     <color name="persimmon">#FF5B5B</color>
     <color name="cornflower_blue"> #C7E1FF</color>
     <color name="red">#F13535</color>
+    <color name="lochinvar">#279394</color>
+    <color name="anzac">#E0A846</color>
+    <color name="dallas">#7A5B26</color>
+    <color name="silver_sland">#BEC2C4</color>
+    <color name="limed_spruce">#3F535B</color>
+    <color name="monza">#DD0118</color>
 
 </resources>

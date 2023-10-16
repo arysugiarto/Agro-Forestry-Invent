@@ -15,6 +15,8 @@ interface LocalSourceCallback {
 
     fun getLocalInventPlot(search: String): Flow<List<InventPlotEntity>>
 
+    fun getLocalInventPlotByStatus(statusDone: Boolean?): Flow<List<InventPlotEntity>>
+
     suspend fun updateStatusInventPlot(
         status: Boolean?,
         statusDone: Boolean?,
@@ -23,13 +25,17 @@ interface LocalSourceCallback {
     )
 
 
-    suspend fun deleteLocalItemInventPlot(id: Int?)
+    suspend fun deleteLocalItemInventPlot(statusDone: Boolean?)
+
+    suspend fun deleteLocalItemInvent(status: Boolean?)
 
     //reinvent
 
     suspend fun insertReInventPlotLocal(areaEntity: List<ReInventPlotEntity>)
 
     fun getLocalReInventPlot(search: String): Flow<List<ReInventPlotEntity>>
+
+    fun getLocalReInventPlotByStatus(statusDone: Boolean?): Flow<List<ReInventPlotEntity>>
 
     suspend fun updateStatusReInventPlot(
         status: Boolean?,
@@ -38,7 +44,9 @@ interface LocalSourceCallback {
     )
     suspend fun deleteReInventPlot()
 
-    suspend fun deleteLocalItemReInventPlot(id: Int?)
+    suspend fun deleteLocalItemReInventPlot(statusDone: Boolean?)
+
+    suspend fun deleteLocalItemReInvent(status: Boolean?)
 
 
 //  input
@@ -71,7 +79,7 @@ interface LocalSourceCallback {
 
     fun getInvent(comodity:String, idComodity: String, kodePlot: String): Flow<List<InventEntity>>
 
-    fun getInventAll(): Flow<List<InventEntity>>
+    fun getInventAll(status: Boolean?): Flow<List<InventEntity>>
 
     suspend fun updateInvent(
         jmlTanam: String?,
@@ -104,5 +112,18 @@ interface LocalSourceCallback {
     fun getAuth(): Flow<List<AuthEntity>>
 
     suspend fun deleteAuth()
+
+
+    suspend fun updateStatusInvent(
+        status: Boolean?,
+        kodePlot: String?
+
+    )
+
+    suspend fun updateStatusReInvent(
+        status: Boolean?,
+        kodePlot: String?
+
+    )
 
 }

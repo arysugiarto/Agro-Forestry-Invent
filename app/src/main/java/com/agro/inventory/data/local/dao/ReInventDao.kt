@@ -48,6 +48,14 @@ interface ReInventDao {
     @Query("DELETE FROM reinvent_entity")
     suspend fun deleteReInvent()
 
+    @Query("UPDATE reinvent_entity SET status =:status WHERE kodePlot =:kodePlot")
+    suspend fun updateStatusReInvent(
+        status:Boolean?,
+        kodePlot: String?,
+    )
+
+    @Query("DELETE FROM reinvent_entity WHERE status = :status")
+    suspend fun deleteItemReInvent(status: Boolean?)
 
 
 }

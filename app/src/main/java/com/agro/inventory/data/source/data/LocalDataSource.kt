@@ -41,6 +41,8 @@ class LocalDataSource(
 
     fun getPlotInvent(search: String) = daoInventPlot.getPlotInvent(search)
 
+    fun getPlotInventByStatus(statusDone: Boolean?) = daoInventPlot.getPlotInventByStatus(statusDone)
+
     suspend fun updatePlotInvent(
         status:Boolean?,
         statusDone: Boolean?,
@@ -56,13 +58,17 @@ class LocalDataSource(
 
     suspend fun deleteInventPlot() = daoInventPlot.deletePlotInvent()
 
-    suspend fun deleteItemInventPlot(id: Int?) = daoInventPlot.deleteItemInventPlotId(id)
+    suspend fun deleteItemInventPlot(statusDone: Boolean?) = daoInventPlot.deleteItemInventPlotId(statusDone)
+
+    suspend fun deleteItemInven(status: Boolean?) = daoInvent.deleteItemInvent(status)
 
     // reinvent
     suspend fun insertReInventPlot(reinventPlotEntity: List<ReInventPlotEntity>) =
         daoReInventPlot.insertPlotReInvent(reinventPlotEntity)
 
     fun getPlotReInvent(search: String) = daoReInventPlot.getPlotReInvent(search)
+
+    fun getPlotReInventByStatus(statusDone: Boolean?) = daoReInventPlot.getPlotReInventByStatus(statusDone)
 
     suspend fun updatePlotReInvent(
         status: Boolean?,
@@ -78,8 +84,9 @@ class LocalDataSource(
 
     suspend fun deleteReInventPlot() = daoReInventPlot.deletePlotReInvent()
 
-    suspend fun deleteItemReInventPlot(id: Int?) = daoReInventPlot.deleteItemReInventPlotId(id)
+    suspend fun deleteItemReInventPlot(statusDone: Boolean?) = daoReInventPlot.deleteItemReInventPlotId(statusDone)
 
+    suspend fun deleteItemReInven(status: Boolean?) = daoReInvent.deleteItemReInvent(status)
 
     //input
 
@@ -89,8 +96,8 @@ class LocalDataSource(
     fun getInvent(comodity:String, idComodity: String, kodePlot: String) =
         daoInvent.getInvent(comodity ,idComodity, kodePlot)
 
-    fun getInventAll() =
-        daoInvent.getInventAll()
+    fun getInventAll(status: Boolean?) =
+        daoInvent.getInventAll(status)
 
     suspend fun updateInvent(
         jmlTanam: String?,
@@ -113,6 +120,16 @@ class LocalDataSource(
             id
         )
 
+    suspend fun updateStatusInvent(
+        status:Boolean?,
+        kodePlot: String?
+
+    ) =
+        daoInvent.updateStatusInvent(
+            status,
+            kodePlot
+
+        )
 
     suspend fun insertReInvent(reInventEntity: ReinventEntity) =
         daoReInvent.insertReInvent(reInventEntity)
@@ -191,4 +208,18 @@ class LocalDataSource(
     fun getAuth() = daoAuth.getAuth()
 
     suspend fun deleteAuth() = daoAuth.deleteAuth()
+
+    suspend fun updateStatusReInvent(
+        status:Boolean?,
+        kodePlot: String?
+
+    ) =
+        daoReInvent.updateStatusReInvent(
+            status,
+            kodePlot
+
+        )
+
+
+
 }

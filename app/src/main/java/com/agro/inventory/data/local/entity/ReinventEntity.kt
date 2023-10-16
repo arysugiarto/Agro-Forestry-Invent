@@ -27,6 +27,7 @@ data class ReinventEntity(
     val lng: String? = null,
     val idComodity: String? = null,
     val plantNumber: String? = null,
+    val status: Boolean? = null,
 )
 
 
